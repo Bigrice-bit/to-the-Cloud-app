@@ -19,13 +19,13 @@
 	// 	}]
 	//  },
 	 "pages": [
-		 {
-	        "path": "pages/index/init",
-	        "style": {
-	            "navigationBarTitleText": "入口页",
-				"titleNView": false
-	        }
-	    }, 
+		 // {
+	  //       "path": "pages/index/init",
+	  //       "style": {
+	  //           "navigationBarTitleText": "入口页",
+			// 	"titleNView": false
+	  //       }
+	  //   }, 
 	  {
 	        "path": "pages/index/welcome",
 	        "style": {

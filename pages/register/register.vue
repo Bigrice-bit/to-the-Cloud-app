@@ -75,6 +75,7 @@
 							 class="loginBtn" 
 							 @click="submit">注册</u-button>
 			</view>
+			<!-- 加一个用户选择吧？ -->
 			<view class="registerBtn">
 				<text @click="ToReGister">已有账号？直接登录</text>
 			</view>
