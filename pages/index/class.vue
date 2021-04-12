@@ -13,7 +13,6 @@
 						<view class="page-box">
 							<view class="order" v-for="(res, index) in orderList[0]" :key="res.id">
 								<view class="top">
-
 								</view>
 							</view>
 							<u-loadmore :status="loadStatus[0]" bgColor="#f2f2f2"></u-loadmore>
@@ -49,10 +48,10 @@
 					cate_name: '我加入的'
 				}],
 				orderList: [
-					[],
-					[],
-					[],
-					[]
+					[1],
+					[1],
+					[1],
+					[1]
 				],
 				dataList: [{
 						id: 1,
