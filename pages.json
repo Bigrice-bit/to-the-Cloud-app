@@ -61,6 +61,22 @@
 				// "navigationBarTextStyle": "black"
 				// "titleNView": false
 			}
+		},
+		{
+			"path": "pages/class/create",
+			"style": {
+				"navigationBarTitleText": "创建班课"
+				// "navigationBarTextStyle": "black"
+				// "titleNView": false
+			}
+		},
+		{
+			"path": "pages/class/success-create",
+			"style": {
+				"navigationBarTitleText": "成功创建"
+				// "navigationBarTextStyle": "black"
+				// "titleNView": false
+			}
 		}
 	],
 	"tabBar": {
