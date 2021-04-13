@@ -7,20 +7,33 @@
 			:back-icon-name="backIconName" :back-text="backText"
 			@click="newcreate"
 		>
+		<view>
+		<u-tabs-swiper activeColor="#f29100" ref="tabs" :list="list" :current="current" @change="change" :is-scroll="false" swiperWidth="750"></u-tabs-swiper>
+		</view>
 			<view class="navbar-right" slot="right" v-if="slotRight">
 				<view class="message-box right-item">
-					<u-icon name="plus" size="38" @click="newcreate"></u-icon>
+					<u-icon name="plus" color="black" size="45" @click="newcreate"></u-icon>
+					</view>
+					<view class="message-box right-item">
+					<u-icon name="scan" color="black" size="45" @click="newcreate"></u-icon>
 					<u-badge count="0" size="mini" :offset="[-15, -15]"></u-badge>
+					
 				</view>
 			</view>
 		</u-navbar>
 		
 		<view class="u-demo">
+			<u-search class="search-box" shape="square" :show-action="true" action-text="搜索"  :clearabled="true" placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
 			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
 				<view class="u-demo-area">
-						<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click" 
+						<u-cell-item center :is-link="true"  value="" index="index" @click="click" 
 						 :arrow="arrow" title="高数A" icon="list-dot">
 							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
+							<view class="icon-text-buton">
+							<u-icon name="phone" label="签到"></u-icon>
+							<u-icon name="phone" label="提问"></u-icon>
+							<u-icon name="phone" label="回复"></u-icon>
+							</view>
 							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 						</u-cell-item>
 						<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click" 
@@ -50,7 +63,7 @@
 	export default {
 		data() {
 			return {
-				title: '我创建的',
+				title: '',
 				backText: '返回',
 				backIconName: 'nav-back',
 				right: false,
@@ -58,7 +71,7 @@
 				rightSlot: false,
 				useSlot: false,
 				background: {
-					'background-image': 'linear-gradient(45deg, rgb(28, 187, 180), rgb(141, 198, 63))'
+					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				isBack: false,
 				search: false,
@@ -74,7 +87,17 @@
 				arrow: true,
 				label: '签到  提问 回复',
 				rightSlot: true,
-				checked: false
+				checked: false,
+				list: [
+					{
+						name: '我创建的'
+					},
+					{
+						name: '我加入的'
+					},
+				],
+				current: 0,
+				swiperCurrent: 0,
 			}
 		},
 		onLoad() {
@@ -199,7 +222,13 @@
 				uni.navigateTo({
 					url:"/pages/class/create"
 				})
-			}
+			},
+			// tab栏切换
+			change(index) {
+				this.swiperCurrent = index;
+				this.getOrderList(index);
+			},
+			
 		}
 	}
 </script>
@@ -222,14 +251,14 @@
 	}
 	
 	.search-wrap {
-		margin: 0 20rpx;
+		margin: 0 15rpx;
 		flex: 1;
 	}
 	
 	.right-item {
-		margin: 0 12rpx;
+		margin: 0 10rpx;
 		position: relative;
-		color: #ffffff;
+		color: #000000;
 		display: flex;
 	}
 	
@@ -256,6 +285,19 @@
 	
 	.map-wrap-text {
 		padding: 0 6rpx;
+	}
+	
+	.search-box{
+		height: 50px;
+	}
+	
+	.icon-text-buton{
+		align-items: center;
+		padding: 5px 10px;
+		font-size: 20rpx;
+		border-radius: 100rpx;
+		margin-left: 20rpx;
+		
 	}
 </style>
 
