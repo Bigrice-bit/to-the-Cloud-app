@@ -53,11 +53,11 @@
 					const value = uni.getStorageSync('launchFlag');
 					if (value) {
 						// console.log(value);
-						// // launchFlag=true直接跳转到首页
-						// uni.redirectTo({
-						// 	url: '/pages/login/login'
-						// });
-						//   } else {
+						// launchFlag=true直接跳转到首页
+						uni.redirectTo({
+							url: '/pages/login/login'
+						});
+						  } else {
 						// launchFlag!=true显示引导页
 						this.guidePages = true
 					}
