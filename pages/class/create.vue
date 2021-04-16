@@ -1,5 +1,12 @@
 <template name="code-elf-logforget">
 <view class="content">
+	<u-navbar title-color="#000000" back-icon-color="#000000"
+		:is-fixed="isFixed" :is-back="isBack" 
+		:background="background" 
+		:back-text-style="{color: '#fff'}" :title="title" 
+		:back-icon-name="backIconName" :back-text="backText"
+		@click="newcreate"
+	>	</u-navbar>
 		<view class="avatorWrapper">
 			<view class="avator">
 				<u-upload 
@@ -58,6 +65,11 @@
 		name:"code-elf-logforget",
 		data() {
 			return {
+				title:"创建班课",
+				isFixed: true,
+				isBack:true,
+				backText: '返回',
+				backIconName: 'nav-back',
 				action: '', //服务器
 				labelPosition: 'left',
 				border: false,
@@ -83,6 +95,9 @@
 					defaultTime: '2019-12-11 20:15:35',
 					defaultSelector: [0],
 					defaultRegion: ['广东省', '深圳市', '宝安区'],
+					background: {
+						'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
+					},
 					params: {
 						year: true,
 						month: true,

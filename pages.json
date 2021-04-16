@@ -77,6 +77,27 @@
 				// "navigationBarTextStyle": "black"
 				// "titleNView": false
 			}
+		},
+		{
+			"path": "pages/class/created_class/home",
+			"style": {
+				"navigationBarTitleText": "成员"
+		
+			}
+		},
+		{
+			"path": "pages/class/created_class/message",
+			"style": {
+				"navigationBarTitleText": "消息"
+		
+			}
+		},
+		{
+			"path": "pages/class/created_class/detail",
+			"style": {
+				"navigationBarTitleText": "详情"
+		
+			}
 		}
 	],
 	"tabBar": {
@@ -101,6 +122,24 @@
 				"iconPath": "static/uview/example/template.png",
 				"selectedIconPath": "static/uview/example/template_select.png",
 				"text": "我的"
+			},
+			{
+				"pagePath": "pages/class/created_class/message",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "消息"
+			},
+			{
+				"pagePath": "pages/class/created_class/home",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "成员"
+			},
+			{
+				"pagePath": "pages/class/created_class/detail",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "详情"
 			}
 		]
 	},

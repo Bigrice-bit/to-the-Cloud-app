@@ -1,6 +1,6 @@
 <template>
 	<view>
-	<u-navbar title-color="#fff" back-icon-color="#ffffff"
+	<u-navbar title-color="#000000" back-icon-color="#000000"
 		:is-fixed="isFixed" :is-back="isBack" 
 		:background="background" 
 		:back-text-style="{color: '#fff'}" :title="title" 
@@ -12,11 +12,12 @@
 			<view class="canvas">
 				<canvas class="canvas-hide" canvas-id="qrcode" :style="{width: `${qrcodeSize}px`, height: `${qrcodeSize}px`}" />
 			</view>
+			<image src="../../static/success-create.png" mode=""></image>
 			<view class="image">
+				<text class="class_number">后端返回班课号</text>
 				<image :src="qrcodeSrc" />
-				<text>image</text>
 			</view>
-			<button class="button" type="primary" @tap="make()">确认</button>
+			<!-- <button class="button" type="primary" @tap="click()">确认</button> -->
 		</view>
 	</view>
 </template>
@@ -34,7 +35,7 @@
 			rightSlot: false,
 			useSlot: false,
 			background: {
-				'background-image': 'linear-gradient(45deg, rgb(28, 187, 180), rgb(141, 198, 63))'
+				'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 			},
 			isBack: true,
 			search: false,
@@ -70,13 +71,20 @@
 								canvasId: 'qrcode',
 								text: this.qrcodeText,
 								size: this.qrcodeSize,
+								backgroundColor: '#ffffff',
+								foregroundColor: '#1dbc9d',
 								margin: 10
 							}).then(res => {
 								this.qrcodeSrc = res
 							}).finally(() => {
 								uni.hideLoading()
 							})
-						}
+						},
+			click(){
+				uni.navigateTo({
+					url:"/pages/class/create"
+				})
+			}
 			  }
 	}
 </script>
@@ -100,7 +108,7 @@
 	}
 	
 	page {
-			background-color: #f0f0f0;
+			background-color: #ffffff;
 		}
 	
 		.content {
@@ -165,5 +173,10 @@
 				z-index: -9999;
 				/* 3 */
 				opacity: 0;
+			}
+			
+			.class_number{
+				font-size: 25px;
+				color: #FA3534;
 			}
 </style>

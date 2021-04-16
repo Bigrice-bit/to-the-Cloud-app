@@ -215,7 +215,7 @@
 			},
 			click(){
 				uni.navigateTo({
-					url:"/pages/class/create"
+					url:"/pages/class/created_class/message"
 				})
 			},
 			newcreate(){
