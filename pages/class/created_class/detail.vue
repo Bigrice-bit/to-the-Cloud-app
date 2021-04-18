@@ -12,7 +12,7 @@
 	export default {
 		data() {
 			return {
-				title: '我的',
+				title: '详情',
 				tabbar: ''
 			}
 		},

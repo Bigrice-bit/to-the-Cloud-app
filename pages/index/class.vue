@@ -214,8 +214,8 @@
 				}
 			},
 			click(){
-				uni.navigateTo({
-					url:"/pages/class/created_class/message"
+				uni.switchTab({
+					url:"/pages/class/created_class/home"
 				})
 			},
 			newcreate(){
