@@ -32,7 +32,7 @@
 							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 						</u-cell-item>
-						<u-cell-item center :is-link="true"  value="100经验值" index="index" @click="click"
+						<u-cell-item center :is-link="true"  value="10000经验值" index="index" @click="click"
 						 :arrow="arrow" title="大米" icon="list-dot" :label="label">
 							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>

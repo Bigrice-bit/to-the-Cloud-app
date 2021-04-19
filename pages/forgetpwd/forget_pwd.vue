@@ -1,11 +1,15 @@
 <template name="code-elf-logforget">
 <view class="content">
+	<u-navbar title-color="#000000" back-icon-color="#000000"
+			:is-fixed="isFixed" :is-back="isBack" 
+			:background="background" 
+			:back-text-style="{color: '#fff'}" :title="title" 
+			:back-icon-name="backIconName" :back-text="backText"
+			@click="newcreate"
+		>	</u-navbar>
 	<view class="avatorWrapper">
-		<!-- <u-navbar :is-back="true" title="" :background="background" :border-bottom="true">
-					<block slot="backText">返回</block>
-				</u-navbar> -->
-			
 		<view class="avator">
+			<image class="img" src="../../static/logo.png" mode="widthFix"></image>
 		</view>
 	</view>
 	<view class="form">
@@ -54,12 +58,7 @@
 				<text class="btnValue">登录</text>
 			</view> -->
 			<view>
-				<u-button 
-							type="default" 
-							:ripple="true" 
-							shape="circle" 
-							 class="loginBtn" 
-							 @click="submit">保存</u-button>
+				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">确认更改</u-button>
 			</view>
 		</view>
 	</view>
@@ -70,6 +69,29 @@
 	export default {
 		data() {
 			return {
+				customStyle: {
+					marginTop: '30px', // 注意驼峰命名，并且值必须用引号包括，因为这是对象
+					color: 'white',
+					justifyContent: 'center',
+					alignItems: 'center',
+				},
+				title: '忘记密码',
+				backText: '返回',
+				backIconName: 'nav-back',
+				right: false,
+				showAction: false,
+				rightSlot: false,
+				useSlot: false,
+				tabbar: '',
+				isBack: true,
+				search: false,
+				custom: false,
+				isFixed: true,
+				keyword: '',
+				background: {
+					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
+				},
+				label: '此处显示学号，后台返回',
 				background: {
 									// backgroundColor: '#001f3f',
 									
@@ -287,7 +309,7 @@
 
 <style>
 	.content {
-		background: #ababab;
+		background: #ffffff;
 		width: 100vw;
 		height: 100vh;
 	}
@@ -315,13 +337,16 @@
 		justify-content: center;
 		align-items: flex-end;
 	}
-	.avator{
+	.avator {
 		width: 200upx;
 		height: 200upx;
 		overflow: hidden;
-		border-radius: 20rpx;
+		border-radius: 100rpx;
+		border-style: ridge;
+		border-color: #000000;
 	}
-	.avator .img{
+	
+	.avator .img {
 		width: 100%
 	}
 
