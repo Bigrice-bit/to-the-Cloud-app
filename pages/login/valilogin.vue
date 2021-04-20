@@ -186,11 +186,16 @@
 			},
 			submit: function(){
 				console.log(this.form.phone);
+				console.log(this.form.phone);
+				console.log("判断这个手机号码是否存在于数据库中，若存在，判断验证码是否正确");
 				this.$refs.uForm.validate(valid => {
 					console.log(valid);
 								if (valid) {
-									this.$refs.uUpload.upload();
+									// this.$refs.uUpload.upload();
 									console.log('验证通过');
+									uni.switchTab({
+										url: '/pages/index/class'
+									});
 								} else {
 									console.log('验证失败');
 								}

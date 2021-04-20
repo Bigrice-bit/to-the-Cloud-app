@@ -1,8 +1,10 @@
 <template>
-	<view>
+	<view claas="content">
+		<view class="header">
 		<u-navbar title-color="#fff" back-icon-color="#ffffff" 
 			:is-fixed="isFixed" :is-back="isBack" 
 			:background="background" 
+
 			:back-text-style="{color: '#fff'}" :title="title" 
 			:back-icon-name="backIconName" :back-text="backText"
 			@click="newcreate"
@@ -17,17 +19,16 @@
 					<view class="message-box right-item">
 					<u-icon name="scan" color="black" size="45" @click="newcreate"></u-icon>
 					<u-badge count="0" size="mini" :offset="[-15, -15]"></u-badge>
-					
 				</view>
 			</view>
 		</u-navbar>
-		
+		</view>
 		<view class="u-demo">
 			<u-search class="search-box" shape="square" :show-action="true" action-text="搜索"  :clearabled="true" placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
 			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
 				<view class="u-demo-area">
-						<u-cell-item center :is-link="true"  value="" index="index" @click="click" 
-						 :arrow="arrow" title="高数A" icon="list-dot">
+						<!-- <u-cell-item center :is-link="true"  value="" index="index" @click="click" 
+						 :arrow="arrow" title="高数A"><image class="img" shape="square" src="../../static/1.png" mode="widthFix"></image>
 							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 							<view class="icon-text-buton">
 							<u-icon name="phone" label="签到"></u-icon>
@@ -50,7 +51,21 @@
 						 :arrow="arrow" title="高数D" icon="list-dot">
 							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item>
+						</u-cell-item> -->
+						
+						<view >
+							<!-- <image class="img" shape="square" src="../../static/1.png" mode="widthFix"></image> -->
+							 <view v-for="(item,index) in objectArray" :key="item.id">
+			s
+								 
+								 <u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click"
+								  :arrow="arrow" :title="item.name" icon="../../static/logo.png">
+								 	<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
+								 	<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+								 </u-cell-item>
+							 </view>
+							    <view class="divider" role="presentation"></view>
+						</view>
 
 				</view>
 			</view>
@@ -98,6 +113,24 @@
 				],
 				current: 0,
 				swiperCurrent: 0,
+				objectArray:[{
+				                    id:0,
+				                    name:'高数A',
+									number:'111111'
+				                },{
+				                    id:1,
+				                    name:'高数B',
+									number:'111111'
+				                },{
+				                    id:2,
+				                    name:'高数C',
+									number:'111111'
+				                },{
+				                    id:3,
+				                    name:'高数D',
+									number:'111111'
+				                }],
+				                stringArray:['a','b','c']
 			}
 		},
 		onLoad() {
@@ -234,8 +267,22 @@
 </script>
 
 <style lang="scss" scoped>
+	.content{
+		margin-top: 25px;
+	}
+	
+	.header{
+		height: 20px;
+		margin-top: 40px;
+		
+	}
+	
+	.img{
+		width: 50%;
+	}
+	
 	.u-demo {
-		//height: 200vh;
+		height: 50rpx;
 		height: calc(100% - 44px);
 		height: calc(100% - 44px - constant(safe-area-inset-top));
 		height: calc(100% - 44px - env(safe-area-inset-top));
