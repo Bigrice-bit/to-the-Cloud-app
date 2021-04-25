@@ -136,14 +136,25 @@
 				console.log("判断这个手机号码是否存在于数据库中，若存在，判断手机号码与密码是否对应，若对应，则登录，不对应提示密码错误");
 				this.$refs.uForm.validate(valid => {
 					console.log(valid);
+					let data = {
+						Phone: this.form.phone,
+						Password:this.form.password,
+						};
 					if (valid) {
-						console.log('验证通过');
-						uni.switchTab({
-							url: '/pages/index/class'
-						});
-					} else {
-						console.log('验证失败');
-					}
+						console.log(data);
+						this.$Api.Login(data).then(res => {
+							console.log(res);
+							if(res.data.success){
+								console.log('验证通过');
+								uni.switchTab({
+									url: '/pages/index/class'
+								});
+							}
+							else {
+								console.log('验证失败');
+							}
+							});
+						}
 				});
 			},
 

@@ -72,5 +72,5 @@
         "router" : {
             "mode" : "history"
         }
-    }
+	}
 }

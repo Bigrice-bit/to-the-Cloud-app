@@ -5,8 +5,9 @@
 		@parms isUpload 默认false 是否上传
  */
 
-const BASE_URL = "http://120.77.38.228:8080" //公共请求头
-const TOKEN = uni.getStorageSync('TOKEN') //TOKEN
+const BASE_URL = "http://120.77.38.228:8080" ;//公共请求头
+
+const TOKEN = uni.getStorageSync('TOKEN'); //TOKEN
 
 const request = (url, method, data, isUpload = false) => {
 	return new Promise((resolve, reject) => {
@@ -16,17 +17,18 @@ const request = (url, method, data, isUpload = false) => {
 				data: data,
 				method: method,
 				header: { //请求头可自定义
-					'Content-Type': 'application/x-www-form-urlencoded',
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'application/json',
 					'X-Access-Token': TOKEN
 				},
 				success: (res) => { //具体捕获请看自己接口返回的形式
-					if (res.data.code == 200 || res.data.code == 0 || res.data.code == 1204) {
+					if (res.data.code == 200 || res.data.code == 100 || res.data.code == 0 || res.data.code == 1204) {
 						resolve(res)
 					} else {
 						uni.showModal({
 							title: '提示',
 							showCancel: false,
-							content: res.data.message,
+							content: res.data.msg,
 							success(res) {
 								if (res.confirm) {
 									// console.log('用户点击确定')

@@ -14,6 +14,7 @@
 				<u-form-item left-icon="lock" prop="validadation">
 					<u-input v-model="form.validadation" placeholder="验证码" />
 					<u-toast ref="uToast"></u-toast>
+					<!-- <text :v-show="istrue">验证码输入错误</text> -->
 					<u-verification-code :seconds="seconds" @end="end" @start="start" ref="uCode" @change="codeChange">
 					</u-verification-code>
 					<u-button type="default" :ripple="true" size="mini" shape="circle" class="wrap" @tap="getCode">
@@ -52,7 +53,7 @@
 				// //图片上传
 				action: '', //服务器
 				fileList: [],
-
+				istrue: false,
 				//验证码：
 				tips: '获取',
 				/// refCode: null,
@@ -81,7 +82,24 @@
 							message: '手机号码不正确',
 							// 触发器可以同时用blur和change
 							trigger: ['change', 'blur'],
-						},
+							}
+						// },{
+						// 	// 自定义验证函数，见上说明
+						// 	validator: (rule, value, callback) => {
+						// 		// this.$Api.getAllUser().then(res=>{
+						// 		// 	if(res.success){
+						// 		// 		for(let i = 0;i < res.data.length();i++)
+						// 		// 		{
+						// 		// 			if(value === res.data[i].phone)
+						// 		// 				return true;
+						// 		// 		}
+						// 		// 	}
+						// 		// })
+						// 	},
+						// 	message: '已注册，请直接登陆',
+						// 	// 触发器可以同时用blur和change
+						// 	trigger: ['change', 'blur'],
+						// }
 						// // 校验用户是否已存在
 						// 		{
 						// 			asyncValidator: (rule, value, callback) => {
@@ -173,6 +191,14 @@
 					setTimeout(() => {
 						uni.hideLoading();
 						// 这里此提示会被this.start()方法中的提示覆盖
+						this.$Api.valicode(this.form.phone).then(res=>{
+							if(res)
+							{
+								
+							}
+						},err=>{
+							console.log(err);
+						})
 						this.$u.toast('验证码已发送');
 						// 通知验证码组件内部开始倒计时
 						this.$refs.uCode.start();
@@ -196,24 +222,49 @@
 			},
 			submit: function() {
 				console.log(this.form.phone);
-				this.$refs.uForm.validate(valid => {
-					console.log(valid);
-					if (valid) {
-						// this.$refs.uUpload.upload();
-						console.log('验证通过，将用户信息插入数据库');
-						let data = {
-							phone: this.form.phone,
-							password:this.form.password,
-							}
-						this.$Api.addUser(data).then(res=>{
-							console.log(res)
-						},err=>{})
-					} else {
-						console.log('验证失败');
+				let data = {
+					phone: this.form.phone,
+					password:this.form.password,
+					};
+					let vfdata = {
+						phone: this.form.phone,
+						code: this.form.validadation, 
 					}
+					console.log(vfdata);
+				this.$refs.uForm.validate(valid => {
+					console.log(vfdata);
+					console.log(valid);
+					// console.log(Qs.stringify(data));
+					if (valid) {
+						this.$Api.vfcode(vfdata).then(res=>{
+							if(!res.success)
+							{
+								this.istrue = true;
+								console.log(res);
+								console.log('验证码错误');
+							}
+							else{
+								// this.$refs.uUpload.upload();
+									console.log('验证通过，将用户信息插入数据库');
+									this.$Api.addUser(data).then(res=>{
+										if(res.success)
+										{
+											uni.navigateTo({
+												url:'../login/login',
+											});
+										}
+									else {
+									console.log('验证失败');
+								}
+								});
+							}
 				});
+				}
+				else{
+					console.log("接口错误");
+				}
+			});
 			},
-
 			// 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
 			onReady() {
 				this.$refs.uForm.setRules(this.rules);

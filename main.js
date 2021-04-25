@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App'
 import uView from "uview-ui";
+import Qs from 'qs'
+
 
 import Api from 'app/app.js'// 1、引入app.js
 Vue.use(uView);
