@@ -199,8 +199,15 @@
 				this.$refs.uForm.validate(valid => {
 					console.log(valid);
 					if (valid) {
-						this.$refs.uUpload.upload();
+						// this.$refs.uUpload.upload();
 						console.log('验证通过，将用户信息插入数据库');
+						let data = {
+							phone: this.form.phone,
+							password:this.form.password,
+							}
+						this.$Api.addUser(data).then(res=>{
+							console.log(res)
+						},err=>{})
 					} else {
 						console.log('验证失败');
 					}
