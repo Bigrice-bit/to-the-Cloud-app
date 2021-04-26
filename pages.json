@@ -1,16 +1,152 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"easycom": {
+		// 下载安装的方式需要前面的"@/"，npm安装的方式无需"@/"
+		// 下载安装方式
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/index/welcome",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "欢迎页",
+				"titleNView": false
+			}
+		},
+		{
+			"path": "pages/index/class",
+			"style": {
+				"navigationBarTitleText": "class"
+
+			}
+		},
+		{
+			"path": "pages/index/find",
+			"style": {
+				"navigationBarTitleText": "发现"
+			}
+		},
+		{
+			"path": "pages/index/mine",
+			// "name": "mine",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "密码登录"
+				// "navigationBarTextStyle": "black"
+				// "titleNView": false
+			}
+		},
+		{
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "注册页面",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/login/valilogin",
+			"style": {
+				"navigationBarTitleText": "手机登录",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/forgetpwd/forget_pwd",
+			"style": {
+				"navigationBarTitleText": "忘记密码"
+				// "navigationBarTextStyle": "black"
+				// "titleNView": false
+			}
+		},
+		{
+			"path": "pages/class/create",
+			"style": {
+				"navigationBarTitleText": "创建班课"
+				// "navigationBarTextStyle": "black"
+				// "titleNView": false
+			}
+		},
+		{
+			"path": "pages/class/success-create",
+			"style": {
+				"navigationBarTitleText": "成功创建"
+				// "navigationBarTextStyle": "black"
+				// "titleNView": false
+			}
+		},
+		{
+			"path": "pages/class/created_class/home",
+			"style": {
+				"navigationBarTitleText": "成员"
+		
+			}
+		},
+		{
+			"path": "pages/class/created_class/message",
+			"style": {
+				"navigationBarTitleText": "消息"
+		
+			}
+		},
+		{
+			"path": "pages/class/created_class/detail",
+			"style": {
+				"navigationBarTitleText": "详情"
+		
 			}
 		}
 	],
+	"tabBar": {
+		"color": "#909399",
+		"selectedColor": "#303133",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"list": [{
+				"pagePath": "pages/index/class",
+				"iconPath": "static/uview/example/component.png",
+				"selectedIconPath": "static/uview/example/component_select.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/index/find",
+				"iconPath": "static/uview/example/js.png",
+				"selectedIconPath": "static/uview/example/js_select.png",
+				"text": "发现"
+			},
+			{
+				"pagePath": "pages/index/mine",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "我的"
+			},
+			{
+				"pagePath": "pages/class/created_class/message",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "消息"
+			},
+			{
+				"pagePath": "pages/class/created_class/home",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "成员"
+			},
+			{
+				"pagePath": "pages/class/created_class/detail",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "详情"
+			}
+		]
+	},
 	"globalStyle": {
+		"navigationStyle": "custom",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#ffaa00",
+		"backgroundColor": "#aaaaff"
 	}
 }
