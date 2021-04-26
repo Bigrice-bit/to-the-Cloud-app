@@ -34,7 +34,7 @@
 				<text class="btnValue">登录</text>
 			</view> -->
 			<view>
-				<u-button type="default" :ripple="true" shape="circle" class="loginBtn" @click="submit">注册</u-button>
+				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">注册</u-button>
 			</view>
 			<!-- 加一个用户选择吧？ -->
 			<view class="registerBtn">
@@ -50,6 +50,12 @@
 		name: "code-elf-logforget",
 		data() {
 			return {
+				customStyle: {
+					marginTop: '30px', // 注意驼峰命名，并且值必须用引号包括，因为这是对象
+					color: 'white',
+					justifyContent: 'center',
+					alignItems: 'center',
+				},
 				// //图片上传
 				action: '', //服务器
 				fileList: [],
@@ -275,7 +281,7 @@
 
 <style>
 	.content {
-		background: #ababab;
+		background: #ffffff;
 		width: 100vw;
 		height: 100vh;
 	}
@@ -351,7 +357,7 @@
 	}
 
 	.logintip {
-		margin-top: 50px;
+		margin-top: 30px;
 		text-align: center;
 	}
 
@@ -359,7 +365,7 @@
 		text-align: right;
 		color: #000000;
 		font-size: 10px;
-		margin-top: 25px;
+		margin-top: 15px;
 	}
 
 	.registerBtn {
@@ -388,6 +394,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		border-style: ridge;
+		border-color: #000000;
 
 	}
 </style>
