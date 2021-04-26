@@ -173,7 +173,7 @@
 					console.log(valid);
 					let data = {
 						 Phone: this.form.phone,
-						 VerificationCode: this.form.validadation,
+						 Code: this.form.validadation,
 					}
 					if (valid) {
 						this.$Api.Login(data).then(res=>{

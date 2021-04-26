@@ -48,6 +48,7 @@
 </template>
 
 <script>
+	import md5 from "../../js_sdk/md5.js"
 	export default {
 		data() {
 			return {
@@ -138,7 +139,7 @@
 					console.log(valid);
 					let data = {
 						Phone: this.form.phone,
-						Password:this.form.password,
+						Password: md5(this.form.password),
 						};
 					if (valid) {
 						console.log(data);

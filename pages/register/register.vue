@@ -18,7 +18,8 @@
 					<u-verification-code :seconds="seconds" @end="end" @start="start" ref="uCode" @change="codeChange">
 					</u-verification-code>
 					<u-button type="default" :ripple="true" size="mini" shape="circle" class="wrap" @tap="getCode">
-						{{tips}}</u-button>
+						{{tips}}
+					</u-button>
 				</u-form-item>
 				<u-form-item left-icon="lock" prop="password">
 					<u-input type="password" v-model="form.password" placeholder="请输入密码" />
@@ -34,7 +35,8 @@
 				<text class="btnValue">登录</text>
 			</view> -->
 			<view>
-				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">注册</u-button>
+				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">注册
+				</u-button>
 			</view>
 			<!-- 加一个用户选择吧？ -->
 			<view class="registerBtn">
@@ -46,8 +48,9 @@
 </template>
 
 <script>
+	import md5 from '../../js_sdk/md5.js'
 	export default {
-		name: "code-elf-logforget",
+
 		data() {
 			return {
 				customStyle: {
@@ -88,7 +91,7 @@
 							message: '手机号码不正确',
 							// 触发器可以同时用blur和change
 							trigger: ['change', 'blur'],
-							}
+						}
 						// },{
 						// 	// 自定义验证函数，见上说明
 						// 	validator: (rule, value, callback) => {
@@ -135,16 +138,16 @@
 						},
 						{
 
-							
+
 							// validator: (rule, value, callback) => {
 							// 	// 上面有说，返回true表示校验通过，返回false表示不通过
 							// 	return this.$u.test.rangeLength(value, [8, 10]);
 							// },
 							pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/,
-										// 正则检验前先将值转为字符串
+							// 正则检验前先将值转为字符串
 							transform(value) {
-										return String(value);
-									},
+								return String(value);
+							},
 							message: '至少8-16个字符，至少1个大写字母，1个小写字母和1个数字，其他可以是任意字符',
 							// 触发器可以同时用blur和change
 							trigger: 'blur',
@@ -183,13 +186,11 @@
 			getCode() {
 				console.log("判断是否输入手机号码，若无则提示。")
 				console.log("判断手机号是否已注册过，若是则提醒返回登录界面，不再注册");
-				
-				if(this.form.phone === ''){
+
+				if (this.form.phone === '') {
 					// this.$refs.uCode.canGetCode = false;
 					this.$u.toast('请输入手机号码');
-				}
-				
-				else if (this.$refs.uCode.canGetCode) {
+				} else if (this.$refs.uCode.canGetCode) {
 					// 模拟向后端请求验证码
 					uni.showLoading({
 						title: '正在获取验证码'
@@ -197,12 +198,11 @@
 					setTimeout(() => {
 						uni.hideLoading();
 						// 这里此提示会被this.start()方法中的提示覆盖
-						this.$Api.valicode(this.form.phone).then(res=>{
-							if(res)
-							{
-								
+						this.$Api.valicode(this.form.phone).then(res => {
+							if (res) {
+
 							}
-						},err=>{
+						}, err => {
 							console.log(err);
 						})
 						this.$u.toast('验证码已发送');
@@ -220,7 +220,7 @@
 			start() {
 				this.$u.toast('倒计时开始');
 			},
-			
+
 			ToReGister: function() {
 				uni.redirectTo({
 					url: '/pages/login/login'
@@ -228,48 +228,48 @@
 			},
 			submit: function() {
 				console.log(this.form.phone);
+				let md5pwd = md5(this.form.password)
+				console.log(md5pwd);
 				let data = {
 					phone: this.form.phone,
-					password:this.form.password,
-					};
-					let vfdata = {
-						phone: this.form.phone,
-						code: this.form.validadation, 
-					}
-					console.log(vfdata);
+					password: md5pwd,
+				};
+				let vfdata = {
+					phone: this.form.phone,
+					code: this.form.validadation,
+				}
+				console.log(vfdata);
 				this.$refs.uForm.validate(valid => {
 					console.log(vfdata);
 					console.log(valid);
 					// console.log(Qs.stringify(data));
 					if (valid) {
-						this.$Api.vfcode(vfdata).then(res=>{
-							if(!res.success)
-							{
+
+						this.$Api.vfcode(vfdata).then(res => {
+							if (!res.data.success) {
 								this.istrue = true;
 								console.log(res);
 								console.log('验证码错误');
-							}
-							else{
+							} else {
 								// this.$refs.uUpload.upload();
-									console.log('验证通过，将用户信息插入数据库');
-									this.$Api.addUser(data).then(res=>{
-										if(res.success)
-										{
-											uni.navigateTo({
-												url:'../login/login',
-											});
-										}
-									else {
-									console.log('验证失败');
-								}
+								console.log('验证通过，将用户信息插入数据库');
+
+
+								this.$Api.addUser(data).then(res => {
+									if (res.data.success) {
+										uni.navigateTo({
+											url: '../login/login',
+										});
+									} else {
+										console.log('验证失败');
+									}
 								});
 							}
+						});
+					} else {
+						console.log("接口错误");
+					}
 				});
-				}
-				else{
-					console.log("接口错误");
-				}
-			});
 			},
 			// 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
 			onReady() {

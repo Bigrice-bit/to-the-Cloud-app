@@ -8,7 +8,7 @@
 		@click="newcreate"
 	>	</u-navbar>
 		<view >
-			<image src="../../../static/发起签到.jpg" shape="circle" mode="center" @click="Signin"></image>
+			<image src="" shape="circle" mode="center" @click="Signin"></image>
 		</view>
 		<text>发起签到</text><br>
 		<text>切换为按学号（经验值）显示</text>

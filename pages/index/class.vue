@@ -13,7 +13,7 @@
 						<u-icon name="plus" color="black" size="45" @click="newcreate"></u-icon>
 					</view>
 					<view class="message-box right-item">
-						<u-icon name="scan" color="black" size="45" @click="newcreate"></u-icon>
+						<u-icon name="scan" color="black" size="45" @click="joinclass"></u-icon>
 						<u-badge count="0" size="mini" :offset="[-15, -15]"></u-badge>
 					</view>
 				</view>
@@ -50,7 +50,7 @@
 							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 						</u-cell-item> -->
 					<view v-for="(item, index) in objectArray" :key="index">
-					<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"> 
+					<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0" @tap="click(index)"> 
 						
 						<view class="" slot="body">
 				
@@ -58,14 +58,45 @@
 								<image
 									src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
 									mode="aspectFill"></image>
-								<view class="u-body-item-title u-line-2">{{item.name}}</view>
+								<!-- <view class="u-body-item-titleu-line-1">{{item.name}}</view> -->
+
 								
 								<view class="icontest">
-									<br><br><br>
-									<u-icon name="phone" label="签到" ></u-icon>
-									<u-icon name="rewind-right-fill" label="消息"></u-icon>
-									<u-icon name="home" label="提问"></u-icon>
+									<!-- <u-table class="u-table">
+										<u-tr>
+											<u-th align="left">{{item.name}}</u-th>
+											<u-th align="center" width="200rpx"></u-th>
+											<u-th align="right">{{item.number}}</u-th>
+										</u-tr>
+										<u-tr>
+											<u-td><u-icon name="phone" label="签到" ></u-icon></u-td>
+											<u-td><u-icon name="rewind-right-fill" label="消息"></u-icon></u-td>
+											<u-td><u-icon name="home" label="提问"></u-icon></u-td>
+										</u-tr>
+									</u-table> -->
+									<u-row gutter="10">
+												<u-col span="5">
+													<view class="demo-layout">{{item.name}}</view>
+												</u-col>
+												<u-col span="5">
+													<view class="test2">{{item.number}}</view>
+												</u-col>
+											</u-row>
+									<u-row gutter="10" justify="space-between">
+												<u-col span="4">
+													<view class=""><u-icon name="phone" label="签到" ></u-icon></view>
+												</u-col>
+												<u-col span="4">
+													<view class=""><u-icon name="rewind-right-fill" label="消息"></u-icon></view>
+												</u-col>
+												<u-col span="4">
+													<view class=""><u-icon name="home" label="提问"></u-icon></view>
+												</u-col>
+											</u-row>
+									
+									
 								</view>
+																
 								<view class="test">></view>
 							</view>
 						</view>
@@ -252,7 +283,8 @@
 					this.isBack = true;
 				}
 			},
-			click() {
+			click(index) {
+				console.log(index);
 				uni.switchTab({
 					url: "/pages/class/created_class/home"
 				})
@@ -261,6 +293,14 @@
 				uni.navigateTo({
 					url: "/pages/class/create"
 				})
+			},
+			joinclass(){
+				uni.scanCode({
+				    success: function (res) {
+				        console.log('条码类型：' + res.scanType);
+				        console.log('条码内容：' + res.result);
+				    }
+				});
 			},
 			// tab栏切换
 			change(index) {
@@ -298,6 +338,17 @@
 		padding: 24rpx;
 	}
 
+	.u-row {
+		margin: 40rpx 0;
+	}
+
+	.demo-layout {
+		// height: 80rpx;
+		// border-radius: 10rpx;
+		// margin-top: 10rpx;
+	}
+
+	
 	.navbar-right {
 		margin-right: 24rpx;
 		display: flex;
@@ -358,7 +409,7 @@
 	.u-body-item {
 		font-size: 32rpx;
 		color: #333;
-		padding: 20rpx 10rpx;
+		padding: 0rpx 10rpx;
 	}
 
 	.u-body-item image {
@@ -370,15 +421,26 @@
 	}
 
 	.icontest {
-		padding: 0rpx -10rpx;
+		padding: 5rpx -10rpx;
 
 	}
 	
-	.u-body-item-title{
-		margin-top: -60rpx;
+	.u-body-item-titleu-line-1{
+		margin-top: 10rpx;
+		margin-left: 20rpx;
 	}
 	
 	.test{
-		padding: 10rpx 100rpx;
+		
+		height: 50rpx;
+		// border-radius: 8rpx;
+		margin-left: 0rpx;
 	}
+	
+	.test2{
+		height: 20rpx;
+		// border-radius: 8rpx;
+		margin-left: 450rpx;
+	}
+	
 </style>
