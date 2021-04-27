@@ -22,7 +22,7 @@ const request = (url, method, data, isUpload = false) => {
 					'X-Access-Token': TOKEN
 				},
 				success: (res) => { //具体捕获请看自己接口返回的形式
-					if (res.data.code == 200 || res.data.code == 100 || res.data.code == 0 ||
+					if (res.data.code == 200 || res.data.code == 0 ||
 						res.data.code == 1204) {
 						resolve(res)
 					} else {

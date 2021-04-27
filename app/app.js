@@ -15,10 +15,12 @@ export default {
 		return api.request(str, 'POST', data) //接口地址
 	},
 	vfcode: (data) => {
-		return api.request('/auth/logincode', 'POST', data) //接口地址
+		return api.request('/auth/vfcode', 'POST', data) //接口地址
 	},
 	Login: (data) => {
 		return api.request('/auth/login', 'POST', data) //接口地址
-
+	},
+	getCourses: () => {
+		return api.request('/courses','GET')
 	}
 }

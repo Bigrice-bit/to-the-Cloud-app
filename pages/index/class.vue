@@ -253,6 +253,10 @@
 			backChange(index) {
 				this.isBack = !!index;
 			},
+/* 			getOrderList(index){
+				console.log("ddd");
+					this.loadStatus.splice(this.current,1,"loadmore")
+			}, */
 			bgColorChange(index) {
 				this.background = {};
 				if (index == 0) {

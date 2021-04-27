@@ -41,7 +41,7 @@
 				<u-icon name="phone"></u-icon><text @click="ToReGister(3)">手机验证码登录</text>
 			</view>
 			<view class="loginBtn">
-				<u-icon name="weixin-fill"></u-icon><text @click="ToReGister(4)">微信登录</text>
+				<u-icon name="qq-fill"></u-icon><text @click="ToReGister(4)">QQ登录</text>
 			</view>
 		</view>
 	</view>
@@ -153,7 +153,19 @@
 									url: '/pages/index/class'
 								});
 							} else {
-								console.log('验证失败');
+								uni.showModal({
+									title: '提示',
+									showCancel: false,
+									content: "用户名或密码错误",
+									success(res) {
+										if (res.confirm) {
+											// console.log('用户点击确定')
+											// uni.navigateBack({})
+										} else if (res.cancel) {
+											// console.log('用户点击取消')
+										}
+									}
+								})
 							}
 						});
 					}
