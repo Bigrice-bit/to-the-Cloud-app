@@ -5,7 +5,7 @@
 		@parms isUpload 默认false 是否上传
  */
 
-const BASE_URL = "http://120.77.38.228:8080" ;//公共请求头
+const BASE_URL = "http://120.77.38.228:8080"; //公共请求头
 
 const TOKEN = uni.getStorageSync('TOKEN'); //TOKEN
 
@@ -22,7 +22,8 @@ const request = (url, method, data, isUpload = false) => {
 					'X-Access-Token': TOKEN
 				},
 				success: (res) => { //具体捕获请看自己接口返回的形式
-					if (res.data.code == 200 || res.data.code == 100 || res.data.code == 0 || res.data.code == 1204) {
+					if (res.data.code == 200 || res.data.code == 100 || res.data.code == 0 ||
+						res.data.code == 1204) {
 						resolve(res)
 					} else {
 						uni.showModal({
@@ -32,7 +33,7 @@ const request = (url, method, data, isUpload = false) => {
 							success(res) {
 								if (res.confirm) {
 									// console.log('用户点击确定')
-									uni.navigateBack({})
+									// uni.navigateBack({})
 								} else if (res.cancel) {
 									// console.log('用户点击取消')
 								}
@@ -78,5 +79,5 @@ const request = (url, method, data, isUpload = false) => {
 }
 
 export default {
-	request  //向外暴露request
+	request //向外暴露request
 }

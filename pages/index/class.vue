@@ -50,19 +50,19 @@
 							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 						</u-cell-item> -->
 					<view v-for="(item, index) in objectArray" :key="index">
-					<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0" @tap="click(index)"> 
-						
-						<view class="" slot="body">
-				
-							<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-								<image
-									src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-									mode="aspectFill"></image>
-								<!-- <view class="u-body-item-titleu-line-1">{{item.name}}</view> -->
+						<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0" @tap="click(index)">
 
-								
-								<view class="icontest">
-									<!-- <u-table class="u-table">
+							<view class="" slot="body">
+
+								<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
+									<image
+										src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
+										mode="aspectFill"></image>
+									<!-- <view class="u-body-item-titleu-line-1">{{item.name}}</view> -->
+
+
+									<view class="icontest">
+										<!-- <u-table class="u-table">
 										<u-tr>
 											<u-th align="left">{{item.name}}</u-th>
 											<u-th align="center" width="200rpx"></u-th>
@@ -74,35 +74,41 @@
 											<u-td><u-icon name="home" label="提问"></u-icon></u-td>
 										</u-tr>
 									</u-table> -->
-									<u-row gutter="10">
-												<u-col span="5">
-													<view class="demo-layout">{{item.name}}</view>
-												</u-col>
-												<u-col span="5">
-													<view class="test2">{{item.number}}</view>
-												</u-col>
-											</u-row>
-									<u-row gutter="10" justify="space-between">
-												<u-col span="4">
-													<view class=""><u-icon name="phone" label="签到" ></u-icon></view>
-												</u-col>
-												<u-col span="4">
-													<view class=""><u-icon name="rewind-right-fill" label="消息"></u-icon></view>
-												</u-col>
-												<u-col span="4">
-													<view class=""><u-icon name="home" label="提问"></u-icon></view>
-												</u-col>
-											</u-row>
-									
-									
+										<u-row gutter="5">
+											<u-col span="4">
+												<view class="demo-layout">{{item.name}}</view>
+											</u-col>
+											<u-col span="4">
+												<view class="test2">{{item.number}}</view>
+											</u-col>
+										</u-row>
+										<u-row gutter="10" justify="space-between">
+											<u-col span="4">
+												<view class="">
+													<u-icon name="phone" label="签到"></u-icon>
+												</view>
+											</u-col>
+											<u-col span="4">
+												<view class="">
+													<u-icon name="rewind-right-fill" label="消息"></u-icon>
+												</view>
+											</u-col>
+											<u-col span="4">
+												<view class="">
+													<u-icon name="home" label="提问"></u-icon>
+												</view>
+											</u-col>
+										</u-row>
+
+
+									</view>
+
+									<view class="test">></view>
 								</view>
-																
-								<view class="test">></view>
 							</view>
-						</view>
-					</u-card>
+						</u-card>
+					</view>
 				</view>
-			</view>
 			</view>
 		</view>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
@@ -294,12 +300,12 @@
 					url: "/pages/class/create"
 				})
 			},
-			joinclass(){
+			joinclass() {
 				uni.scanCode({
-				    success: function (res) {
-				        console.log('条码类型：' + res.scanType);
-				        console.log('条码内容：' + res.result);
-				    }
+					success: function(res) {
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+					}
 				});
 			},
 			// tab栏切换
@@ -348,7 +354,7 @@
 		// margin-top: 10rpx;
 	}
 
-	
+
 	.navbar-right {
 		margin-right: 24rpx;
 		display: flex;
@@ -390,7 +396,8 @@
 	}
 
 	.search-box {
-		height: 50px;
+		height: 100px;
+		// margin-top: 100px;
 	}
 
 	.icon-text-buton {
@@ -424,23 +431,26 @@
 		padding: 5rpx -10rpx;
 
 	}
-	
-	.u-body-item-titleu-line-1{
+
+	.u-body-item-titleu-line-1 {
 		margin-top: 10rpx;
 		margin-left: 20rpx;
 	}
-	
-	.test{
-		
-		height: 50rpx;
+
+	.test {
+
+		height: 30rpx;
 		// border-radius: 8rpx;
-		margin-left: 0rpx;
+		margin-left: 100rpx;
 	}
-	
-	.test2{
-		height: 20rpx;
+
+	.test2 {
+		height: 30rpx;
 		// border-radius: 8rpx;
-		margin-left: 450rpx;
+		margin-left: 300rpx;
 	}
-	
+
+	.u-demo-wrap {
+		margin-top: -20px;
+	}
 </style>

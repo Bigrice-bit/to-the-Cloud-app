@@ -6,9 +6,9 @@
 			</view>
 		</view>
 		<view class="form">
-			<u-form :model="form" ref="uForm" :error-type="errorType" >
-				<u-form-item left-icon="phone" prop="phone" >
-					<u-input v-model="form.phone" placeholder="请输入手机号码"/>
+			<u-form :model="form" ref="uForm" :error-type="errorType">
+				<u-form-item left-icon="phone" prop="phone">
+					<u-input v-model="form.phone" placeholder="请输入手机号码" />
 				</u-form-item>
 				<u-form-item left-icon="lock" prop="password">
 					<u-input v-model="form.password" type="password" placeholder="请输入密码" />
@@ -28,7 +28,8 @@
 				<text class="btnValue">登录</text>
 			</view> -->
 			<view>
-				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">登陆</u-button>
+				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">登陆
+				</u-button>
 			</view>
 			<view class="registerBtn">
 				<text @click="ToReGister(2)">创建账号</text>
@@ -40,7 +41,7 @@
 				<u-icon name="phone"></u-icon><text @click="ToReGister(3)">手机验证码登录</text>
 			</view>
 			<view class="loginBtn">
-				<u-icon name="weixin-fill" ></u-icon><text @click="ToReGister(4)">微信登录</text>
+				<u-icon name="weixin-fill"></u-icon><text @click="ToReGister(4)">微信登录</text>
 			</view>
 		</view>
 	</view>
@@ -129,7 +130,7 @@
 					});
 				} else {
 					console.log("第三方登录")
-				}					
+				}
 			},
 
 			submit: function() {
@@ -140,29 +141,29 @@
 					let data = {
 						Phone: this.form.phone,
 						Password: md5(this.form.password),
-						};
+					};
 					if (valid) {
 						console.log(data);
 						this.$Api.Login(data).then(res => {
+
 							console.log(res);
-							if(res.data.success){
+							if (res.data.success) {
 								console.log('验证通过');
 								uni.switchTab({
 									url: '/pages/index/class'
 								});
-							}
-							else {
+							} else {
 								console.log('验证失败');
 							}
-							});
-						}
+						});
+					}
 				});
 			},
 
 			// 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
 			onReady() {
 				this.$refs.uForm.setRules(this.rules);
-				},
+			},
 		}
 	}
 </script>
