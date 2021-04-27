@@ -273,8 +273,8 @@
 
 									this.$Api.addUser(data).then(res => {
 										if (res.data.success) {
-											uni.navigateTo({
-												url: '../login/login',
+											uni.switchTab({
+												url: '../index/class',
 											});
 										} else {
 											console.log('验证失败');

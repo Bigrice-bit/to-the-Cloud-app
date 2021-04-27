@@ -14,6 +14,10 @@ export default {
 		let str = '/auth/registercode?phone=' + data;
 		return api.request(str, 'POST', data) //接口地址
 	},
+	rvalicode: (data) => {
+		let str = '/auth/logincode?phone=' + data;
+		return api.request(str, 'POST', data) //接口地址
+	},
 	vfcode: (data) => {
 		return api.request('/auth/vfcode', 'POST', data) //接口地址
 	},

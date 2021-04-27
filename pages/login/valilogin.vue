@@ -130,7 +130,7 @@
 					setTimeout(() => {
 						uni.hideLoading();
 						// 这里此提示会被this.start()方法中的提示覆盖
-						this.$Api.valicode(this.form.phone).then(res => {
+						this.$Api.rvalicode(this.form.phone).then(res => {
 							if (res) {
 
 							}
