@@ -30,6 +30,7 @@
 			<view>
 				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">登陆
 				</u-button>
+		
 			</view>
 			<view class="registerBtn">
 				<text @click="ToReGister(2)">创建账号</text>
@@ -53,6 +54,7 @@
 	export default {
 		data() {
 			return {
+				message: '',
 				customStyle: {
 					marginTop: '30px', // 注意驼峰命名，并且值必须用引号包括，因为这是对象
 					color: 'white',
@@ -132,6 +134,8 @@
 					console.log("第三方登录")
 				}
 			},
+			
+			
 
 			submit: function() {
 				console.log(this.form.phone);
@@ -149,23 +153,27 @@
 							console.log(res);
 							if (res.data.success) {
 								console.log('验证通过');
-								uni.switchTab({
-									url: '/pages/index/class'
-								});
+								 setTimeout(function () {
+								                uni.switchTab({
+								                	url: '/pages/index/class'
+								                });
+								                    }, 1000);
+								
 							} else {
-								uni.showModal({
-									title: '提示',
-									showCancel: false,
-									content: "用户名或密码错误",
-									success(res) {
-										if (res.confirm) {
-											// console.log('用户点击确定')
-											// uni.navigateBack({})
-										} else if (res.cancel) {
-											// console.log('用户点击取消')
-										}
-									}
-								})
+								// uni.showModal({
+								// 	title: '提示',
+								// 	showCancel: false,
+								// 	content: "用户名或密码错误",
+								// 	success(res) {
+								// 		if (res.confirm) {
+								// 			// console.log('用户点击确定')
+								// 			// uni.navigateBack({})
+								// 		} else if (res.cancel) {
+								// 			// console.log('用户点击取消')
+								// 		}
+								// 	}
+								// })
+								
 							}
 						});
 					}

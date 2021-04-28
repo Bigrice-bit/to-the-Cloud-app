@@ -24,21 +24,30 @@ const request = (url, method, data, isUpload = false) => {
 				success: (res) => { //具体捕获请看自己接口返回的形式
 					if (res.data.code == 200 || res.data.code == 0 ||
 						res.data.code == 1204) {
+						uni.showToast({
+						title: res.data.msg,
+						duration: 3000
+						});
 						resolve(res)
 					} else {
-						uni.showModal({
-							title: '提示',
-							showCancel: false,
-							content: res.data.msg,
-							success(res) {
-								if (res.confirm) {
-									// console.log('用户点击确定')
-									// uni.navigateBack({})
-								} else if (res.cancel) {
-									// console.log('用户点击取消')
-								}
-							}
-						})
+						// uni.showModal({
+						// 	title: '提示',
+						// 	showCancel: false,
+						// 	content: res.data.msg,
+						// 	success(res) {
+						// 		if (res.confirm) {
+						// 			// console.log('用户点击确定')
+						// 			// uni.navigateBack({})
+						// 		} else if (res.cancel) {
+						// 			// console.log('用户点击取消')
+						// 		}
+						// 	}
+						// })
+						uni.showToast({
+						title: res.data.msg,
+						icon: 'none',
+						duration: 3000
+						});
 					}
 				},
 				fail(error) {

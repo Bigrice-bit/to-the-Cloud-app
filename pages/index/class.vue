@@ -22,94 +22,104 @@
 		<view class="u-demo">
 			<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 				placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
-			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
-				<view class="u-demo-area">
-					<!-- <u-cell-item center :is-link="true"  value="" index="index" @click="click" 
-						 :arrow="arrow" title="高数A"><image class="img" shape="square" src="../../static/1.png" mode="widthFix"></image>
-							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-							<view class="icon-text-buton">
-							<u-icon name="phone" label="签到"></u-icon>
-							<u-icon name="phone" label="提问"></u-icon>
-							<u-icon name="phone" label="回复"></u-icon>
-							</view>
-							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item>
-						<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click" 
-						 :arrow="arrow" title="高数B" icon="list-dot">
-							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item>
-						<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click" 
-						 :arrow="arrow" title="高数C" icon="list-dot">
-							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item>
-						<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click"
-						 :arrow="arrow" title="高数D" icon="list-dot">
-							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item> -->
-					<view v-for="(item, index) in objectArray" :key="index">
-						<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0" @tap="click(index)">
-
-							<view class="" slot="body">
-
-								<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-									<image
-										src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-										mode="aspectFill"></image>
-									<!-- <view class="u-body-item-titleu-line-1">{{item.name}}</view> -->
-
-
-									<view class="icontest">
-										<!-- <u-table class="u-table">
-										<u-tr>
-											<u-th align="left">{{item.name}}</u-th>
-											<u-th align="center" width="200rpx"></u-th>
-											<u-th align="right">{{item.number}}</u-th>
-										</u-tr>
-										<u-tr>
-											<u-td><u-icon name="phone" label="签到" ></u-icon></u-td>
-											<u-td><u-icon name="rewind-right-fill" label="消息"></u-icon></u-td>
-											<u-td><u-icon name="home" label="提问"></u-icon></u-td>
-										</u-tr>
-									</u-table> -->
-										<u-row gutter="5">
-											<u-col span="4">
-												<view class="demo-layout">{{item.name}}</view>
-											</u-col>
-											<u-col span="4">
-												<view class="test2">{{item.number}}</view>
-											</u-col>
-										</u-row>
-										<u-row gutter="10" justify="space-between">
-											<u-col span="4">
-												<view class="">
-													<u-icon name="phone" label="签到"></u-icon>
+				<swiper class="swiper-box" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
+					<swiper-item  class="swiper-item">
+						<scroll-view scroll-y style="height: 100%;width: 100%;">
+						<view class="page-box">
+							<view>
+								<!-- <u-cell-item center :is-link="true"  value="" index="index" @click="click" 
+									 :arrow="arrow" title="高数A"><image class="img" shape="square" src="../../static/1.png" mode="widthFix"></image>
+										<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
+										<view class="icon-text-buton">
+										<u-icon name="phone" label="签到"></u-icon>
+										<u-icon name="phone" label="提问"></u-icon>
+										<u-icon name="phone" label="回复"></u-icon>
+										</view>
+										<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+									</u-cell-item>
+									<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click" 
+									 :arrow="arrow" title="高数B" icon="list-dot">
+										<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
+										<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+									</u-cell-item>
+									<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click" 
+									 :arrow="arrow" title="高数C" icon="list-dot">
+										<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
+										<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+									</u-cell-item>
+									<u-cell-item center :is-link="true" :label="label" value="" index="index" @click="click"
+									 :arrow="arrow" title="高数D" icon="list-dot">
+										<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
+										<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+									</u-cell-item> -->
+								<view v-for="(item, index) in objectArray" :key="index">
+									<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0" @tap="click(index)">
+						
+										<view class="" slot="body">
+						
+											<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
+												<image
+													src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
+													mode="aspectFill"></image>
+												<!-- <view class="u-body-item-titleu-line-1">{{item.name}}</view> -->
+						
+						
+												<view class="icontest">
+													<!-- <u-table class="u-table">
+													<u-tr>
+														<u-th align="left">{{item.name}}</u-th>
+														<u-th align="center" width="200rpx"></u-th>
+														<u-th align="right">{{item.number}}</u-th>
+													</u-tr>
+													<u-tr>
+														<u-td><u-icon name="phone" label="签到" ></u-icon></u-td>
+														<u-td><u-icon name="rewind-right-fill" label="消息"></u-icon></u-td>
+														<u-td><u-icon name="home" label="提问"></u-icon></u-td>
+													</u-tr>
+												</u-table> -->
+													<u-row gutter="5">
+														<u-col span="4">
+															<view class="demo-layout">{{item.name}}</view>
+														</u-col>
+														<u-col span="4">
+															<view class="test2">{{item.number}}</view>
+														</u-col>
+													</u-row>
+													<u-row gutter="10" justify="space-between">
+														<u-col span="4">
+															<view class="">
+																<u-icon name="phone" label="签到"></u-icon>
+															</view>
+														</u-col>
+														<u-col span="4">
+															<view class="">
+																<u-icon name="rewind-right-fill" label="消息"></u-icon>
+															</view>
+														</u-col>
+														<u-col span="4">
+															<view class="">
+																<u-icon name="home" label="提问"></u-icon>
+															</view>
+														</u-col>
+													</u-row>
+						
+						
 												</view>
-											</u-col>
-											<u-col span="4">
-												<view class="">
-													<u-icon name="rewind-right-fill" label="消息"></u-icon>
-												</view>
-											</u-col>
-											<u-col span="4">
-												<view class="">
-													<u-icon name="home" label="提问"></u-icon>
-												</view>
-											</u-col>
-										</u-row>
-
-
-									</view>
-
-									<view class="test">></view>
+						
+												<view class="test">></view>
+											</view>
+										</view>
+									</u-card>
 								</view>
 							</view>
-						</u-card>
-					</view>
-				</view>
-			</view>
+						</view>
+						</scroll-view>
+					</swiper-item>
+					<swiper-item class="swiper-item">
+						<text> ceshi 2</text>
+					</swiper-item>
+					</swiper>
+			
 		</view>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
@@ -132,6 +142,7 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
+				loadStatus: ['loadmore','loadmore','loadmore','loadmore'],
 				isBack: false,
 				search: false,
 				custom: false,
@@ -304,6 +315,10 @@
 					url: "/pages/class/create"
 				})
 			},
+			// 页面数据
+			getOrderList(idx) {
+			
+			},
 			joinclass() {
 				uni.scanCode({
 					success: function(res) {
@@ -317,7 +332,14 @@
 				this.swiperCurrent = index;
 				this.getOrderList(index);
 			},
-
+		transition({ detail: { dx } }) {
+			this.$refs.tabs.setDx(dx);
+		},
+		animationfinish({ detail: { current } }) {
+			this.$refs.tabs.setFinishCurrent(current);
+			this.swiperCurrent = current;
+			this.current = current;
+		}
 		}
 	}
 </script>
@@ -346,6 +368,10 @@
 
 	.wrap {
 		padding: 24rpx;
+		display: flex;
+		flex-direction: column;
+		height: calc(100vh - var(--window-top));
+		width: 100%;
 	}
 
 	.u-row {
