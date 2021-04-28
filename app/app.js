@@ -26,5 +26,8 @@ export default {
 	},
 	getCourses: () => {
 		return api.request('/courses','GET')
+	},
+	addCourses: (data)=> {
+		return api.request('/courses','POST',data)
 	}
 }

@@ -83,6 +83,10 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
+				data: {
+					'courseName': '',
+					'creator': '',
+				},
 				params: {
 					year: true,
 					month: true,
@@ -263,6 +267,15 @@
 				this.show = true;
 			},
 			submit() {
+				this.data.courseName = this.form.classname;
+				this.data.creator = 47;
+				this.$Api.addCourses(this.data).then(res => {
+					if(res.data.success){
+						uni.navigateTo({
+							url: "/pages/class/success-create"
+						})
+					}
+				})
 				uni.navigateTo({
 					url: "/pages/class/success-create"
 				})
