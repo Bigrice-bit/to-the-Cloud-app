@@ -49,7 +49,7 @@
 
 <script>
 	export default {
-		name: "code-elf-logforget",
+		
 		data() {
 			return {
 				title: "创建班课",
@@ -290,13 +290,23 @@
 				console.log(this.data);
 				this.$Api.addCourses(this.data).then(res => {
 					if (res.data.success) {
-						uni.navigateTo({
-							url: "/pages/class/success-create"
+						let kins = res.data.data.courseId;
+						uni.setStorage({
+							key: this.data.courseName,
+							data:kins,
+							success:function(){
+								setTimeout(function () {
+								               uni.navigateTo({
+								               	url: "/pages/class/success-create"
+								               })
+								                   }, 1000);
+								// uni.switchTab({
+								// 	url: '/pages/index/class'
+								// });
+							}
 						})
+						
 					}
-				})
-				uni.navigateTo({
-					url: "/pages/class/success-create"
 				})
 			},
 			selectConfirm(e) {

@@ -148,7 +148,7 @@
 					};
 					if (valid) {
 						console.log(data);
-						this.$Api.Login(data).then(res => {
+						this.$Api.login(data).then(res => {
 
 							console.log(res);
 							if (res.data.success) {

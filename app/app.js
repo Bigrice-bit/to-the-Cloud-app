@@ -21,13 +21,17 @@ export default {
 	vfcode: (data) => {
 		return api.request('/auth/vfcode', 'POST', data) //接口地址
 	},
-	Login: (data) => {
+	login: (data) => {
 		return api.request('/auth/login', 'POST', data) //接口地址
 	},
 	getCourses: () => {
 		return api.request('/courses','GET')
 	},
-	addCourses: (data)=> {
+	addCourses: (data) => {
 		return api.request('/courses','POST',data)
+	},
+	signIn: (data) => {
+		return api.request('/signs','POST',data)
 	}
+	
 }
