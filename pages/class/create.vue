@@ -267,10 +267,29 @@
 				this.show = true;
 			},
 			submit() {
+				// uni.getStorage({
+				// 	key: "LoginKey",
+				// 	success(e) {
+				// 		e.data //这就是你想要取的token
+				// 		console.log(e.data);
+				// 	}
+				// });
+				// let LoginKey = uni.getStorage('LoginKey');
+				try {
+				    const value = uni.getStorageSync("LoginKey");
+				    if(value) {
+				        console.log(value);
+						this.data.creator = value;
+				    }
+				} catch(e){
+				    console.log(e);
+				}
+				console.log(this.data.creator);
 				this.data.courseName = this.form.classname;
-				this.data.creator = 47;
+				// this.data.creator = 47;
+				console.log(this.data);
 				this.$Api.addCourses(this.data).then(res => {
-					if(res.data.success){
+					if (res.data.success) {
 						uni.navigateTo({
 							url: "/pages/class/success-create"
 						})

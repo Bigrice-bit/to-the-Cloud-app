@@ -153,11 +153,24 @@
 							console.log(res);
 							if (res.data.success) {
 								console.log('验证通过');
-								 setTimeout(function () {
-								                uni.switchTab({
-								                	url: '/pages/index/class'
-								                });
-								                    }, 1000);
+								
+								let kins = res.data.data.userId;
+								uni.setStorage({
+									key:'LoginKey',
+									data:kins,
+									success:function(){
+										setTimeout(function () {
+										               uni.switchTab({
+										               	url: '/pages/index/class'
+										               });
+										                   }, 1000);
+										// uni.switchTab({
+										// 	url: '/pages/index/class'
+										// });
+									}
+								})
+
+							
 								
 							} else {
 								// uni.showModal({
