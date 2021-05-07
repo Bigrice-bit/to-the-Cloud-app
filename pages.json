@@ -98,6 +98,19 @@
 				"navigationBarTitleText": "详情"
 		
 			}
+		},
+		{
+			"path": "pages/class/SignIn/Signs",
+			"style": {
+				"navigationBarTitleText": "签到首页"
+		
+			}
+		},
+		{
+			"path": "pages/class/SignIn/TimLimitedSignIn",
+			"style": {
+				"navigationBarTitleText": "限时签到"
+			}
 		}
 	],
 	"tabBar": {

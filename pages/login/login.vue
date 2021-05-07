@@ -6,9 +6,9 @@
 			</view>
 		</view>
 		<view class="form">
-			<u-form :model="form" ref="uForm" :error-type="errorType" >
-				<u-form-item left-icon="phone" prop="phone" >
-					<u-input v-model="form.phone" placeholder="请输入手机号码"/>
+			<u-form :model="form" ref="uForm" :error-type="errorType">
+				<u-form-item left-icon="phone" prop="phone">
+					<u-input v-model="form.phone" placeholder="请输入手机号码" />
 				</u-form-item>
 				<u-form-item left-icon="lock" prop="password">
 					<u-input v-model="form.password" type="password" placeholder="请输入密码" />
@@ -28,7 +28,9 @@
 				<text class="btnValue">登录</text>
 			</view> -->
 			<view>
-				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">登陆</u-button>
+				<u-button type="success" :ripple="true" shape="circle" :custom-style="customStyle" @click="submit">登陆
+				</u-button>
+		
 			</view>
 			<view class="registerBtn">
 				<text @click="ToReGister(2)">创建账号</text>
@@ -40,7 +42,7 @@
 				<u-icon name="phone"></u-icon><text @click="ToReGister(3)">手机验证码登录</text>
 			</view>
 			<view class="loginBtn">
-				<u-icon name="weixin-fill" ></u-icon><text @click="ToReGister(4)">微信登录</text>
+				<u-icon name="qq-fill"></u-icon><text @click="ToReGister(4)">QQ登录</text>
 			</view>
 		</view>
 	</view>
@@ -52,6 +54,7 @@
 	export default {
 		data() {
 			return {
+				message: '',
 				customStyle: {
 					marginTop: '30px', // 注意驼峰命名，并且值必须用引号包括，因为这是对象
 					color: 'white',
@@ -129,8 +132,10 @@
 					});
 				} else {
 					console.log("第三方登录")
-				}					
+				}
 			},
+			
+			
 
 			submit: function() {
 				console.log(this.form.phone);
@@ -140,29 +145,58 @@
 					let data = {
 						Phone: this.form.phone,
 						Password: md5(this.form.password),
-						};
+					};
 					if (valid) {
 						console.log(data);
-						this.$Api.Login(data).then(res => {
+						this.$Api.login(data).then(res => {
+
 							console.log(res);
-							if(res.data.success){
+							if (res.data.success) {
 								console.log('验证通过');
-								uni.switchTab({
-									url: '/pages/index/class'
-								});
+								
+								let kins = res.data.data.userId;
+								uni.setStorage({
+									key:'LoginKey',
+									data:kins,
+									success:function(){
+										setTimeout(function () {
+										               uni.switchTab({
+										               	url: '/pages/index/class'
+										               });
+										                   }, 1000);
+										// uni.switchTab({
+										// 	url: '/pages/index/class'
+										// });
+									}
+								})
+
+							
+								
+							} else {
+								// uni.showModal({
+								// 	title: '提示',
+								// 	showCancel: false,
+								// 	content: "用户名或密码错误",
+								// 	success(res) {
+								// 		if (res.confirm) {
+								// 			// console.log('用户点击确定')
+								// 			// uni.navigateBack({})
+								// 		} else if (res.cancel) {
+								// 			// console.log('用户点击取消')
+								// 		}
+								// 	}
+								// })
+								
 							}
-							else {
-								console.log('验证失败');
-							}
-							});
-						}
+						});
+					}
 				});
 			},
 
 			// 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
 			onReady() {
 				this.$refs.uForm.setRules(this.rules);
-				},
+			},
 		}
 	}
 </script>

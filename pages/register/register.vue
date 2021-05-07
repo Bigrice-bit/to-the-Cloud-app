@@ -67,6 +67,7 @@
 				tips: '获取',
 				/// refCode: null,
 				seconds: 60,
+				isget: false,
 				///文字提示
 				errorType: ['message', 'border-bottom'],
 				form: {
@@ -184,6 +185,7 @@
 				this.tips = text;
 			},
 			getCode() {
+				this.isget = true;
 				console.log("判断是否输入手机号码，若无则提示。")
 				console.log("判断手机号是否已注册过，若是则提醒返回登录界面，不再注册");
 
@@ -227,49 +229,65 @@
 				});
 			},
 			submit: function() {
-				console.log(this.form.phone);
-				let md5pwd = md5(this.form.password)
-				console.log(md5pwd);
-				let data = {
-					phone: this.form.phone,
-					password: md5pwd,
-				};
-				let vfdata = {
-					phone: this.form.phone,
-					code: this.form.validadation,
-				}
-				console.log(vfdata);
-				this.$refs.uForm.validate(valid => {
-					console.log(vfdata);
-					console.log(valid);
-					// console.log(Qs.stringify(data));
-					if (valid) {
-
-						this.$Api.vfcode(vfdata).then(res => {
-							if (!res.data.success) {
-								this.istrue = true;
-								console.log(res);
-								console.log('验证码错误');
-							} else {
-								// this.$refs.uUpload.upload();
-								console.log('验证通过，将用户信息插入数据库');
-
-
-								this.$Api.addUser(data).then(res => {
-									if (res.data.success) {
-										uni.navigateTo({
-											url: '../login/login',
-										});
-									} else {
-										console.log('验证失败');
-									}
-								});
+				if (!this.isget) {
+					uni.showModal({
+						title: '提示',
+						showCancel: false,
+						content: "请发送验证码",
+						success(res) {
+							if (res.confirm) {
+								// console.log('用户点击确定')
+								uni.navigateBack({})
+							} else if (res.cancel) {
+								// console.log('用户点击取消')
 							}
-						});
-					} else {
-						console.log("接口错误");
+						}
+					})
+				} else {
+					console.log(this.form.phone);
+					let md5pwd = md5(this.form.password)
+					console.log(md5pwd);
+					let data = {
+						phone: this.form.phone,
+						password: md5pwd,
+					};
+					let vfdata = {
+						phone: this.form.phone,
+						code: this.form.validadation,
 					}
-				});
+					console.log(vfdata);
+					this.$refs.uForm.validate(valid => {
+						console.log(vfdata);
+						console.log(valid);
+						// console.log(Qs.stringify(data));
+						if (valid) {
+							this.$Api.vfcode(vfdata).then(res => {
+								if (!res.data.success) {
+									this.istrue = true;
+									console.log(res);
+									console.log('验证码错误');
+								} else {
+									// this.$refs.uUpload.upload();
+									console.log('验证通过，将用户信息插入数据库');
+
+
+									this.$Api.addUser(data).then(res => {
+										if (res.data.success) {
+											uni.switchTab({
+												url: '../index/class',
+											});
+										} else {
+											console.log('验证失败');
+										}
+									});
+								}
+							});
+						} else {
+							console.log("接口错误");
+						}
+					});
+				}
+
 			},
 			// 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
 			onReady() {

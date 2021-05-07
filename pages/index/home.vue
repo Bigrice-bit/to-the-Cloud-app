@@ -3,7 +3,7 @@
 		<view></view>
 		<u-tabbar v-model="current" :list="list" :mid-button="false"></u-tabbar>
 	</view>
-	
+
 </template>
 
 <script>

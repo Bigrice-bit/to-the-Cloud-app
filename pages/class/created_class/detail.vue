@@ -18,31 +18,31 @@
 		},
 		onLoad() {
 			this.tabbar = [{
-							iconPath: "home",
-							selectedIconPath: "home-fill",
-							text: '消息',
-							count: 0,
-							// isDot: true,
-							customIcon: false,
-							pagePath: "/pages/class/created_class/message"
-						},
-						{
-							iconPath: "photo",
-							selectedIconPath: "photo-fill",
-							text: '成员',
-							customIcon: false,
-							pagePath: "/pages/class/created_class/home"
-						},
-						{
-							iconPath: "photo",
-							selectedIconPath: "photo-fill",
-							text: '详情',
-							customIcon: false,
-							pagePath: "/pages/class/created_class/detail"
-						},
-					]
-				}
-			}
+					iconPath: "home",
+					selectedIconPath: "home-fill",
+					text: '消息',
+					count: 0,
+					// isDot: true,
+					customIcon: false,
+					pagePath: "/pages/class/created_class/message"
+				},
+				{
+					iconPath: "photo",
+					selectedIconPath: "photo-fill",
+					text: '成员',
+					customIcon: false,
+					pagePath: "/pages/class/created_class/home"
+				},
+				{
+					iconPath: "photo",
+					selectedIconPath: "photo-fill",
+					text: '详情',
+					customIcon: false,
+					pagePath: "/pages/class/created_class/detail"
+				},
+			]
+		}
+	}
 </script>
 
 <style>

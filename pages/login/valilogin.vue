@@ -23,7 +23,8 @@
 					<u-verification-code :seconds="seconds" @end="end" @start="start" ref="uCode" @change="codeChange">
 					</u-verification-code>
 					<u-button type="default" :ripple="true" size="mini" shape="circle" class="wrap" @tap="getCode">
-						{{tips}}</u-button>
+						{{tips}}
+					</u-button>
 				</u-form-item>
 			</u-form>
 			<view class="forgotBtn">
@@ -73,6 +74,7 @@
 				tips: '获取',
 				// refCode: null,
 				seconds: 60,
+				isget: false,
 				//文字提示
 				errorType: ['message', 'border-bottom'],
 				form: {
@@ -113,6 +115,7 @@
 				this.tips = text;
 			},
 			getCode() {
+				this.isget = true;
 				console.log("判断是否输入手机号码，若无则提示。")
 				console.log("判断手机号是否已注册过，若是则提醒返回登录界面，不再注册");
 
@@ -127,12 +130,11 @@
 					setTimeout(() => {
 						uni.hideLoading();
 						// 这里此提示会被this.start()方法中的提示覆盖
-						this.$Api.valicode(this.form.phone).then(res=>{
-							if(res)
-							{
-								
+						this.$Api.rvalicode(this.form.phone).then(res => {
+							if (res) {
+
 							}
-						},err=>{
+						}, err => {
 							console.log(err);
 						})
 						this.$u.toast('验证码已发送');
@@ -167,34 +169,48 @@
 				}
 			},
 			submit: function() {
-				console.log(this.form.phone);
-				console.log("判断这个手机号码是否存在于数据库中，若存在，判断手机号码与密码是否对应，若对应，则登录，不对应提示密码错误");
-				this.$refs.uForm.validate(valid => {
-					console.log(valid);
-					let data = {
-						 Phone: this.form.phone,
-						 Code: this.form.validadation,
-					}
-					if (valid) {
-						this.$Api.Login(data).then(res=>{
-							console.log(res);
-							if(!res.data.success)
-							{
-								this.istrue = true;
+				if (!this.isget) {
+					uni.showModal({
+						title: '提示',
+						showCancel: false,
+						content: "请发送验证码",
+						success(res) {
+							if (res.confirm) {
+								// console.log('用户点击确定')
+								// uni.navigateBack({})
+							} else if (res.cancel) {
+								// console.log('用户点击取消')
+							}
+						}
+					})
+				} else {
+					console.log(this.form.phone);
+					console.log("判断这个手机号码是否存在于数据库中，若存在，判断手机号码与密码是否对应，若对应，则登录，不对应提示密码错误");
+					this.$refs.uForm.validate(valid => {
+						console.log(valid);
+						let data = {
+							Phone: this.form.phone,
+							Code: this.form.validadation,
+						}
+						if (valid) {
+							this.$Api.Login(data).then(res => {
 								console.log(res);
-								console.log('验证码错误');
-							}
-							else{
-						console.log(data);
-								console.log('验证通过');
-								uni.switchTab({
-									url: '/pages/index/class'
-								});
-							}
+								if (!res.data.success) {
+									this.istrue = true;
+									console.log(res);
+									console.log('验证码错误');
+								} else {
+									console.log(data);
+									console.log('验证通过');
+									uni.switchTab({
+										url: '/pages/index/class'
+									});
+								}
 							});
-						}	
-				});
-				},
+						}
+					});
+				}
+			},
 			// 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
 			onReady() {
 				this.$refs.uForm.setRules(this.rules);
