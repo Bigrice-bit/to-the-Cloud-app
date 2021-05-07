@@ -1,73 +1,60 @@
 <template>
 	<view>
-		<view class="header">
-			<view class="bg">
-				<view class="box">
-					<view class="box-hd">
-						<view class="avator">
-							<img src="../../static/user/face.jpg">
-						</view>
-						<view class="phone-number">18909XXXX67</view>
-					</view>
-					<view class="box-bd">
-						<view class="item">
-							<view class="icon"><img src="../../static/user/message.png"></view>
-							<view class="text">经验值</view>
-						</view>
-						<view class="item" @click="Person">
-							<view class="icon"><img src="../../static/user/favorite.png"></view>
-							<view class="text">个人资料</view>
-						</view>
-						<view class="item">
-							<view class="icon"><img src="../../static/user/service.png"></view>
-							<view class="text">我的空间</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
 		<view class="list-content">
 			<view class="list">
-				<!-- <view class="li noborder" >
-					<view class="icon"><image src="../../static/user/card.png"></image></view>
-					<view class="text">我的名片</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view> -->
-			</view>
-			<view class="list">
-				
 				<view class="li " >
-					<view class="icon"><image src="../../static/user/help.png"></image></view>
-					<view class="text">用户协议</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view>
-				<view class="li " >
-					<view class="icon"><image src="../../static/user/help.png"></image></view>
-					<view class="text">隐私政策</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view>
-				<view class="li " >
-					<view class="icon"><image src="../../static/user/about.png"></image></view>
-					<view class="text">关于我们</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view>
-				<view class="li " >
-					<view class="icon"><image src="../../static/user/opinion.png"></image></view>
-					<view class="text">意见反馈</view>
+					<view class="avator">
+						<image class="img" src="../../static/user/face.jpg" mode="widthFix"></image>
+					</view>
+					<view class="text">
+						<view class="phone-number">陈泓敏</view>
+						<view class="phone-number">18909XXXX67</view></view>
 					<image class="to" src="../../static/user/to.png"></image>
 				</view>
 			</view>
 			<view class="list">
-				<view class="li noboder" >
-					<view class="icon"><image src="../../static/user/opinion.png"></image></view>
-					<view class="text">账号安全</view>
+				<view class="li " >
+					<view class="text">姓名</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">账号</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">选择性别</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">你所在的学校、院系及专业</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">选择身份</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">我是老师</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">我是学生</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">其他</view>
+					<image class="to" src="../../static/user/to.png"></image>
+				</view>
+				<view class="li " >
+					<view class="text">学号/工号</view>
 					<image class="to" src="../../static/user/to.png"></image>
 				</view>
 			</view>
 		</view>
-		<button type="error" style="margin-top: 300rpx;">退出当前账号</button>
+		<button type="error" style="margin-top: 200rpx;">保存</button>
 	</view>
 </template>
+
 <script>
 	export default {
 		data() {
@@ -102,6 +89,21 @@ page{
 		background-color:#4191ea;
 	}
 }
+
+.avator {
+		width: 150upx;
+		height: 150upx;
+		overflow: hidden;
+		// border-radius: 100rpx;
+		// border-style: ridge;
+		// border-color: #000000;
+	}
+
+	.avator .img {
+		width: 100%
+	}
+	
+	
 .box{
 	width: 650upx;
 	height: 280upx;
@@ -109,22 +111,25 @@ page{
 	margin: 0 auto;
 	background: #fff;
 	box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, .2); 
+	
 	.box-hd{
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: row;
 		justify-content: center;
-		.avator{
-			width: 160upx;
-			height: 160upx;
+		.avator1{
+			width: 100upx;
+			height: 100upx;
 			background: #fff;
 			border: 5upx solid #fff;
 			border-radius: 50%;
 			margin-top: -80upx;
 			overflow: hidden;
+			
 			img{
-				width: 100%;
-				height: 100%;
+				width: 50%;
+				height: 50%;
+				
 			}
 		}
 		.phone-number{
@@ -149,8 +154,8 @@ page{
 				border: none;
 			}
 			.icon{
-				width: 60upx;
-				height: 60upx;
+				width: 100upx;
+				height: 100upx;
 				img{
 					width: 100%;
 					height: 100%;
@@ -166,7 +171,7 @@ page{
 }
 .list-content{
 	background: #fff;
-	// margin-top: 100rpx;
+	margin-top: 50rpx;
 }
 .list{
 	width:100%;
@@ -176,7 +181,7 @@ page{
 		border: none;
 	}
 	.li{
-		width:92%;
+		width:100%;
 		height:100upx;
 		padding:0 4%;
 		border-bottom:1px solid rgb(243,243,243);
@@ -184,15 +189,6 @@ page{
 		align-items:center;
 	&.noborder{
 		border-bottom:0
-		}
-		.icon{
-			flex-shrink:0;
-			width:50upx;
-			height:50upx;
-			image{
-				width:50upx;
-				height:50upx;
-			}
 		}
 		.text{
 			padding-left:20upx;

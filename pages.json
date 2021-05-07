@@ -123,6 +123,12 @@
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
+		},
+		{
+			"path": "pages/Mine/Person",
+			"style": {
+				"navigationBarTitleText": "个人资料"
+			}
 		}
 	],
 	"tabBar": {
