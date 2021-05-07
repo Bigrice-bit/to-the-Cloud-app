@@ -1,15 +1,22 @@
 <template>
-	<view>
+	<view class="content">
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" title="签到中" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate"> </u-navbar>
 	
 	<view>
 		<u-cell-group>
-				<u-cell-item  :title="SignDate" :arrow="false"></u-cell-item>
-				<u-cell-item  :title="EndDate" :arrow="false"></u-cell-item>
+				<u-cell-item  :title="begin" :value='userObj.SignDate' :arrow="false" ></u-cell-item>
+				<u-cell-item  :title="end" :value='userObj.EndDate' :arrow="false" class="cell"></u-cell-item>
 			</u-cell-group>
 	</view>
+	<u-table class="u-table">
+			<u-tr class="tr">
+				<u-td>已签到人数</u-td>
+				<u-td>未签到人数</u-td>
+			</u-tr>
+		</u-table>
+		<button class="button" type="default" @click="EndSign">结束签到</button>
 	</view>
 </template>
 
@@ -22,21 +29,63 @@
 				backIconName: 'nav-back',
 				isBack: true,
 				isFixed: true,
-				SignDate: null,
-				EndDate:null,
-				timestamp: null,
+				begin: '开始时间:',
+				end: '结束时间:',
+				userObj: {},
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				}
 		},
-		onLoad() {
+		onLoad: function(option){
+			// decodeURIComponent 解密传过来的对象字符串
+						const item = JSON.parse(decodeURIComponent(option.item));
+						console.log(item)
+						this.userObj = item
+					console.log(new Date() - item.EndDate);
 		},
 		methods: {
+			EndSign() {
+				uni.showModal({
+					title: '提示',
+					showCancel: true,
+					content: '是否结束并完成签到',
+					success(res) {
+						if (res.confirm) {
+							console.log('用户点击确定')
+							// uni.navigateBack({})
+						} else if (res.cancel) {
+							console.log('用户点击取消')
+						}
+					}
+				})
+			}
 		}
 	}
 </script>
 
 <style>
-
+	.cell{
+		
+		title-color: #18B566;
+	}
+	
+.content {
+		background: #f2fbfa;
+		width: 100vw;
+		height: 100vh;
+	}
+	
+	.u-table{
+		margin-top: 100rpx;
+		
+	}
+	
+	.u-table tr {
+		width:100rpx;
+	}
+	
+	.button {
+		margin-top: 800rpx;
+	}
 </style>

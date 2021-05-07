@@ -134,13 +134,18 @@
 				this.timestamp = this.timestamp + 60;	// 一分钟限时
 				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.EndDate = this.EndDate;
-				this.$Api.signIn(this.data).then((res) => {
-					if(res.data.success){
-						console.log(res.data.msg);
-						uni.navigateTo({
-							url: "./TimLimitedSignIn"
-						})
-					}
+				// this.$Api.signIn(this.data).then((res) => {
+				// 	if(res.data.success){
+				// 		console.log(res.data.msg);
+				// 		let item = encodeURIComponent(JSON.stringify(data))
+				// 		uni.navigateTo({
+				// 			url: "./TimLimitedSignIn?item=" + item
+				// 		})
+				// 	}
+				// })
+				let item = encodeURIComponent(JSON.stringify(this.data))
+				uni.navigateTo({
+					url: "./TimLimitedSignIn?item=" + item
 				})
 			},
 			OneClickSignIn() {
