@@ -111,6 +111,18 @@
 			"style": {
 				"navigationBarTitleText": "限时签到"
 			}
+		},
+		{
+			"path": "pages/Mine/skin-change/skin-change",
+			"style": {
+				"navigationBarTitleText": "skin-change"
+			}
+		},
+		{
+			"path": "pages/Mine/Mine",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
 		}
 	],
 	"tabBar": {
