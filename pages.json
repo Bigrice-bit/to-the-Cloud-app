@@ -123,7 +123,14 @@
 			"style": {
 				"navigationBarTitleText": "个人资料"
 			}
+		},
+		{
+			"path": "pages/Mine/selectSchool",
+			"style": {
+				"navigationBarTitleText": "索引列表"
+			}
 		}
+		
 	],
 	"tabBar": {
 		"color": "#909399",

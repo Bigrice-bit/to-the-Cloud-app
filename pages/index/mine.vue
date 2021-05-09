@@ -63,9 +63,10 @@
 							<view class="text">账号安全</view>
 							<image class="to" src="../../static/user/to.png"></image>
 						</view>
-				<!-- <button type="error" style="margin-top: 300rpx;">退出当前账号</button> -->
 			</view>
+			
 		</view>
+		<u-button shape="circle" :plain="true" type="default" style="margin-top: 200rpx;">退出当前账号</u-button>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
 </template>
@@ -153,7 +154,7 @@
 			width: 100%;
 			height:200upx;
 			padding-top:100upx;
-			background-color:#4191ea;
+			background-color:#1ABC9C;
 		}
 	}
 	.box{

@@ -87,7 +87,7 @@
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
-					<u-cell-item center :is-link="true" :label="label" value="" i ndex="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true" :label="label" value="" i ndex="index" @click="ChangeSchool" :hover-class="hoverClass"
 					 :arrow="arrow" title="你所在的学校、院系及专业(索引列表)" >
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
@@ -193,6 +193,11 @@
 			},
 			click(index) {
 				// console.log(index);
+			},
+			ChangeSchool(){
+				uni.navigateTo({
+						url: './selectSchool'
+				});
 			}
 		}
 	}
