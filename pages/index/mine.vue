@@ -58,9 +58,9 @@
 						</view>
 					</view>
 					<view class="list">
-						<view class="li noboder" >
+						<view class="li noboder" @click="safe">
 							<view class="icon"><image src="../../static/user/opinion.png"></image></view>
-							<view class="text">账号安全</view>
+							<view class="text" >账号安全</view>
 							<image class="to" src="../../static/user/to.png"></image>
 						</view>
 			</view>
@@ -111,6 +111,11 @@
 								url: '../Mine/Person'
 						});
 					},
+					safe(){
+						uni.navigateTo({
+								url: '../safe/index'
+						});
+					}
 				}
 			}
 </script>

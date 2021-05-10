@@ -129,6 +129,18 @@
 			"style": {
 				"navigationBarTitleText": "索引列表"
 			}
+		},
+		{
+			"path": "pages/safe/index",
+			"style": {
+				"navigationBarTitleText": "账号安全"
+			}
+		},
+		{
+			"path": "pages/safe/email",
+			"style": {
+				"navigationBarTitleText": "关联邮箱"
+			}
 		}
 		
 	],
