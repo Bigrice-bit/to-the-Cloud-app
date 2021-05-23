@@ -92,17 +92,17 @@
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
-					<u-cell-item center :is-link="true"  value="" i ndex="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"  value="" index="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="选择身份" >
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 						<u-radio-group :shape="shape" :size="size" :width="width" :wrap="wrap" v-model="value" @change="radioGroupChange" :activeColor="activeColor">
 							<u-radio @change="radioChange" v-for="(item, index) in identity" :disabled="item.disabled"
-								:key="index" :name="item.name"
+								:key="index" :name="item.name" v-model="iden"
 							>{{item.name}}</u-radio>
 						</u-radio-group>
 					</u-cell-item>
-					<u-cell-item center :is-link="true"  value="后端返回" i ndex="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"  value="后端返回" index="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="学号/工号" >
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
@@ -111,7 +111,7 @@
 				
 			</view>
 		</view>
-		<button type="error" class="button">保存</button>
+		<button type="error" class="button" @click="SaveChange">保存</button>
 	</view>
 </template>
 
@@ -142,15 +142,18 @@
 				identity:[
 								{
 									name: '我是老师',
-									disabled: false
+									disabled: false,
+									index:0
 								},
 								{
 									name: '我是学生',
-									disabled: false
+									disabled: false,
+									
 								},
 								{
 									name: '其他',
-									disabled: false
+									disabled: false,
+
 								}
 							],
 							// u-radio-group的v-model绑定的值如果设置为某个radio的name，就会被默认选中
@@ -166,7 +169,8 @@
 				arrow: true,
 				label: '后端返回学校等',
 				rightSlot: true,
-				checked: false
+				checked: false,
+				iden:'',
 			};
 		},
 		onLoad() {
@@ -180,7 +184,9 @@
 		methods: {
 			// 选中某个单选框时，由radio时触发
 					radioChange(e) {
+						
 						console.log(e);
+						console.log('iden' + this.iden);
 					},
 					// 选中任一radio时，由radio-group触发
 					radioGroupChange(e) {
@@ -194,10 +200,38 @@
 			click(index) {
 				// console.log(index);
 			},
+			identityfunc(index){
+				console.log(index);
+				if(this.index === 0){
+					console.log("老师");
+				}
+				else if(index === 1){
+					console.log("学生");
+				}
+				else if(index === 2){
+					console.log("助教");
+				}
+			},
 			ChangeSchool(){
 				uni.navigateTo({
 						url: './selectSchool'
 				});
+			},
+			SaveChange(){
+				let i = '1';
+				console.log()
+				if(this.iden === "我是老师")
+				{
+					this.$u.vuex('vuex_jurisdiction.name','0');
+				}
+				else if(this.idex === "其他"){
+					this.$u.vuex('vuex_jurisdiction.name','2');
+				}
+				else{
+					this.$u.vuex('vuex_jurisdiction.name','1');
+				}
+				
+				console.log("保存成功")
 			}
 		}
 	}

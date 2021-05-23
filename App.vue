@@ -1,6 +1,13 @@
 <script>
 	export default {
 		onLaunch: function() {
+			// uni.setStorage({
+			// 	key:'jurisdiction',
+			// 	data: 1,
+			// 	success:function(){
+			// 		console.log(key);
+			// 		}
+			// })
 			console.log('App Launch')
 		},
 		onShow: function() {

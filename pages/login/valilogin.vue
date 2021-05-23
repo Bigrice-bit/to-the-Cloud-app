@@ -202,10 +202,26 @@
 								} else {
 									console.log(data);
 									console.log('验证通过');
-									uni.switchTab({
-										url: '/pages/index/class'
-									});
-								}
+									this.$u.vuex('vuex_jurisdiction.name','1');
+									let kins = res.data.data.userId;
+									uni.setStorage({
+										key:'LoginKey',
+										data:kins,
+										success:function(){
+											setTimeout(function () {
+												// this.$mc.vuex = ('vuex_jurisdiction','1')
+									
+													// this.$u.vuex("vuex_jurisdiction","1");
+											               uni.switchTab({
+											               	url: '/pages/index/class'
+											               });
+											                   }, 1000);
+											// uni.switchTab({
+											// 	url: '/pages/index/class'
+											// });
+										}
+									})
+									}
 							});
 						}
 					});

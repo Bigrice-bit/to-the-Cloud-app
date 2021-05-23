@@ -51,6 +51,8 @@
 
 <script>
 	import md5 from "../../js_sdk/md5.js"
+	import Vue from 'vue'
+	import Vuex from 'vuex'
 	export default {
 		data() {
 			return {
@@ -113,7 +115,7 @@
 			}
 		},
 		onLoad() {
-
+			// this.$mc.vuex('jurisdiction',1);
 		},
 		methods: {
 			ToReGister(i) {
@@ -149,17 +151,19 @@
 					if (valid) {
 						console.log(data);
 						this.$Api.login(data).then(res => {
-
 							console.log(res);
 							if (res.data.success) {
 								console.log('验证通过');
-								
+								this.$u.vuex('vuex_jurisdiction.name','1');
 								let kins = res.data.data.userId;
 								uni.setStorage({
 									key:'LoginKey',
 									data:kins,
 									success:function(){
 										setTimeout(function () {
+											// this.$mc.vuex = ('vuex_jurisdiction','1')
+
+												// this.$u.vuex("vuex_jurisdiction","1");
 										               uni.switchTab({
 										               	url: '/pages/index/class'
 										               });
