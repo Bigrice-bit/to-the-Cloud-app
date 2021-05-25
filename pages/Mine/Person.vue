@@ -174,6 +174,27 @@
 			};
 		},
 		onLoad() {
+			try {
+			    const value = uni.getStorageSync("lifeData");
+			    if(value) {
+			        console.log(value);
+					if(value.vuex_jurisdiction.name === '0')
+					{
+						this.iden = '我是老师'
+					}
+					else if(value.vuex_jurisdiction.name === '1')
+					{
+						this.iden = '我是学生'
+					}
+					else
+					{
+						this.iden = '其他'
+					}
+					console.log(this.iden)
+			    }
+			} catch(e){
+			    console.log(e);
+			}
 		},
 		computed: {
 			hoverClass() {
@@ -186,7 +207,7 @@
 					radioChange(e) {
 						
 						console.log(e);
-						console.log('iden' + this.iden);
+						this.iden = e;
 					},
 					// 选中任一radio时，由radio-group触发
 					radioGroupChange(e) {
@@ -200,18 +221,6 @@
 			click(index) {
 				// console.log(index);
 			},
-			identityfunc(index){
-				console.log(index);
-				if(this.index === 0){
-					console.log("老师");
-				}
-				else if(index === 1){
-					console.log("学生");
-				}
-				else if(index === 2){
-					console.log("助教");
-				}
-			},
 			ChangeSchool(){
 				uni.navigateTo({
 						url: './selectSchool'
@@ -219,12 +228,12 @@
 			},
 			SaveChange(){
 				let i = '1';
-				console.log()
+				console.log(this.iden)
 				if(this.iden === "我是老师")
 				{
 					this.$u.vuex('vuex_jurisdiction.name','0');
 				}
-				else if(this.idex === "其他"){
+				else if(this.iden === "其他"){
 					this.$u.vuex('vuex_jurisdiction.name','2');
 				}
 				else{

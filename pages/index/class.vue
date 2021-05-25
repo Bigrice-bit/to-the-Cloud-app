@@ -30,180 +30,102 @@
 		<view class="u-demo">
 			<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 				placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
-			<!-- <swiper class="swiper-box" :current="swiperCurrent" @transition="transition"
-				@animationfinish="animationfinish">
-				<swiper-item>
-						<view class="page-box">
-							<view class="order" v-for="(item, index) in objectArray" :key="index">
-								
-								<view class="top">
-									<view class="left">
-											
-											<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-												@tap="click(index)">
-											
-												<view class="" slot="body">
-											
-													<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-														<image
-															src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-															mode="aspectFill"></image>
-														<view class="icontest">
-											
-															<u-row gutter="5">
-																<u-col span="4">
-																	<view class="demo-layout">{{item.name}}</view>
-																</u-col>
-																<u-col span="4">
-																	<view class="test2">{{item.number}}</view>
-																</u-col>
-															</u-row>
-															<u-row gutter="10" justify="space-between">
-																<u-col span="4">
-																	<view class="">
-																		<u-icon name="phone" label="签到"></u-icon>
-																	</view>
-																</u-col>
-																<u-col span="4">
-																	<view class="">
-																		<u-icon name="rewind-right-fill" label="消息"></u-icon>
-																	</view>
-																</u-col>
-																<u-col span="4">
-																	<view class="">
-																		<u-icon name="home" label="提问"></u-icon>
-																	</view>
-																</u-col>
-															</u-row>
-														</view>
-											
-														<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26"></u-icon>
-													</view>
-												</view>
-											</u-card>
-											
-										
-										
-									</view>
-				
-								</view>
-							</view>
-						</view>
-				</swiper-item>
-				<swiper-item class="swiper-item">
-					<text> ceshi 2</text>
-					<br>
-					<text> ceshi 2</text>
-					<br>
-					<text> ceshi 2</text>
-					<br>
-					<text> ceshi 2</text>
-					<br>
-					<text> ceshi 2</text>
-					<br>
-					<text> ceshi 2</text>
-					<br>
-					<text> ceshi 2</text>
-					<br>
-					<text> ceshi 2</text>
-					<br>
-				</swiper-item>
-			</swiper> -->
+			<view class="big">
+				<swiper style="height: 100vh;" :current="curr" @change="setCurr">
+					<swiper-item>
+						<scroll-view v-for="(item, index) in objectArray" :key="index">
+							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
+								@tap="click(index)">
 
-<view class="big">
-		<swiper style="height: 100vh;" :current="curr" @change="setCurr">
-			<swiper-item>
-				<scroll-view v-for="(item, index) in objectArray" :key="index">
-				<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-					@tap="click(index)">
-				
-					<view class="" slot="body">
-				
-						<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-							<image
-								src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-								mode="aspectFill"></image>
-							<view >
-				
-								<u-row gutter="5">
-									<u-col span="3">
-										<view class="demo-layout">{{item.name}}</view>
-									</u-col>
-									<u-col span="4">
-										<view class="test2">{{item.number}}</view>
-									</u-col>
-								</u-row>
-								<u-row gutter="20" justify="space-between">
-									<u-col span="4" >
-										<view class="icontest">
-											<u-icon name="phone" label="签到"></u-icon>
+								<view class="" slot="body">
+
+									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
+										<image
+											src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
+											mode="aspectFill"></image>
+										<view>
+
+											<u-row gutter="5">
+												<u-col span="3">
+													<view class="demo-layout">{{item.name}}</view>
+												</u-col>
+												<u-col span="4">
+													<view class="test2">{{item.number}}</view>
+												</u-col>
+											</u-row>
+											<u-row gutter="20" justify="space-between">
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="phone" label="签到"></u-icon>
+													</view>
+												</u-col>
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="rewind-right-fill" label="消息"></u-icon>
+													</view>
+												</u-col>
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="home" label="提问"></u-icon>
+													</view>
+												</u-col>
+											</u-row>
 										</view>
-									</u-col>
-									<u-col span="4">
-										<view class="icontest">
-											<u-icon name="rewind-right-fill" label="消息"></u-icon>
-										</view>
-									</u-col>
-									<u-col span="4">
-										<view class="icontest">
-											<u-icon name="home" label="提问"></u-icon>
-										</view>
-									</u-col>
-								</u-row>
-							</view>
-				
-							<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26"></u-icon>
-						</view>
-					</view>
-				</u-card>
-				</scroll-view>
-			</swiper-item>
-			<swiper-item>
-				<scroll-view v-for="(item, index) in objectArray" :key="index">
-					<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-						@tap="click(index)">
-					
-						<view class="" slot="body">
-					
-							<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-								<image
-									src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-									mode="aspectFill"></image>
-								<view >
-					
-									<u-row gutter="5">
-										<u-col span="3">
-											<view class="demo-layout">{{item.name}}</view>
-										</u-col>
-										
-									</u-row>
-									<u-row gutter="20" justify="space-between">
-										<u-col span="4" >
-											<view class="icontest">
-												<u-icon name="phone" label="签到"></u-icon>
-											</view>
-										</u-col>
-										<u-col span="4">
-											<view class="icontest">
-												<u-icon name="rewind-right-fill" label="消息"></u-icon>
-											</view>
-										</u-col>
-										<u-col span="4">
-											<view class="icontest">
-												<u-icon name="home" label="提问"></u-icon>
-											</view>
-										</u-col>
-									</u-row>
+
+										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
+										</u-icon>
+									</view>
 								</view>
-					
-								<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26"></u-icon>
-							</view>
-						</view>
-					</u-card>
-				</scroll-view>
-			</swiper-item>			
-		</swiper>
-	</view>
+							</u-card>
+						</scroll-view>
+					</swiper-item>
+					<swiper-item>
+						<scroll-view v-for="(item, index) in objectArray" :key="index">
+							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
+								@tap="click(index)">
+
+								<view class="" slot="body">
+
+									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
+										<image
+											src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
+											mode="aspectFill"></image>
+										<view>
+
+											<u-row gutter="5">
+												<u-col span="3">
+													<view class="demo-layout">{{item.name}}</view>
+												</u-col>
+
+											</u-row>
+											<u-row gutter="20" justify="space-between">
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="phone" label="签到"></u-icon>
+													</view>
+												</u-col>
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="rewind-right-fill" label="消息"></u-icon>
+													</view>
+												</u-col>
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="home" label="提问"></u-icon>
+													</view>
+												</u-col>
+											</u-row>
+										</view>
+
+										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
+										</u-icon>
+									</view>
+								</view>
+							</u-card>
+						</scroll-view>
+					</swiper-item>
+				</swiper>
+			</view>
 
 		</view>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
@@ -214,7 +136,7 @@
 	export default {
 		data() {
 			return {
-				curr:0,
+				curr: 0,
 				title: '',
 				cardTitle: '测试0',
 				subTitle: '2020-05-15',
@@ -225,6 +147,8 @@
 				showAction: false,
 				rightSlot: false,
 				useSlot: false,
+				stuOrteach: true,
+				setcurr: '1',	// 0 我创建的 1 我加入的
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
@@ -274,6 +198,26 @@
 			}
 		},
 		onLoad() {
+			try {
+			    const value = uni.getStorageSync("lifeData");
+			    if(value) {
+			        console.log(value);
+					if(value.vuex_jurisdiction.name === '1')
+					{
+						this.stuOrteach = true
+					}
+					else
+					{
+						this.stuOrteach = false;
+					}
+					
+					console.log(this.stuOrteach);
+			    }
+			} catch(e){
+			    console.log(e);
+			}
+			 
+			// console.log(this.$uStoreKey);
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
@@ -306,11 +250,12 @@
 		},
 		methods: {
 			setCurr(e) {
-						// console.log(e.detail.current)
-						let thisCurr = e.detail.current || e.currentTarget.dataset.index || 0;
-						// console.log(thisCurr)
-						this.curr = thisCurr;
-						},
+				console.log(e.detail.current)
+				this.setcurr = e.detail.current;
+				let thisCurr = e.detail.current || e.currentTarget.dataset.index || 0;
+				// console.log(thisCurr)
+				this.curr = thisCurr;
+			},
 			titleChange(index) {
 				this.useSlot = false;
 				this.title = index == 0 ? '新闻' : index == 1 ? '新闻列表' : '雨打梨花深闭门，忘了青春，误了青春';
@@ -402,10 +347,23 @@
 					url: "/pages/class/created_class/home"
 				})
 			},
-			newcreate() {
-				uni.navigateTo({
-					url: "/pages/class/create"
-				})
+			newcreate() {		//! 在修改了身份之后再回来，this.stuOrteach 值没有改变
+				console.log(this.curr)
+				if(this.curr === 0)	//0是创建班课
+				{
+					if(this.stuOrteach)	//true为学生
+					{
+						console.log("弹框显示无权限创建")
+					}
+					else{	//加入班课
+						uni.navigateTo({
+							url: "/pages/class/create"
+							})
+					}
+				}
+				else {
+						console.log("跳转加入班课");
+				}
 			},
 			// 页面数据
 			getOrderList(idx) {
@@ -584,24 +542,25 @@
 		margin-top: -20px;
 	}
 
-	.swiper-item{
+	.swiper-item {
 		height: 2000rpx;
 	}
-	
-	.trade{
+
+	.trade {
 		width: 100%;
 		color: #000000;
 		overflow: auto;
 		font-size: 30rpx;
 	}
-	.trade view{
+
+	.trade view {
 		text-align: center;
 		padding-left: 25upx;
 		width: 30%;
 		float: left;
 	}
-	.trade .texts.active{
+
+	.trade .texts.active {
 		border-bottom: 8upx solid #0b910f;
 	}
-
 </style>
