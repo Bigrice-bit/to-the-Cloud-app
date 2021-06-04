@@ -31,14 +31,14 @@
 				</u-form-item>
 				<u-form-item :label-position="labelPosition" label="学校院系" prop="school" label-width="150">
 					<u-input :border="border" type="select" :select-open="pickerShow" v-model="form.school"
-						placeholder="请选择学校院系" @click="pickerShow = true"></u-input>
+						placeholder="请选择学校院系" @click="Show"></u-input>
 				</u-form-item>
 			</u-form>
 			<view>
 				<u-button type="default" :ripple="true" shape="circle" class="loginBtn" @click="submit">创建</u-button>
 				<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectConfirm">
 				</u-select>
-				<u-select mode="mutil-column" :list="SchoolList" v-model="pickerShow" @confirm="selectconfirm">
+				<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectconfirm" @cancel="cancel">
 				</u-select>
 
 			</view>
@@ -49,7 +49,7 @@
 
 <script>
 	export default {
-		
+
 		data() {
 			return {
 				title: "创建班课",
@@ -116,212 +116,168 @@
 						label: '2021-2022下学期'
 					}
 				],
-				SchoolList: [
-					[{
-							value: '1',
-							label: '福州大学'
-						},
-						{
-							value: '2',
-							label: '福建师范大学'
-						}
-					],
-					[{
-							value: '1',
-							label: '数学与计算机科学学院'
-						},
-						{
-							value: '2',
-							label: '经济与管理学院'
-						},
-						{
-							value: '3',
-							label: '电气与自动化学院'
-						},
-						{
-							value: '4',
-							label: '化学学院'
-						},
-					]
-				],
-			};
-		},
-		computed: {
+				SchoolList: [{
+						value: 1,
+						label: '中国',
+						children: [{
+								value: 2,
+								label: '广东',
+								children: [{
+										value: 3,
+										label: '深圳'
+									},
+									{
+										value: 4,
+										label: '广州'
+									}
+								]
+							},
+							{
+								value: 5,
+								label: '广西',
+								children: [{
+										value: 6,
+										label: '南宁'
+									},
+									{
+										value: 7,
+										label: '桂林'
+									}
+								]
+							}
+						]
+					},
+					{
+						value: 8,
+						label: '美国',
+						children: [{
+							value: 9,
+							label: '纽约',
+							children: [{
+								value: 10,
+								label: '皇后街区'
+							}]
+						}]
+					}
+				]
+		};
+	},
+	computed: {
 			status() {
 				return this.show == true ? 0 : 1;
 			}
 		},
-		methods: {
-			// 选择地区回调
-			regionConfirm(e) {
-				this.form.school = e.province.label + '-' + e.city.label + '-' + e.area.label;
-			},
-			statusChange(index) {
-				this.show = index == 0 ? true : false;
-			},
-			modeChange(index) {
-				this.mode = ['selector', 'multiSelector', 'time', 'region'][index];
-				if (this.mode == 'selector') {
-					this.range = ['一', '片', '冰', '心', '在', '玉', '壶'];
-					this.defaultSelector = [0];
+	methods: {
+		// 选择地区回调
+		regionConfirm(e) {
+			this.form.school = e.province.label + '-' + e.city.label + '-' + e.area.label;
+		},
+		statusChange(index) {
+			this.show = index == 0 ? true : false;
+		},
+		modeChange(index) {
+			this.mode = ['selector', 'multiSelector', 'time', 'region'][index];
+			if (this.mode == 'selector') {
+				this.range = ['一', '片', '冰', '心', '在', '玉', '壶'];
+				this.defaultSelector = [0];
+			}
+			if (this.mode == 'multiSelector') {
+				this.range = [
+					['亚洲', '欧洲'],
+					['中国', '日本'],
+					['北京', '上海', '广州']
+				];
+				this.defaultSelector = [0, 0, 0];
+			}
+			this.show = true;
+		},
+		defaultTimeChange(index) {
+			this.defaultTime = index == 0 ? '2019-12-11 20:15:35' : '2020-02-05 13:09:42';
+			this.mode = 'time';
+			this.show = true;
+		},
+		defaultRegionChange(index) {
+			this.defaultRegion = index == 0 ? ['广东省', '深圳市', '宝安区'] : ['海南省', '三亚市', '海棠区'];
+			this.mode = 'region';
+			this.show = true;
+		},
+		minSecChange(index) {
+			if (index == 0) {
+				this.params.hour = true;
+				this.params.minute = true;
+				this.params.second = true;
+			}
+			if (index == 1) {
+				this.params.hour = false;
+				this.params.minute = false;
+				this.params.second = false;
+			}
+			this.mode = 'time';
+			this.show = true;
+		},
+		cancel(e) {
+			console.log(e);
+		},
+		click() {
+			this.show = true;
+		},
+		submit() {
+			// uni.getStorage({
+			// 	key: "LoginKey",
+			// 	success(e) {
+			// 		e.data //这就是你想要取的token
+			// 		console.log(e.data);
+			// 	}
+			// });
+			// let LoginKey = uni.getStorage('LoginKey');
+			try {
+				const value = uni.getStorageSync("LoginKey");
+				if (value) {
+					console.log(value);
+					this.data.creator = value;
 				}
-				if (this.mode == 'multiSelector') {
-					this.range = [
-						['亚洲', '欧洲'],
-						['中国', '日本'],
-						['北京', '上海', '广州']
-					];
-					this.defaultSelector = [0, 0, 0];
-				}
-				this.show = true;
-			},
-			defaultTimeChange(index) {
-				this.defaultTime = index == 0 ? '2019-12-11 20:15:35' : '2020-02-05 13:09:42';
-				this.mode = 'time';
-				this.show = true;
-			},
-			defaultRegionChange(index) {
-				this.defaultRegion = index == 0 ? ['广东省', '深圳市', '宝安区'] : ['海南省', '三亚市', '海棠区'];
-				this.mode = 'region';
-				this.show = true;
-			},
-			minSecChange(index) {
-				if (index == 0) {
-					this.params.hour = true;
-					this.params.minute = true;
-					this.params.second = true;
-				}
-				if (index == 1) {
-					this.params.hour = false;
-					this.params.minute = false;
-					this.params.second = false;
-				}
-				this.mode = 'time';
-				this.show = true;
-			},
-			confirm(e) {
-				// console.log(e);
-				this.input = '';
-				if (this.mode == 'time') {
-					if (this.params.year) this.input += e.year;
-					if (this.params.month) this.input += '-' + e.month;
-					if (this.params.day) this.input += '-' + e.day;
-					if (this.params.hour) this.input += ' ' + e.hour;
-					if (this.params.minute) this.input += ':' + e.minute;
-					if (this.params.second) this.input += ':' + e.second;
-				} else if (this.mode == 'region') {
-					this.input = e.province.label + '-' + e.city.label + '-' + e.area.label;
-				} else if (this.mode == 'selector') {
-					this.input = this.range[e[0]];
-				} else if (this.mode == 'multiSelector') {
-					this.input = this.range[0][e[0]] + '-' + this.range[1][e[1]] + '-' + this.range[2][e[2]];
-				}
-			},
-			columnchange(e) {
-				let column = e.column,
-					index = e.index;
-				this.defaultSelector[column] = index;
-				switch (column) {
-					case 0:
-						switch (index) {
-							case 0:
-								this.range[1] = ['中国', '日本']
-								this.range[2] = ['北京', '上海', '广州']
-								break
-							case 1:
-								this.range[1] = ['英国', '法国']
-								this.range[2] = ['伦敦', '曼彻斯特']
-								break
+			} catch (e) {
+				console.log(e);
+			}
+			console.log(this.data.creator);
+			this.data.courseName = this.form.classname;
+			// this.data.creator = 47;
+			console.log(this.data);
+			this.$Api.addCourses(this.data).then(res => {
+				if (res.data.success) {
+					let kins = res.data.data.courseId;
+					uni.setStorage({
+						key: this.data.courseName,
+						data: kins,
+						success: function() {
+							setTimeout(function() {
+								uni.navigateTo({
+									url: "/pages/class/success-create"
+								})
+							}, 1000);
+							// uni.switchTab({
+							// 	url: '/pages/index/class'
+							// });
 						}
-						this.defaultSelector.splice(1, 1, 0)
-						this.defaultSelector.splice(2, 1, 0)
-						break
-					case 1: //拖动第2列
-						switch (this.defaultSelector[0]) { //判断第一列是什么
-							case 0:
-								switch (this.defaultSelector[1]) {
-									case 0:
-										this.range[2] = ['北京', '上海', '广州']
-										break
-									case 1:
-										this.range[2] = ['东京', '北海道']
-										break
-								}
-								break
-							case 1:
-								switch (this.defaultSelector[1]) {
-									case 0:
-										this.range[2] = ['伦敦', '曼彻斯特']
-										break
-									case 1:
-										this.range[2] = ['巴黎', '马赛']
-										break
-								}
-								break
-						}
-						this.defaultSelector.splice(2, 1, 0)
-						break
+					})
+
 				}
-			},
-			click() {
-				this.show = true;
-			},
-			submit() {
-				// uni.getStorage({
-				// 	key: "LoginKey",
-				// 	success(e) {
-				// 		e.data //这就是你想要取的token
-				// 		console.log(e.data);
-				// 	}
-				// });
-				// let LoginKey = uni.getStorage('LoginKey');
-				try {
-				    const value = uni.getStorageSync("LoginKey");
-				    if(value) {
-				        console.log(value);
-						this.data.creator = value;
-				    }
-				} catch(e){
-				    console.log(e);
-				}
-				console.log(this.data.creator);
-				this.data.courseName = this.form.classname;
-				// this.data.creator = 47;
-				console.log(this.data);
-				this.$Api.addCourses(this.data).then(res => {
-					if (res.data.success) {
-						let kins = res.data.data.courseId;
-						uni.setStorage({
-							key: this.data.courseName,
-							data:kins,
-							success:function(){
-								setTimeout(function () {
-								               uni.navigateTo({
-								               	url: "/pages/class/success-create"
-								               })
-								                   }, 1000);
-								// uni.switchTab({
-								// 	url: '/pages/index/class'
-								// });
-							}
-						})
-						
-					}
-				})
-			},
-			selectConfirm(e) {
-				this.form.team = '';
-				e.map((val, index) => {
-					this.form.team += this.form.team == '' ? val.label : '-' + val.label;
-				})
-			},
-			selectconfirm(e) {
-				this.form.school = '';
-				e.map((val, index) => {
-					this.form.school += this.form.school == '' ? val.label : '-' + val.label;
-				})
-			},
+			})
+		},
+		selectconfirm(e) {
+			this.form.school = '';
+			e.map((val, index) => {
+				this.form.school += this.form.school == '' ? val.label : '-' + val.label;
+			})
+		},
+		Show(){
+			this.pickerShow = true;
+			this.$Api.getCollege().then(res=>
+			{
+				console.log(res);
+			})
 		}
+	}
 
 	};
 </script>

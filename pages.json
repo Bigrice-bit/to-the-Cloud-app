@@ -141,6 +141,12 @@
 			"style": {
 				"navigationBarTitleText": "关联邮箱"
 			}
+		},
+		{
+			"path": "pages/class/JoinClass",
+			"style": {
+				"navigationBarTitleText": "加入班课"
+			}
 		}
 		
 	],

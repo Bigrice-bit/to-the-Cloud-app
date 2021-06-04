@@ -347,7 +347,7 @@
 					url: "/pages/class/created_class/home"
 				})
 			},
-			newcreate() {		//! 在修改了身份之后再回来，this.stuOrteach 值没有改变
+			newcreate() {		
 				console.log(this.curr)
 				if(this.curr === 0)	//0是创建班课
 				{
@@ -355,15 +355,17 @@
 					{
 						console.log("弹框显示无权限创建")
 					}
-					else{	//加入班课
-						// uni.navigateTo({
-						// 	url: "/pages/class/create"
-						// 	})
-						console.log("创建班课");
+					else{	
+						uni.navigateTo({
+							url: "/pages/class/create"
+							})
+						//  console.log("创建班课");
 					}
 				}
 				else {
-					
+						uni.navigateTo({
+							url: "/pages/class/JoinClass"
+						})
 						console.log("跳转加入班课");
 				}
 			},

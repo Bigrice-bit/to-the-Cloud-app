@@ -32,6 +32,16 @@ export default {
 	},
 	signIn: (data) => {
 		return api.request('/signs','POST',data)
+	},
+	// 获取学校等
+	getCollege: () => {
+		return api.request('/colleges','GET')
+	},
+	// 通过课程Id查找课程
+	SelectCourseById: (data) => {
+		let str = '/classcourses/classcoursenum/' + data;
+		console.log(str)
+		return api.request('str','GET')
 	}
 	
 }
