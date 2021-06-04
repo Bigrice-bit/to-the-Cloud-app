@@ -197,7 +197,7 @@
 				stringArray: ['a', 'b', 'c']
 			}
 		},
-		onLoad() {
+		onShow: function()  {
 			try {
 			    const value = uni.getStorageSync("lifeData");
 			    if(value) {
@@ -356,12 +356,14 @@
 						console.log("弹框显示无权限创建")
 					}
 					else{	//加入班课
-						uni.navigateTo({
-							url: "/pages/class/create"
-							})
+						// uni.navigateTo({
+						// 	url: "/pages/class/create"
+						// 	})
+						console.log("创建班课");
 					}
 				}
 				else {
+					
 						console.log("跳转加入班课");
 				}
 			},
