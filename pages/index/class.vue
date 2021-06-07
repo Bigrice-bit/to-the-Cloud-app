@@ -364,7 +364,7 @@
 				}
 				else {
 						uni.navigateTo({
-							url: "/pages/class/JoinClass"
+							url: "/pages/class/JoinClass/SearchClass"
 						})
 						console.log("跳转加入班课");
 				}

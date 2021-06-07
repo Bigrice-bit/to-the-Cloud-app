@@ -16,11 +16,9 @@
 					<u-input v-model="form.classnum" placeholder="请输入班课号" />
 				</u-form-item>
 			</u-form>
-		<view>
-			</view>
+		</view>
+		</view>
 	</view>
-	</view>
-
 </template>
 
 <script>
@@ -42,12 +40,21 @@
 				labelPosition: 'left',
 				errorType: ['message', 'border-bottom'],
 				
+				
 		}
 	},
 	methods: {
 		Next(){
 			this.$Api.SelectCourseById(this.form.classnum).then(res => {
 				console.log(res)
+				if(res)
+				{
+					
+					uni.navigateTo({
+						url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(res))
+						// url: '/pages/class/JoinClass/JoinClass'
+					})
+				}
 			})
 			// console.log("下一步")
 		}

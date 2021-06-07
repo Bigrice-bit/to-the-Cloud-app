@@ -37,11 +37,18 @@ export default {
 	getCollege: () => {
 		return api.request('/colleges','GET')
 	},
-	// 通过课程Id查找课程
+	// 通过班课号查找班课
 	SelectCourseById: (data) => {
 		let str = '/classcourses/classcoursenum/' + data;
-		console.log(str)
-		return api.request('str','GET')
+		return api.request(str,'GET')
+	},
+	//添加班课
+	AddClass: (data) => {
+		return api.request('/classcourses','POST',data)
+	},
+	//加入班课
+	joinClass: (data) => {
+		return api.request('/stuclasscourses','POST',data)
 	}
 	
 }

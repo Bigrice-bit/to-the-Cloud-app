@@ -143,7 +143,13 @@
 			}
 		},
 		{
-			"path": "pages/class/JoinClass",
+			"path": "pages/class/JoinClass/SearchClass",
+			"style": {
+				"navigationBarTitleText": "通过班课号查找班课"
+			}
+		},
+		{
+			"path": "pages/class/JoinClass/JoinClass",
 			"style": {
 				"navigationBarTitleText": "加入班课"
 			}
