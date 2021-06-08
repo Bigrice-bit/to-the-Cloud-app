@@ -26,7 +26,7 @@
 				</u-form-item>
 
 				<u-form-item :label-position="labelPosition" label="学期" prop="team" label-width="150">
-					<u-input :border="border" type="select" :select-open="selectShow" v-model="form.team"
+					<u-input :border="border" type="select" :select-open="selectShow" v-model="form.term"
 						placeholder="请选择学期" @click="selectShow = true"></u-input>
 				</u-form-item>
 				<u-form-item :label-position="labelPosition" label="学校院系" prop="school" label-width="150">
@@ -36,9 +36,9 @@
 			</u-form>
 			<view>
 				<u-button type="default" :ripple="true" shape="circle" class="loginBtn" @click="submit">创建</u-button>
-				<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectConfirm">
+				<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectTerm">
 				</u-select>
-				<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectconfirm"
+				<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectSchool"
 					@cancel="cancel">
 				</u-select>
 
@@ -69,7 +69,7 @@
 				form: {
 					class: '',
 					course: '',
-					team: '',
+					term: '',
 					school: '',
 				},
 				errorType: ['message', 'border-bottom'],
@@ -89,7 +89,7 @@
 					'courseName': '',
 					'ClassCourseName': '',
 					'Term': '',
-					'CollegePointId': '',
+					'CollegePointId': null,
 				},
 				params: {
 					year: true,
@@ -130,11 +130,14 @@
 				],
 				SchoolList: [{
 					value: null,
-					label: null,
+					label: '请选择学校',
 					children: [{
 						value: null,
-						label: null,
-						children: [{}]
+						label: '请选择学院',
+						children: [{
+							value: null,
+							label: '请选择专业',
+						}]
 					}]
 				}]
 			};
@@ -146,213 +149,251 @@
 		},
 		onLoad() {
 			this.$Api.getCollege().then(res => {
-								// console.log(res)
-								if (res.data.success) {
-									console.log(res.data.success)
-									let server = res.data.data;
-									// let values = server.typeList
-									for (var i = 0; i < server.length; i++) {
-										var obj = {
-											label: server[i].collegePoint.collegePointName,
-											value: server[i].collegePoint.collegePointId,
-										};
-										this.SchoolList.push(obj);
-									}
-									for (var i = 0; i < server.length; i++) {
-										for (var j = 0; k < server[i].collegePoints.length; k++) {
-											var obj = {
-												label: server[i].collegePoints[j].collegePointName,
-												value: server[i].collegePoints[j].collegePointId,
-											};
-											this.SchoolList.children.push(obj)
-										}
-									}
-									for (var i = 0; i < server.length; i++) {
-										for (var j = 0; j < server[i].collegePoints.length; j++) {
-											var obj = {
-												label: server[i].collegePoints[j].collegePointName,
-												value: server[i].collegePoints[j].collegePointId,
-											};
-											this.SchoolList.children.push(obj)
-										}
-									}
-									for (var i = 0; i < server.length; i++) {
-										for (var j = 0; j < server[i].collegePoints.length; j++) {
-											for (var k = 0; k < server[i].collegePoints[j].length; k++) {
-												var obj = {
-													label: server[i].collegePoints[j].collegePoints[k].collegePointName,
-													value: server[i].collegePoints[j].collegePoints[k].collegePointId,
-												};
-												this.SchoolList.children.children.push(obj)
-											}
-										}
-									}
-							} else {
-								uni.showToast({
-									icon: "none",
-									title: '暂无数据'
-								})
+				console.log(res)
+				if (res.data.success) {
+					// console.log(res.data.success)
+					let server = res.data.data;
+					// for (var i = 0; i < server.length; i++) {
+					// 	var obj1 = {
+					// 		label: server[i].collegePoint.collegePointName,
+					// 		value: server[i].collegePoint.collegePointId,
+					// 	};
+					// 	this.SchoolList.push(obj1);
+					// 	for (var j = 0; j < server[i].collegePoints.length; j++) {
+					// 		var obj2 = {
+					// 			label: server[i].collegePoints[j].collegePoint.collegePointName,
+					// 			value: server[i].collegePoints[j].collegePoint.collegePointId,
+					// 		};
+					// 		this.SchoolList[i].children.push(obj2)
+					// 		for (var k = 0; k < server[i].collegePoints[j].collegePoints.length; k++) {
+					// 			var obj3 = {
+					// 				label: server[i].collegePoints[j].collegePoints[k].collegePoint.collegePointName,
+					// 				value: server[i].collegePoints[j].collegePoints[k].collegePoint.collegePointId,
+					// 			};
+					// 			// console.log(obj3);
+					// 			this.SchoolList[i].children[j].children.push(obj3)
+					// 		}
+					// 	}
+
+					// }
+					for (var i = 0; i < server.length; i++) {
+						var obj1 = {
+							label: server[i].collegePoint.collegePointName,
+							value: server[i].collegePoint.collegePointId,
+							children: []
+						};
+						this.SchoolList.push(obj1);
+						}
+					for (var i = 0; i < server.length; i++) {
+						// console.log(server[i].collegePoints.length)
+						for (var j = 0; j < server[i].collegePoints.length; j++) {
+							var obj = {
+								label: server[i].collegePoints[j].collegePoint.collegePointName,
+								value: server[i].collegePoints[j].collegePoint.collegePointId,
+								children: []
+							};
+							// console.log(obj);
+							this.SchoolList[i+1].children.push(obj)
+						}
+						// console.log('2')
+						// console.log(this.SchoolList[i].children)
+					}
+					console.log(server.length)
+					for (var i = 0;i < server.length; i++) {
+						console.log(server[i].collegePoints.length)
+						for (var j = 0; j < server[i].collegePoints.length; j++) {
+							// console.log(server[i].collegePoints[j].length)
+							for (var k = 0; k < server[i].collegePoints[j].collegePoints.length; k++) {
+								var obj = {
+									label: server[i].collegePoints[j].collegePoints[k].collegePoint
+										.collegePointName,
+									value: server[i].collegePoints[j].collegePoints[k].collegePoint
+										.collegePointId,
+								};
+								// console.log(obj);
+								this.SchoolList[i+1].children[j].children.push(obj)
+							
 							}
+						}
+					}
+				} else {
+					uni.showToast({
+						icon: "none",
+						title: '暂无数据'
 					})
+				}
+			})
+	},
+	methods: {
+		// 选择地区回调
+		regionConfirm(e) {
+			this.form.school = e.province.label + '-' + e.city.label + '-' + e.area.label;
 		},
-		methods: {
-			// 选择地区回调
-			regionConfirm(e) {
-				this.form.school = e.province.label + '-' + e.city.label + '-' + e.area.label;
-			},
-			statusChange(index) {
-				this.show = index == 0 ? true : false;
-			},
-			modeChange(index) {
-				this.mode = ['selector', 'multiSelector', 'time', 'region'][index];
-				if (this.mode == 'selector') {
-					this.range = ['一', '片', '冰', '心', '在', '玉', '壶'];
-					this.defaultSelector = [0];
+		statusChange(index) {
+			this.show = index == 0 ? true : false;
+		},
+		modeChange(index) {
+			this.mode = ['selector', 'multiSelector', 'time', 'region'][index];
+			if (this.mode == 'selector') {
+				this.range = ['一', '片', '冰', '心', '在', '玉', '壶'];
+				this.defaultSelector = [0];
+			}
+			if (this.mode == 'multiSelector') {
+				this.range = [
+					['亚洲', '欧洲'],
+					['中国', '日本'],
+					['北京', '上海', '广州']
+				];
+				this.defaultSelector = [0, 0, 0];
+			}
+			this.show = true;
+		},
+		defaultTimeChange(index) {
+			this.defaultTime = index == 0 ? '2019-12-11 20:15:35' : '2020-02-05 13:09:42';
+			this.mode = 'time';
+			this.show = true;
+		},
+		defaultRegionChange(index) {
+			this.defaultRegion = index == 0 ? ['广东省', '深圳市', '宝安区'] : ['海南省', '三亚市', '海棠区'];
+			this.mode = 'region';
+			this.show = true;
+		},
+		minSecChange(index) {
+			if (index == 0) {
+				this.params.hour = true;
+				this.params.minute = true;
+				this.params.second = true;
+			}
+			if (index == 1) {
+				this.params.hour = false;
+				this.params.minute = false;
+				this.params.second = false;
+			}
+			this.mode = 'time';
+			this.show = true;
+		},
+		cancel(e) {
+			console.log(e);
+		},
+		click() {
+			this.show = true;
+		},
+		submit() {
+			// uni.getStorage({
+			// 	key: "LoginKey",
+			// 	success(e) {
+			// 		e.data //这就是你想要取的token
+			// 		console.log(e.data);
+			// 	}
+			// });
+			// let LoginKey = uni.getStorage('LoginKey');
+			try {
+				const value = uni.getStorageSync("LoginKey");
+				if (value) {
+					console.log(value);
+					this.data.creator = value;
+
 				}
-				if (this.mode == 'multiSelector') {
-					this.range = [
-						['亚洲', '欧洲'],
-						['中国', '日本'],
-						['北京', '上海', '广州']
-					];
-					this.defaultSelector = [0, 0, 0];
-				}
-				this.show = true;
-			},
-			defaultTimeChange(index) {
-				this.defaultTime = index == 0 ? '2019-12-11 20:15:35' : '2020-02-05 13:09:42';
-				this.mode = 'time';
-				this.show = true;
-			},
-			defaultRegionChange(index) {
-				this.defaultRegion = index == 0 ? ['广东省', '深圳市', '宝安区'] : ['海南省', '三亚市', '海棠区'];
-				this.mode = 'region';
-				this.show = true;
-			},
-			minSecChange(index) {
-				if (index == 0) {
-					this.params.hour = true;
-					this.params.minute = true;
-					this.params.second = true;
-				}
-				if (index == 1) {
-					this.params.hour = false;
-					this.params.minute = false;
-					this.params.second = false;
-				}
-				this.mode = 'time';
-				this.show = true;
-			},
-			cancel(e) {
+			} catch (e) {
 				console.log(e);
-			},
-			click() {
-				this.show = true;
-			},
-			submit() {
-				// uni.getStorage({
-				// 	key: "LoginKey",
-				// 	success(e) {
-				// 		e.data //这就是你想要取的token
-				// 		console.log(e.data);
-				// 	}
-				// });
-				// let LoginKey = uni.getStorage('LoginKey');
-				try {
-					const value = uni.getStorageSync("LoginKey");
-					if (value) {
-						console.log(value);
-						this.data.creator = value;
+			}
+			console.log(this.data.creator);
+			this.data.ClassCourseName = this.form.class;
+			this.data.courseName = this.form.course;
+			this.data.Term = this.form.term;
+			// this.data.creator = 47;
+			console.log(this.data);
+			this.$Api.AddClass(this.data).then(res => {
+				if (res.data.success) {
+					let kins = res.data.data.courseId;
+					uni.setStorage({
+						key: this.data.courseName,
+						data: kins,
+						success: function() {
+							setTimeout(function() {
+								uni.navigateTo({
+									url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(res))
+								})
+							}, 1000);
+							// uni.switchTab({
+							// 	url: '/pages/index/class'
+							// });
+						}
+					})
 
-					}
-				} catch (e) {
-					console.log(e);
 				}
-				console.log(this.data.creator);
-				this.data.ClassCourseName = this.form.class;
-				this.data.course = this.form.classname;
-				// this.data.creator = 47;
-				console.log(this.data);
-				this.$Api.AddClass(this.data).then(res => {
-					if (res.data.success) {
-						let kins = res.data.data.courseId;
-						uni.setStorage({
-							key: this.data.courseName,
-							data: kins,
-							success: function() {
-								setTimeout(function() {
-									uni.navigateTo({
-										url: "/pages/class/success-create"
-									})
-								}, 1000);
-								// uni.switchTab({
-								// 	url: '/pages/index/class'
-								// });
-							}
-						})
-
-					}
-				})
-			},
-			selectconfirm(e) {
-				this.form.school = '';
+			})
+		},
+		selectTerm(e) {
+				this.form.term = '';
 				e.map((val, index) => {
-					this.form.school += this.form.school == '' ? val.label : '-' + val.label;
+					this.form.term += this.form.term == '' ? val.label : '-' + val.label;
 				})
-			},
-			Show() {
-				this.pickerShow = true;
-				console.log(this.SchoolList)
-	// 			this.$Api.getCollege().then(res => {
-	// 					// console.log(res)
-	// 					if (res.data.success) {
-	// 						console.log(res.data.success)
-	// 						let server = res.data;
-	// 						// let values = server.typeList
-	// 						for (var i = 0; i < server.length; i++) {
-	// 							var obj = {
-	// 								label: server[i].collegePoint.collegePointName,
-	// 								value: server[i].collegePoints.collegePointId,
-	// 							};
-	// 							this.SchoolList.push(obj);
-	// 						}
-	// 						for (var i = 0; i < server.length; i++) {
-	// 							for (var j = 0; k < server[i].collegePoints.length; k++) {
-	// 								var obj = {
-	// 									label: server[i].collegePoints[j].collegePointName,
-	// 									value: server[i].collegePoints[j].collegePointId,
-	// 								};
-	// 								this.SchoolList.children.push(obj)
-	// 							}
-	// 						}
-	// 						for (var i = 0; i < server.length; i++) {
-	// 							for (var j = 0; j < server[i].collegePoints.length; j++) {
-	// 								var obj = {
-	// 									label: server[i].collegePoints[j].collegePointName,
-	// 									value: server[i].collegePoints[j].collegePointId,
-	// 								};
-	// 								this.SchoolList.children.push(obj)
-	// 							}
-	// 						}
-	// 						for (var i = 0; i < server.length; i++) {
-	// 							for (var j = 0; j < server[i].collegePoints.length; j++) {
-	// 								for (var k = 0; k < server[i].collegePoints[j].length; k++) {
-	// 									var obj = {
-	// 										label: server[i].collegePoints[j].collegePoints[k].collegePointName,
-	// 										value: server[i].collegePoints[j].collegePoints[k].collegePointId,
-	// 									};
-	// 									this.SchoolList.children.children.push(obj)
-	// 								}
-	// 							}
-	// 						}
-	// 				} else {
-	// 					uni.showToast({
-	// 						icon: "none",
-	// 						title: '暂无数据'
-	// 					})
-	// 				}
-	// 		})
-	}
+		},
+		selectSchool(e) {
+			this.form.school = '';
+			e.map((val, index) => {
+				this.form.school += this.form.school == '' ? val.label : '-' + val.label;
+				if(val.value != null){
+					this.data.CollegePointId = val.value;
+					}
+				console.log('val.value:');
+			})
+			console.log(this.data.CollegePointId);
+		},
+		Show() {
+			this.pickerShow = true;
+			console.log(this.SchoolList)
+			// 			this.$Api.getCollege().then(res => {
+			// 					// console.log(res)
+			// 					if (res.data.success) {
+			// 						console.log(res.data.success)
+			// 						let server = res.data;
+			// 						// let values = server.typeList
+			// 						for (var i = 0; i < server.length; i++) {
+			// 							var obj = {
+			// 								label: server[i].collegePoint.collegePointName,
+			// 								value: server[i].collegePoints.collegePointId,
+			// 							};
+			// 							this.SchoolList.push(obj);
+			// 						}
+			// 						for (var i = 0; i < server.length; i++) {
+			// 							for (var j = 0; k < server[i].collegePoints.length; k++) {
+			// 								var obj = {
+			// 									label: server[i].collegePoints[j].collegePointName,
+			// 									value: server[i].collegePoints[j].collegePointId,
+			// 								};
+			// 								this.SchoolList.children.push(obj)
+			// 							}
+			// 						}
+			// 						for (var i = 0; i < server.length; i++) {
+			// 							for (var j = 0; j < server[i].collegePoints.length; j++) {
+			// 								var obj = {
+			// 									label: server[i].collegePoints[j].collegePointName,
+			// 									value: server[i].collegePoints[j].collegePointId,
+			// 								};
+			// 								this.SchoolList.children.push(obj)
+			// 							}
+			// 						}
+			// 						for (var i = 0; i < server.length; i++) {
+			// 							for (var j = 0; j < server[i].collegePoints.length; j++) {
+			// 								for (var k = 0; k < server[i].collegePoints[j].length; k++) {
+			// 									var obj = {
+			// 										label: server[i].collegePoints[j].collegePoints[k].collegePointName,
+			// 										value: server[i].collegePoints[j].collegePoints[k].collegePointId,
+			// 									};
+			// 									this.SchoolList.children.children.push(obj)
+			// 								}
+			// 							}
+			// 						}
+			// 				} else {
+			// 					uni.showToast({
+			// 						icon: "none",
+			// 						title: '暂无数据'
+			// 					})
+			// 				}
+			// 		})
+		}
 	}
 
 	};

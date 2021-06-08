@@ -11,8 +11,13 @@
 			</view>
 			<image src="../../static/success-create.png" mode=""></image>
 			<view class="image">
-				<text class="class_number">后端返回班课号</text>
+				<p class="class_number">
+					{{classnum}}
+
+					</p>
+					<view class="Qrcode">
 				<image :src="qrcodeSrc" />
+				</view>
 			</view>
 			<!-- <button class="button" type="primary" @tap="click()">确认</button> -->
 		</view>
@@ -49,13 +54,23 @@
 				label: '签到  提问 回复',
 				rightSlot: true,
 				checked: false,
-				qrcodeText: '跳转到加入班课界面',
+				qrcodeText: '',
 				qrcodeSize: uni.upx2px(590),
-				qrcodeSrc: ''
+				qrcodeSrc: '',
+				Item_res: '',
+				classnum: '',
 			}
 		},
-		onLoad() {
-			this.make()
+		onLoad:function(option){//opthin为object类型，会序列化上页面传递的参数
+			this.make();
+			const item = JSON.parse(decodeURIComponent(option.item));
+			console.log("success-create");
+			console.log(item)
+			this.classnum = item.data.data.classCourseNum
+			this.qrcodeText = this.classnum
+			// this.Item_res = item
+			// this.url = '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
+			// console.log(this.classnum)
 		},
 		methods: {
 			make() {
@@ -63,23 +78,22 @@
 					title: '二维码生成中',
 					mask: true
 				})
-
 				uQRCode.make({
 					canvasId: 'qrcode',
-					text: this.qrcodeText,
+					text: this.classnum,
 					size: this.qrcodeSize,
 					backgroundColor: '#ffffff',
 					foregroundColor: '#1dbc9d',
-					margin: 10
+					margin: 10,
 				}).then(res => {
 					this.qrcodeSrc = res
+					// uni.navigateTo({
+					// 	url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(this.Item_res)),
+					// })
+					// url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
 				}).finally(() => {
 					uni.hideLoading()
-				})
-			},
-			click() {
-				uni.navigateTo({
-					url: "/pages/class/create"
+					// url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
 				})
 			}
 		}
@@ -175,7 +189,11 @@
 	}
 
 	.class_number {
-		font-size: 25px;
+		font-size: 30px;
 		color: #FA3534;
+	}
+	
+	.Qrcode{
+		margin-top: 50rpx;
 	}
 </style>

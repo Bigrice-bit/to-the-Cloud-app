@@ -49,6 +49,11 @@ export default {
 	//加入班课
 	joinClass: (data) => {
 		return api.request('/stuclasscourses','POST',data)
+	},
+	// 根据Creator获取老师创建的所有班课
+	GetAllClass: (data) => {
+		let url = '/classcourses/creator/' + data
+		return api.request(url,'GET')
 	}
 	
 }

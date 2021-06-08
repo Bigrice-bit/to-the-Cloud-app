@@ -178,30 +178,20 @@
 				current: 0,
 				swiperCurrent: 0,
 				objectArray: [{
-					id: 0,
-					name: '高数A',
-					number: '111111'
-				}, {
-					id: 1,
-					name: '高数B',
-					number: '111111'
-				}, {
-					id: 2,
-					name: '高数C',
-					number: '111111'
-				}, {
-					id: 3,
-					name: '高数D',
-					number: '111111'
+					id: null,
+					name: null,
+					number: null
 				}],
-				stringArray: ['a', 'b', 'c']
+				classnum: '',
+				stringArray: ['a', 'b', 'c'],
+				creator: 0,
 			}
 		},
 		onShow: function()  {
 			try {
 			    const value = uni.getStorageSync("lifeData");
 			    if(value) {
-			        console.log(value);
+			        // console.log(value);
 					if(value.vuex_jurisdiction.name === '1')
 					{
 						this.stuOrteach = true
@@ -211,7 +201,7 @@
 						this.stuOrteach = false;
 					}
 					
-					console.log(this.stuOrteach);
+					// console.log(this.stuOrteach);
 			    }
 			} catch(e){
 			    console.log(e);
@@ -247,6 +237,32 @@
 			slotRightCurrent() {
 				return this.slotRight ? 0 : 1;
 			}
+		},
+		onLoad() {
+				const value = uni.getStorageSync("LoginKey");
+				if (value) {
+					console.log(value);
+					this.creator = value;
+					}
+
+			this.$Api.GetAllClass(this.creator).then(res => {
+				console.log(res);
+			// 	let serve = res.data;
+			// 	if(res.successs){
+			// 	for(var i = 0;i < serve.length;i++){
+			// 	var obj={
+			// 		id: serve[0].classCourseId,
+			// 		name: serve[0].classCourseName,
+			// 		number: ''
+			// 	}
+			// 	console.log(obg);
+			// 	this.objectArray.push(obj);
+			// 	}
+			// 	}
+			// 	else{
+			// 		console.log("失败或者无班课")
+			// 	}
+			})
 		},
 		methods: {
 			setCurr(e) {
@@ -376,10 +392,28 @@
 			joinclass() {
 				uni.scanCode({
 					success: function(res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
-					}
+						 // console.log(res)
+						// void plus.runtime.openWeb(res.result,function(){
+						// // 识别失败代码
+						// console.log("识别失败")
+					// });
+					console.log('条码类型：' + res.scanType);
+					 console.log('条码内容：' + res.result);
+					this.classnum = res.result;
+
+					},
+					
 				});
+				
+			},
+			searchBYID:function() {
+				this.$Api.SelectCourseById(this.classnum).then(res => {
+				
+						 uni.navigateTo({
+						 	url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(res))
+						 })
+				
+				 })
 			},
 			// tab栏切换
 			change(index) {
