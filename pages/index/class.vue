@@ -33,10 +33,9 @@
 			<view class="big">
 				<swiper style="height: 100vh;" :current="curr" @change="setCurr">
 					<swiper-item>
-						<scroll-view v-for="(item, index) in objectArray" :key="index">
+						<scroll-view v-for="(item, index) in objectArray" :key="index" v-if="index >= 1">
 							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-								@tap="click(index)">
-
+								@tap="TeaClassdetail(index)">
 								<view class="" slot="body">
 
 									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
@@ -46,10 +45,10 @@
 										<view>
 
 											<u-row gutter="5">
-												<u-col span="3">
+												<u-col span="6">
 													<view class="demo-layout">{{item.name}}</view>
 												</u-col>
-												<u-col span="4">
+												<u-col span="5">
 													<view class="test2">{{item.number}}</view>
 												</u-col>
 											</u-row>
@@ -80,7 +79,7 @@
 						</scroll-view>
 					</swiper-item>
 					<swiper-item>
-						<scroll-view v-for="(item, index) in objectArray" :key="index">
+						<scroll-view v-for="(item, index) in joinArray" :key="index" v-if="index >= 1">
 							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
 								@tap="click(index)">
 
@@ -93,7 +92,7 @@
 										<view>
 
 											<u-row gutter="5">
-												<u-col span="3">
+												<u-col span="6">
 													<view class="demo-layout">{{item.name}}</view>
 												</u-col>
 
@@ -133,6 +132,7 @@
 </template>
 
 <script>
+	var _this
 	export default {
 		data() {
 			return {
@@ -148,7 +148,7 @@
 				rightSlot: false,
 				useSlot: false,
 				stuOrteach: true,
-				setcurr: '1',	// 0 我创建的 1 我加入的
+				setcurr: '1', // 0 我创建的 1 我加入的
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
@@ -182,31 +182,33 @@
 					name: null,
 					number: null
 				}],
+				joinArray: [{
+					id: null,
+					name: null,
+					number: null
+				}],
 				classnum: '',
 				stringArray: ['a', 'b', 'c'],
 				creator: 0,
 			}
 		},
-		onShow: function()  {
+		onShow: function() {
 			try {
-			    const value = uni.getStorageSync("lifeData");
-			    if(value) {
-			        // console.log(value);
-					if(value.vuex_jurisdiction.name === '1')
-					{
+				const value = uni.getStorageSync("lifeData");
+				if (value) {
+					// console.log(value);
+					if (value.vuex_jurisdiction.name === '1') {
 						this.stuOrteach = true
-					}
-					else
-					{
+					} else {
 						this.stuOrteach = false;
 					}
-					
+
 					// console.log(this.stuOrteach);
-			    }
-			} catch(e){
-			    console.log(e);
+				}
+			} catch (e) {
+				console.log(e);
 			}
-			 
+
 			// console.log(this.$uStoreKey);
 			this.tabbar = [{
 					iconPath: "home",
@@ -239,30 +241,51 @@
 			}
 		},
 		onLoad() {
-				const value = uni.getStorageSync("LoginKey");
-				if (value) {
-					console.log(value);
-					this.creator = value;
-					}
+			const value = uni.getStorageSync("LoginKey");
+			if (value) {
+				console.log(value);
+				this.creator = value;
+			}
 
-			this.$Api.GetAllClass(this.creator).then(res => {
+			this.$Api.GetAllCreatedClass(this.creator).then(res => {
 				console.log(res);
-			// 	let serve = res.data;
-			// 	if(res.successs){
-			// 	for(var i = 0;i < serve.length;i++){
-			// 	var obj={
-			// 		id: serve[0].classCourseId,
-			// 		name: serve[0].classCourseName,
-			// 		number: ''
-			// 	}
-			// 	console.log(obg);
-			// 	this.objectArray.push(obj);
-			// 	}
-			// 	}
-			// 	else{
-			// 		console.log("失败或者无班课")
-			// 	}
+				let serve = res.data.data;
+				if (res.data.success) {
+					console.log(serve.length)
+					for (var i = 0; i < serve.length; i++) {
+						var obj = {
+							id: serve[i].classCourseId,
+							name: serve[i].classCourseName,
+							number: serve[i].classCourseNum
+						}
+						console.log(obj);
+						this.objectArray.push(obj);
+					}
+				} else {
+					console.log("失败或者无班课")
+				}
 			})
+			this.$Api.GetAllJoinedClass(this.creator).then(res => {
+				console.log(res);
+				let serve = res.data.data;
+				if (res.data.success) {
+					console.log(serve.length)
+					for (var i = 0; i < serve.length; i++) {
+						var obj = {
+							id: serve[i].classCourseId,
+							name: serve[i].classCourseName,
+							number: ''
+						}
+						console.log(obj);
+						this.joinArray.push(obj);
+					}
+				} else {
+					console.log("失败或者无班课")
+				}
+			})
+		},
+		created() {
+			_this = this
 		},
 		methods: {
 			setCurr(e) {
@@ -357,32 +380,31 @@
 					this.isBack = true;
 				}
 			},
-			click(index) {
+			TeaClassdetail(index) {
 				console.log(index);
-				uni.switchTab({
-					url: "/pages/class/created_class/home"
+				console.log(this.objectArray[index].id)
+				uni.reLaunch({
+					url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(this.objectArray[index].id))
 				})
 			},
-			newcreate() {		
+			newcreate() {
 				console.log(this.curr)
-				if(this.curr === 0)	//0是创建班课
+				if (this.curr === 0) //0是创建班课
 				{
-					if(this.stuOrteach)	//true为学生
+					if (this.stuOrteach) //true为学生
 					{
 						console.log("弹框显示无权限创建")
-					}
-					else{	
+					} else {
 						uni.navigateTo({
 							url: "/pages/class/create"
-							})
+						})
 						//  console.log("创建班课");
 					}
-				}
-				else {
-						uni.navigateTo({
-							url: "/pages/class/JoinClass/SearchClass"
-						})
-						console.log("跳转加入班课");
+				} else {
+					uni.navigateTo({
+						url: "/pages/class/JoinClass/SearchClass"
+					})
+					console.log("跳转加入班课");
 				}
 			},
 			// 页面数据
@@ -390,30 +412,35 @@
 
 			},
 			joinclass() {
+				let i;
 				uni.scanCode({
+					scanType: ['QR_CODE'],
 					success: function(res) {
-						 // console.log(res)
-						// void plus.runtime.openWeb(res.result,function(){
-						// // 识别失败代码
-						// console.log("识别失败")
-					// });
-					console.log('条码类型：' + res.scanType);
-					 console.log('条码内容：' + res.result);
-					this.classnum = res.result;
+						_this.$Api.SelectCourseById(res.result).then(res => {
+							if (res) {
+								uni.navigateTo({
+									url: '/pages/class/JoinClass/JoinClass?item=' +
+										encodeURIComponent(JSON.stringify(res))
+									// url: '/pages/class/JoinClass/JoinClass'
+								})
+							}
+						})
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+						// this.classnum = res.result;
+						i = res.result
+					}
 
-					},
-					
 				});
-				
 			},
-			searchBYID:function() {
+			searchBYID: function() {
 				this.$Api.SelectCourseById(this.classnum).then(res => {
-				
-						 uni.navigateTo({
-						 	url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(res))
-						 })
-				
-				 })
+
+					uni.navigateTo({
+						url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(res))
+					})
+
+				})
 			},
 			// tab栏切换
 			change(index) {
@@ -475,9 +502,9 @@
 	}
 
 	.demo-layout {
-		// height: 80rpx;
-		// border-radius: 10rpx;
-		// margin-top: 10rpx;
+		height: 40rpx;
+		border-radius: 20rpx;
+		margin-left: 15rpx;
 	}
 
 
@@ -540,7 +567,7 @@
 	}
 
 	.u-body-item {
-		font-size: 32rpx;
+		font-size: 30rpx;
 		color: #333;
 		padding: 0rpx 10rpx;
 	}
@@ -571,9 +598,9 @@
 	}
 
 	.test2 {
-		height: 30rpx;
+		height: -1rpx;
 		// border-radius: 8rpx; 
-		margin-left: 300rpx;
+		 margin-left: 190rpx;
 	}
 
 	.u-demo-wrap {

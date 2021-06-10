@@ -51,9 +51,19 @@ export default {
 		return api.request('/stuclasscourses','POST',data)
 	},
 	// 根据Creator获取老师创建的所有班课
-	GetAllClass: (data) => {
+	GetAllCreatedClass: (data) => {
 		let url = '/classcourses/creator/' + data
 		return api.request(url,'GET')
-	}
+	},
+	// 根据stuid获取加入的所有班课
+	GetAllJoinedClass: (data) => {
+		let url = '/stuclasscourses/' + data
+		return api.request(url,'GET')
+	},
+	//根据班课Id返回加入该班课的所有学生及总数
+	GetAllStu: (data) => {
+		let url = '/classcoursestudents/' + data
+		return api.request(url,'GET')
+	}, 
 	
 }

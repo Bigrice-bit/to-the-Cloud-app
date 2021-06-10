@@ -62,12 +62,12 @@
 			}
 		},
 		onLoad:function(option){//opthin为object类型，会序列化上页面传递的参数
-			this.make();
 			const item = JSON.parse(decodeURIComponent(option.item));
 			console.log("success-create");
 			console.log(item)
 			this.classnum = item.data.data.classCourseNum
 			this.qrcodeText = this.classnum
+			this.make();
 			// this.Item_res = item
 			// this.url = '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
 			// console.log(this.classnum)

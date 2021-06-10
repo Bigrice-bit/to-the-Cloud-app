@@ -11,7 +11,7 @@
 		<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 			placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
 		<view class="u-demo">
-			<text>成员总数</text><text>xx人</text>
+			<text>成员总数</text><text class="text">{{stunum}}人</text>
 			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
 				<view class="u-demo-area">
 					<u-cell-item center :is-link="true" value="29经验值" index="index" @click="click" 
@@ -34,7 +34,52 @@
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
+<swiper-item>
+						<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
+							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
+								@tap="TeaClassdetail(index)">
+								<view class="" slot="body">
 
+									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
+										<image
+											src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
+											mode="aspectFill"></image>
+										<view>
+
+											<u-row gutter="5">
+												<u-col span="6">
+													<view class="demo-layout">{{item.name}}</view>
+												</u-col>
+												<u-col span="5">
+													<view class="test2">{{item.number}}</view>
+												</u-col>
+											</u-row>
+											<u-row gutter="20" justify="space-between">
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="phone" label="签到"></u-icon>
+													</view>
+												</u-col>
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="rewind-right-fill" label="消息"></u-icon>
+													</view>
+												</u-col>
+												<u-col span="4">
+													<view class="icontest">
+														<u-icon name="home" label="提问"></u-icon>
+													</view>
+												</u-col>
+											</u-row>
+										</view>
+
+										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
+										</u-icon>
+									</view>
+								</view>
+							</u-card>
+						</scroll-view>
+					</swiper-item>
 
 				</view>
 			</view>
@@ -64,14 +109,37 @@
 				isFixed: true,
 				arrow: true,
 				keyword: '',
+				stunum: '',
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				label: '此处显示学号，后台返回',
+				Students:[{
+					name: null,
+					id: null,
+					experience : null,
+					}
+				]
 			}
 		},
-		onLoad() {
-			this.tabbar = [{
+		onLoad:function(option){//opthin为object类型，会序列化上页面传递的参数
+		// console.log(option.item)
+				const item = option.item;
+				console.log(item)
+				this.$Api.GetAllStu(item).then(res => {
+					console.log(res)
+					this.stunum = res.data.data.length;
+					for(var i = 0;i < stunum;i++){
+						var obj = {
+							id: res.data.data[i].account,
+							name: res.data.data[i].userName,
+							experience: res.data.data[i].classCourseNum
+						}
+						console.log(obj);
+						this.Students.push(obj);
+					}
+				})
+				this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
 					text: '消息',
@@ -148,6 +216,9 @@
 		padding: 24rpx;
 	}
 
+	.text{
+		margin-left: 550rpx;
+	}
 	.navbar-right {
 		margin-right: 24rpx;
 		display: flex;

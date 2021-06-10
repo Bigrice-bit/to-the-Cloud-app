@@ -136,9 +136,6 @@
 					console.log("第三方登录")
 				}
 			},
-			
-			
-
 			submit: function() {
 				console.log(this.form.phone);
 				console.log("判断这个手机号码是否存在于数据库中，若存在，判断手机号码与密码是否对应，若对应，则登录，不对应提示密码错误");
