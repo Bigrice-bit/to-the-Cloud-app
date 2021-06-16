@@ -12,8 +12,8 @@
 			
 		<view class="form">
 			<u-form :model="form" ref="uForm" :error-type="errorType">
-				<u-form-item :label-position="labelPosition" label="" prop="team" label-width="150">
-					<u-input v-model="form.classnum" placeholder="请输入班课号" />
+				<u-form-item :label-position="labelPosition" label="" prop="team" label-width="150" >
+					<u-input type="number" v-model="form.classnum" placeholder="请输入班课号" />
 				</u-form-item>
 			</u-form>
 		</view>

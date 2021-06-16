@@ -6,7 +6,6 @@
 		<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
 			<image src="../../../static/限时签到.png" shape="circle" mode="aspectFit" @click="TimLimitedSignIn"></image>
 			<image src="../../../static/一键签到.png" shape="circle" mode="aspectFit" @click="OneClickSignIn"></image>
-			<image src="../../../static/手势签到.png" shape="circle" mode="aspectFit" @click="GesturesSignIn"></image>
 			<image src="../../../static/手工登记.png" shape="circle" mode="aspectFit" @click="ManualRegistration"></image>
 		</view>
 

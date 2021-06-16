@@ -22,8 +22,11 @@
 					<u-input v-model="form.class" placeholder="请输入班级名称" />
 				</u-form-item>
 				<u-form-item :label-position="labelPosition" label="课程" prop="team" label-width="150">
-					<u-input v-model="form.course" placeholder="请输入课程名称" />
+					<u-input :border="border" type="select" v-model="form.course" placeholder="请输入课程名称" @click="ClassShow = true" />
 				</u-form-item>
+			<!-- 	<u-form-item :label-position="labelPosition" label="课程" prop="team" label-width="150">
+					<u-input  v-model="form.course" placeholder="请输入课程名称" @click="ClassShow = true" />
+				</u-form-item> -->
 
 				<u-form-item :label-position="labelPosition" label="学期" prop="team" label-width="150">
 					<u-input :border="border" type="select" :select-open="selectShow" v-model="form.term"
@@ -36,7 +39,9 @@
 			</u-form>
 			<view>
 				<u-button type="default" :ripple="true" shape="circle" class="loginBtn" @click="submit">创建</u-button>
-				<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectTerm">
+				<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectTerm" @default-value="selectList[0]">
+				</u-select>
+				<u-select mode="single-column" :list="ClassList" v-model="ClassShow" @confirm="selectClass" @cancel="cancel">
 				</u-select>
 				<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectSchool"
 					@cancel="cancel">
@@ -63,6 +68,7 @@
 				border: false,
 				selectShow: false,
 				pickerShow: false,
+				ClassShow: false,
 				fileList: [{
 					url: 'http://pics.sc.chinaz.com/files/pic/pic9/201912/hpic1886.jpg',
 				}],
@@ -103,29 +109,32 @@
 					area: true,
 					timestamp: true
 				},
-				selectList: [{
-						value: '2020-2021上学期',
-						label: '2020-2021上学期'
+				selectList: [
+					{
+						value: '2020-2021-2',
+						label: '2020-2021-2'
 					},
 					{
-						value: '2020-2021下学期',
-						label: '2020-2021下学期'
+						value: '2021-2022-1',
+						label: '2021-2022-1'
 					},
 					{
-						value: '2021-2022上学期',
-						label: '2021-2022上学期'
+						value: '2021-2022-2',
+						label: '2021-2022-2'
 					},
 					{
-						value: '2021-2022下学期',
-						label: '2021-2022下学期'
+						value: '2022-2023-1',
+						label: '2022-2023-1'
 					},
 					{
-						value: '2022-2023上学期',
-						label: '2022-2023上学期'
-					},
+						value: '2022-2023-2',
+						label: '2022-2023-2'
+					}
+				],
+				ClassList:[
 					{
-						value: '2022-2023下学期',
-						label: '2022-2023下学期'
+						value: '工程实践',
+						label: '工程实践'
 					}
 				],
 				SchoolList: [{
@@ -148,6 +157,7 @@
 			}
 		},
 		onLoad() {
+			this.form.term = this.selectList[1].value
 			this.$Api.getCollege().then(res => {
 				console.log(res)
 				if (res.data.success) {
@@ -311,6 +321,10 @@
 						data: kins,
 						success: function() {
 							setTimeout(function() {
+								uni.showToast({
+								title: '创建成功',
+								duration: 1000
+								});
 								uni.navigateTo({
 									url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(res))
 								})
@@ -329,6 +343,12 @@
 				e.map((val, index) => {
 					this.form.term += this.form.term == '' ? val.label : '-' + val.label;
 				})
+		},
+		selectClass(e){
+			this.form.course = '';
+			e.map((val, index) => {
+				this.form.course += this.form.course == '' ? val.label : '-' + val.label;
+			})
 		},
 		selectSchool(e) {
 			this.form.school = '';

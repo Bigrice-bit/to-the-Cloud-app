@@ -66,7 +66,7 @@
 			</view>
 			
 		</view>
-		<u-button shape="circle" :plain="true" type="default" style="margin-top: 200rpx;">退出当前账号</u-button>
+		<u-button shape="circle" :plain="true" type="default" style="margin-top: 200rpx;" @click="exit">退出当前账号</u-button>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
 </template>
@@ -115,6 +115,11 @@
 						uni.navigateTo({
 								url: '../safe/index'
 						});
+					},
+					exit(){
+						uni.navigateTo({
+							url: '/pages/login/login'
+						})
 					}
 				}
 			}

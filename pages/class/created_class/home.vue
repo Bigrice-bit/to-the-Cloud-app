@@ -14,7 +14,7 @@
 			<text>成员总数</text><text class="text">{{stunum}}人</text>
 			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
 				<view class="u-demo-area">
-					<u-cell-item center :is-link="true" value="29经验值" index="index" @click="click" 
+					<<!-- u-cell-item center :is-link="true" value="29经验值" index="index" @click="click" 
 						title="张三" icon="list-dot" :label="label" :border-top="true">
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
@@ -33,44 +33,30 @@
 						title="大米" icon="list-dot" :label="label">
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-					</u-cell-item>
-<swiper-item>
+					</u-cell-item> -->
+					<swiper-item>
 						<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
 							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
 								@tap="TeaClassdetail(index)">
 								<view class="" slot="body">
 
 									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-										<image
-											src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-											mode="aspectFill"></image>
+										<text>1</text>
 										<view>
 
 											<u-row gutter="5">
 												<u-col span="6">
 													<view class="demo-layout">{{item.name}}</view>
 												</u-col>
+												
 												<u-col span="5">
-													<view class="test2">{{item.number}}</view>
+													<view class="test">{{item.id}}</view>
+												</u-col>
+												<u-col span="14">
+													<view class="test2">{{item.experience}}经验值</view>
 												</u-col>
 											</u-row>
-											<u-row gutter="20" justify="space-between">
-												<u-col span="4">
-													<view class="icontest">
-														<u-icon name="phone" label="签到"></u-icon>
-													</view>
-												</u-col>
-												<u-col span="4">
-													<view class="icontest">
-														<u-icon name="rewind-right-fill" label="消息"></u-icon>
-													</view>
-												</u-col>
-												<u-col span="4">
-													<view class="icontest">
-														<u-icon name="home" label="提问"></u-icon>
-													</view>
-												</u-col>
-											</u-row>
+											
 										</view>
 
 										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
@@ -124,19 +110,34 @@
 		},
 		onLoad:function(option){//opthin为object类型，会序列化上页面传递的参数
 		// console.log(option.item)
+				var expr = 0;
 				const item = option.item;
 				console.log(item)
 				this.$Api.GetAllStu(item).then(res => {
 					console.log(res)
 					this.stunum = res.data.data.length;
-					for(var i = 0;i < stunum;i++){
-						var obj = {
-							id: res.data.data[i].account,
-							name: res.data.data[i].userName,
-							experience: res.data.data[i].classCourseNum
+					for(var i = 0;i < this.stunum;i++){
+						
+						var obj1 = {
+							"StuId": res.data.data[i].userId,
+							"ClassCourseId": item, 
 						}
-						console.log(obj);
-						this.Students.push(obj);
+						console.log(obj1);
+						console.log('oooooo')
+						this.$Api.GetExper(obj1).then(res => {
+							if(res.data.success)
+							{
+								console.log('res.data.success')
+								expr = res.data.data.EmpiricalValue
+							}
+						})
+						var obj2 = {
+							id: res.data.data[i].account,
+							name: res.data.data[i].phone,
+							experience: expr
+						}
+						console.log(obj2);
+						this.Students.push(obj2);
 					}
 				})
 				this.tabbar = [{
@@ -277,5 +278,42 @@
 	.search-wrap {
 		margin: 0 15rpx;
 		flex: 1;
+	}
+	
+	.u-body-item {
+		font-size: 30rpx;
+		color: #333;
+		padding: 0rpx 10rpx;
+	}
+	
+	.u-body-item image {
+		width: 150rpx;
+		flex: 120 0 120rpx;
+		height: 150rpx;
+		border-radius: 8rpx;
+		margin-left: 10rpx;
+	}
+	
+	.u-body-item-titleu-line-1 {
+		margin-top: 10rpx;
+		margin-left: 20rpx;
+	}
+	
+	.test {
+		height: 50rpx;
+		 /* border-radius: 8rpx; */
+		/* margin-left: 100rpx; */
+	}
+	
+	.test2 {
+		height: -1rpx;
+		// border-radius: 8rpx; 
+		 margin-left: 400rpx;
+	}
+	
+	.demo-layout {
+		height: -1rpx;
+		border-radius: 20rpx;
+		margin-left: 15rpx;
 	}
 </style>

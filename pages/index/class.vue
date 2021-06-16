@@ -34,8 +34,7 @@
 				<swiper style="height: 100vh;" :current="curr" @change="setCurr">
 					<swiper-item>
 						<scroll-view v-for="(item, index) in objectArray" :key="index" v-if="index >= 1">
-							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-								@tap="TeaClassdetail(index)">
+							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
 								<view class="" slot="body">
 
 									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
@@ -44,7 +43,7 @@
 											mode="aspectFill"></image>
 										<view>
 
-											<u-row gutter="5">
+											<u-row gutter="5" @tap="TeaClassdetail(index)">
 												<u-col span="6">
 													<view class="demo-layout">{{item.name}}</view>
 												</u-col>
@@ -54,17 +53,17 @@
 											</u-row>
 											<u-row gutter="20" justify="space-between">
 												<u-col span="4">
-													<view class="icontest">
+													<view class="icontest" @click="signin('signin')">
 														<u-icon name="phone" label="签到"></u-icon>
 													</view>
 												</u-col>
 												<u-col span="4">
-													<view class="icontest">
+													<view class="icontest" @click="signin('message')">
 														<u-icon name="rewind-right-fill" label="消息"></u-icon>
 													</view>
 												</u-col>
 												<u-col span="4">
-													<view class="icontest">
+													<view class="icontest" @click="signin('question')">
 														<u-icon name="home" label="提问"></u-icon>
 													</view>
 												</u-col>
@@ -190,6 +189,18 @@
 				classnum: '',
 				stringArray: ['a', 'b', 'c'],
 				creator: 0,
+				SignDate: null,
+				EndDate:null,
+				timestamp: null,
+				background: {
+					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
+				},
+				data:{
+					"Creator": "",
+					"SignDate": "",
+					"EndDate": "",
+					"ClassCourseId": 0,
+				},
 			}
 		},
 		onShow: function() {
@@ -286,6 +297,7 @@
 		},
 		created() {
 			_this = this
+		
 		},
 		methods: {
 			setCurr(e) {
@@ -366,6 +378,7 @@
 					this.slotRight = false;
 				}
 			},
+			
 			customChange(index) {
 				this.search = false;
 				this.rightSlot = false;
@@ -393,7 +406,15 @@
 				{
 					if (this.stuOrteach) //true为学生
 					{
-						console.log("弹框显示无权限创建")
+						uni.showModal({
+						    title: '提示',
+						    content: '你没有权限创建',
+						    success: function (res) {
+						        if (res.confirm) {
+						            console.log('用户点击确定');
+						        } 
+						    }
+						});
 					} else {
 						uni.navigateTo({
 							url: "/pages/class/create"
@@ -407,24 +428,78 @@
 					console.log("跳转加入班课");
 				}
 			},
-			// 页面数据
-			getOrderList(idx) {
-
+			//限时签到
+			TimLimitedSignIn() {
+				this.timestamp = Math.round(new Date() / 1000);
+				this.SignDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
+				this.data.SignDate = this.SignDate;
+				this.timestamp = this.timestamp + 60;	// 一分钟限时
+				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
+				this.data.EndDate = this.EndDate;
+				// this.$Api.signIn(this.data).then((res) => {
+				// 	if(res.data.success){
+				// 		console.log(res.data.msg);
+				// 		let item = encodeURIComponent(JSON.stringify(data))
+				// 		uni.navigateTo({
+				// 			url: "./TimLimitedSignIn?item=" + item
+				// 		})
+				// 	}
+				// })
+				let item = encodeURIComponent(JSON.stringify(this.data))
+				uni.reLaunch({
+					url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
+				})
+			},
+			//签到
+			signin(data){
+				if(data == 'signin'){
+				uni.showActionSheet({
+				    itemList: ['限时签到', '一键签到', '手工登记'],
+				    success: function (res) {
+						if(res.tapIndex == 0){
+							_this.TimLimitedSignIn();
+						}
+						else if(res.tapIndex == 1){
+							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+						}
+						else {
+							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+						}
+				    },
+				    fail: function (res) {
+				        console.log(res.errMsg);
+				    }
+				});
+				}
+				else{
+					uni.showModal({
+					    title: '提示',
+					    content: '此功能未开发！敬请期待',
+					    success: function (res) {
+					        if (res.confirm) {
+					            console.log('用户点击确定');
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+				}
 			},
 			joinclass() {
 				let i;
 				uni.scanCode({
 					scanType: ['QR_CODE'],
 					success: function(res) {
-						_this.$Api.SelectCourseById(res.result).then(res => {
-							if (res) {
-								uni.navigateTo({
-									url: '/pages/class/JoinClass/JoinClass?item=' +
-										encodeURIComponent(JSON.stringify(res))
-									// url: '/pages/class/JoinClass/JoinClass'
-								})
-							}
-						})
+						// _this.$Api.SelectCourseById(res.result).then(res => {
+						// 	if (res) {
+						// 		uni.navigateTo({
+						// 			url: '/pages/class/JoinClass/JoinClass?item=' +
+						// 				encodeURIComponent(JSON.stringify(res))
+						// 			// url: '/pages/class/JoinClass/JoinClass'
+						// 		})
+						// 	}
+						// })
+						plus.nativeUI.toast("该班课已结束");
 						console.log('条码类型：' + res.scanType);
 						console.log('条码内容：' + res.result);
 						// this.classnum = res.result;
@@ -447,6 +522,7 @@
 				this.swiperCurrent = index;
 				this.getOrderList(index);
 			},
+			
 			transition({
 				detail: {
 					dx

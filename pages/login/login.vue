@@ -158,12 +158,15 @@
 									data:kins,
 									success:function(){
 										setTimeout(function () {
-											// this.$mc.vuex = ('vuex_jurisdiction','1')
-
-												// this.$u.vuex("vuex_jurisdiction","1");
-										               uni.switchTab({
-										               	url: '/pages/index/class'
+										               uni.reLaunch({
+										               	url: '/pages/index/class',
+														 // success(){
+														 //        let page = getCurrentPages().pop(); //跳转页面成功之后
+														 //        if (!page) return; 
+														 //            page.onLoad(); //如果页面存在，则重新刷新页面
+														 //        }
 										               });
+													   
 										                   }, 1000);
 										// uni.switchTab({
 										// 	url: '/pages/index/class'

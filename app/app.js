@@ -65,5 +65,15 @@ export default {
 		let url = '/classcoursestudents/' + data
 		return api.request(url,'GET')
 	}, 
+	// 获取学生对应课程的经验值（查）
+	GetExper: (data)  => {
+		return api.request('/info','GET',data)
+	},
+	// 删除班课
+	DeleteClass: (data) => {
+		let url = '/classcourses/' + data
+		return api.request(url,'DELETE')
+	}
+	
 	
 }

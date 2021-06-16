@@ -93,7 +93,7 @@
 				if(res)
 				{
 					console.log("加入班课成功")
-					uni.navigateTo({
+					uni.switchTab({
 						url: '/pages/index/class'
 					})
 				}
