@@ -73,7 +73,15 @@ export default {
 	DeleteClass: (data) => {
 		let url = '/classcourses/' + data
 		return api.request(url,'DELETE')
+	},
+	//获取个人信息
+	UserInfo: (data) => {
+		let url = '/users/' + data
+		return api.request(url,'GET')
+	},
+	//更新个人信息
+	UpdateInfo: (data) =>{
+		return api.request('/users','PUT',data)
 	}
-	
 	
 }

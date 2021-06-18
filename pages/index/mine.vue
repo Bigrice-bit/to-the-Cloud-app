@@ -7,7 +7,7 @@
 								<view class="avator">
 									<img src="../../static/user/face.jpg">
 								</view>
-								<view class="phone-number">18909XXXX67</view>
+								<view class="phone-number">{{phoneNumber}}</view>
 							</view>
 							<view class="box-bd">
 								<view class="item">
@@ -76,10 +76,27 @@
 		data() {
 			return {
 				title: '我的',
-				tabbar: ''
+				tabbar: '',
+				phoneNumber: '暂未登录',
+				creator: null,
+				
+				
 			}
 		},
 		onLoad() {
+			const value = uni.getStorageSync("LoginKey");
+			if (value) {
+				console.log(value);
+				this.creator = value;
+			}
+			this.$Api.UserInfo(this.creator).then(res => {
+				console.log(res)
+				if(res.data.success)
+				{
+					
+					this.phoneNumber = res.data.data.phone
+				}
+			})
 			this.tabbar = [{
 							iconPath: "home",
 							selectedIconPath: "home-fill",

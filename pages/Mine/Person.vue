@@ -5,77 +5,33 @@
 			:back-text="backText" @click="newcreate"> </u-navbar>
 		<view class="list-content">
 			<view class="list">
-				<view class="li " >
+				<!-- <view class="li " >
 					<view class="avator">
 						<image class="img" src="../../static/user/face.jpg" mode="widthFix"></image>
 					</view>
-					<view class="text">
-						<view class="phone-number">陈泓敏</view>
-						<view class="phone-number">18909XXXX67</view>
+			
+					<view>
+						<view class="name">{{info.name}}</view>
+						<view class="phone-number">{{info.phone}}</view>
 					<image class="to" src="../../static/user/to.png"></image>
 				</view>
-			</view>
-			<!-- <view class="list">
-				<view class="li " >
-					<view class="text">姓名</view>
-					<view class="to" >后端返回</view>
-				</view>
-				<view class="li " >
-					<view class="text">账号</view>
-					<view class="to" >后端返回</view>
-				</view>
-				<view class="li " >
-					<view class="text">出生年份</view>
-					<view class="to" >后端返回</view>
-				</view>
-				<view class="li " >
-					<view class="text">选择性别</view>
-					<u-radio-group :shape="shape" :size="size" :width="width" :wrap="wrap" v-model="value" @change="radioGroupChange" :activeColor="activeColor">
-						<u-radio @change="radioChange" v-for="(item, index) in list" :disabled="item.disabled"
-							:key="index" :name="item.name"
-						>{{item.name}}</u-radio>
-					</u-radio-group>
-				</view>
-				<view class="li " >
-					<view class="text">你所在的学校、院系及专业</view>
-					<view>本人的学校院系专业</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view>
-				<view class="li " >
-					<view class="text">选择身份</view>
-				</view>
-				<view class="li " >
-					<view class="text">我是老师</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view>
-				<view class="li " >
-					<view class="text">我是学生</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view>
-				<view class="li " >
-					<view class="text">其他</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view>
-				<view class="li " >
-					<view class="text">学号/工号</view>
-					<image class="to" src="../../static/user/to.png"></image>
-				</view> -->
-				<view class="list"></view>
+			</view> -->
+		
+				<!-- <view class="list"></view> -->
+				
 				<u-cell-group class="">
-					<u-cell-item center :is-link="true"  value="后端返回" i ndex="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"  i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="姓名" >
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+					 <u-input class="input" placeholder='请输入姓名'	v-model="info.name" :type="type" :border="border" />
 					</u-cell-item>
-					<u-cell-item center :is-link="true"  value="后端返回" i ndex="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"  :value="info.phone" i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="账号" >
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
-					<u-cell-item center :is-link="true"  value="后端返回" i ndex="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"   i ndex="index" @click="selectShow = true" :hover-class="hoverClass"
 					 :arrow="false" title="出生年份" >
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+					<u-input :border="border" class="inputbir" type="select" :select-open="selectShow" v-model="info.birthday"
+					placeholder="请选择出生日期" ></u-input>
+					
 					</u-cell-item>
 					<u-cell-item center :is-link="true"  value="" i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="选择性别" >
@@ -87,7 +43,7 @@
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
-					<u-cell-item center :is-link="true" :label="label" value="" i ndex="index" @click="ChangeSchool" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true" :label="info.school" value="" i ndex="index" @click="ChangeSchool" :hover-class="hoverClass"
 					 :arrow="arrow" title="你所在的学校、院系及专业(索引列表)" >
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
@@ -98,20 +54,21 @@
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 						<u-radio-group :shape="shape" :size="size" :width="width" :wrap="wrap" v-model="value" @change="radioGroupChange" :activeColor="activeColor">
 							<u-radio @change="radioChange" v-for="(item, index) in identity" :disabled="item.disabled"
-								:key="index" :name="item.name" v-model="iden"
+								:key="index" :name="item.name" v-model="info.iden"
 							>{{item.name}}</u-radio>
 						</u-radio-group>
 					</u-cell-item>
-					<u-cell-item center :is-link="true"  value="后端返回" index="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"   index="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="学号/工号" >
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+					 <u-input class="inputnum" placeholder='请输入学号/工号'	v-model="info.cardnum" :type="type" :border="border" />
 					</u-cell-item>
 				</u-cell-group>
-				
+			
 			</view>
 		</view>
 		<button type="error" class="button" @click="SaveChange">保存</button>
+		<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectTerm" >
+		</u-select>
 	</view>
 </template>
 
@@ -126,6 +83,17 @@
 				search: false,
 				custom: false,
 				isFixed: true,
+				border: false,
+				info :
+					{
+						name: null,
+						phone: null,
+						birthday: null,
+						school: null,
+						cardnum: null,
+						iden: null,
+						},
+				type: 'text',
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
@@ -170,7 +138,32 @@
 				label: '后端返回学校等',
 				rightSlot: true,
 				checked: false,
-				iden:'',
+	
+				selectShow: false,
+				creator: null,
+				updateinfo: null,
+				selectList: [
+					{
+						value: '1922年',
+						label: '1922年'
+					},
+					{
+						value: '1923年',
+						label: '1923年'
+					},
+					{
+						value: '1924年',
+						label: '1924年'
+					},
+					{
+						value: '1925年',
+						label: '1925年'
+					},
+					{
+						value: '1926年',
+						label: '1926年'
+					}
+				],
 			};
 		},
 		onLoad() {
@@ -180,21 +173,32 @@
 			        console.log(value);
 					if(value.vuex_jurisdiction.name === '0')
 					{
-						this.iden = '我是老师'
+						this.info.iden = '我是老师'
 					}
 					else if(value.vuex_jurisdiction.name === '1')
 					{
-						this.iden = '我是学生'
+						this.info.iden = '我是学生'
 					}
 					else
 					{
-						this.iden = '其他'
+						this.info.iden = '其他'
 					}
-					console.log(this.iden)
+					console.log(this.info.iden)
 			    }
 			} catch(e){
 			    console.log(e);
 			}
+			this.creator = uni.getStorageSync("LoginKey");
+			this.$Api.UserInfo(this.creator).then(res => {
+				if(res.data.success){
+					this.info.name = res.data.data.userName;
+					this.info.phone = res.data.data.phone;
+					this.info.birthday = res.data.data.birthDate;
+					this.info.school = res.data.data.collegePointId;
+					this.info.cardnum = res.data.data.userNum;
+					this.updateinfo = res.data.data;
+				}
+			});
 		},
 		computed: {
 			hoverClass() {
@@ -207,7 +211,7 @@
 					radioChange(e) {
 						
 						console.log(e);
-						this.iden = e;
+						this.info.iden = e;
 					},
 					// 选中任一radio时，由radio-group触发
 					radioGroupChange(e) {
@@ -226,21 +230,64 @@
 						url: './selectSchool'
 				});
 			},
+			selectTerm(e) {
+					this.info.birthday = '';
+					e.map((val, index) => {
+						this.info.birthday += this.info.birthday == '' ? val.label : '-' + val.label;
+					})
+			},
 			SaveChange(){
-				let i = '1';
-				console.log(this.iden)
-				if(this.iden === "我是老师")
-				{
-					this.$u.vuex('vuex_jurisdiction.name','0');
-				}
-				else if(this.iden === "其他"){
-					this.$u.vuex('vuex_jurisdiction.name','2');
+			if(this.info.name!=null && this.info.iden!=null && this.info.cardnum!=null)
+			{
+			console.log(this.info.iden)
+					if(this.info.iden === "我是老师")
+					{
+						this.$u.vuex('vuex_jurisdiction.name','0');
+					}
+					else if(this.info.iden === "其他"){
+						this.$u.vuex('vuex_jurisdiction.name','2');
+					}
+					else{
+						this.$u.vuex('vuex_jurisdiction.name','1');
+					}
+					
+					console.log("保存成功")
+					this.updateinfo.name = this.info.name;
+					this.updateinfo.BirthDate = this.info.birthday;
+					this.updateinfo.sex = '男';
+					this.updateinfo.school = null;
+					this.updateinfo.userNum = this.info.cardnum
+					console.log(this.updateinfo)
+					this.$Api.UpdateInfo(this.updateinfo).then(res => {
+			
+						if(res.data.success)
+						{
+							uni.showToast({
+							title: '保存成功',
+							duration: 1000
+							});
+							uni.reLaunch({
+								url:'/pages/index/class'
+							})
+						}
+						else{
+							uni.showToast({
+							title: 'error',
+							duration: 1000
+							});
+						}
+					})
+					
+						
+
 				}
 				else{
-					this.$u.vuex('vuex_jurisdiction.name','1');
-				}
-				
-				console.log("保存成功")
+					uni.showToast({
+					title: '请输入信息',
+					duration: 1000
+					});
+
+					}
 			}
 		}
 	}
@@ -264,8 +311,8 @@ page{
 }
 
 .avator {
-		width: 150upx;
-		height: 150upx;
+		width: 200upx;
+		height: 200upx;
 		overflow: hidden;
 		// border-radius: 100rpx;
 		// border-style: ridge;
@@ -280,7 +327,7 @@ page{
 		// margin-top: 100rpx;
 		// bottom: var(--window-bottom);
 		// position: fixed;  
-		bottom: -80rpx;
+		bottom: -1000rpx;
 	}
 	
 	.radio{
@@ -301,8 +348,8 @@ page{
 		flex-direction: row;
 		justify-content: center;
 		.avator1{
-			width: 100upx;
-			height: 100upx;
+			width: 150upx;
+			height: 150upx;
 			background: #fff;
 			border: 5upx solid #fff;
 			border-radius: 50%;
@@ -314,6 +361,11 @@ page{
 				height: 50%;
 				
 			}
+		}
+		
+		.name {
+			height: 50upx;
+			text-align: top;
 		}
 		.phone-number{
 			width: 100%;
@@ -352,20 +404,34 @@ page{
 		}
 	}
 }
+
+	
+.input{
+	margin-left: 480rpx;
+}
+.inputnum{
+	margin-left: 360rpx;
+}
+.inputbir{
+	margin-left: 350rpx;
+}
 .list-content{
 	background: #fff;
-	margin-top: 50rpx;
+	
+	margin-top: 0rpx;
+
 }
 .list{
 	width:100%;
-	border-bottom:25upx solid  #f1f1f1;
+	height: 150upx;
+	border-bottom:50upx solid  #f1f1f1;
 	background: #fff;
 	&:last-child{
 		border: none;
 	}
 	.li{
-		width:92%;
-		height:100upx;
+		width:100%;
+		height:200upx;
 		padding:0 4%;
 		border-bottom:1px solid rgb(243,243,243);
 		display:flex;
@@ -373,24 +439,11 @@ page{
 	&.noborder{
 		border-bottom:0
 		}
-		.icon{
-			flex-shrink:0;
-			width:50upx;
-			height:50upx;
-			image{
-				width:50upx;
-				height:50upx;
-			}
-		}
-		.text{
-			padding-left:20upx;
-			width:100%;
-			color:#666;
-		}
 		.to{
-			flex-shrink:0;
+			// flex-shrink:0;
 			width:40upx;
 			height:40upx;
+			margin-left: 500rpx;
 		}
 	}
 }
