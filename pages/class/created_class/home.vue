@@ -78,6 +78,7 @@
 </template>
 
 <script>
+	var _this
 	export default {
 		data() {
 			return {
@@ -165,11 +166,54 @@
 				},
 			]
 		},
+		created() {
+			_this = this
+		
+		},
 		methods: {
-			Signin() {
-				uni.navigateTo({
-					url: "../SignIn/Signs"
+			//限时签到
+			TimLimitedSignIn() {
+				this.timestamp = Math.round(new Date() / 1000);
+				this.SignDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
+				this.data.SignDate = this.SignDate;
+				this.timestamp = this.timestamp + 60;	// 一分钟限时
+				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
+				this.data.EndDate = this.EndDate;
+				// this.$Api.signIn(this.data).then((res) => {
+				// 	if(res.data.success){
+				// 		console.log(res.data.msg);
+				// 		let item = encodeURIComponent(JSON.stringify(data))
+				// 		uni.navigateTo({
+				// 			url: "./TimLimitedSignIn?item=" + item
+				// 		})
+				// 	}
+				// })
+				let item = encodeURIComponent(JSON.stringify(this.data))
+				uni.reLaunch({
+					url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
 				})
+			},
+			Signin() {
+				uni.showActionSheet({
+				    itemList: ['限时签到', '一键签到', '手工登记'],
+				    success: function (res) {
+						if(res.tapIndex == 0){
+							_this.TimLimitedSignIn();
+						}
+						else if(res.tapIndex == 1){
+							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+						}
+						else {
+							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+						}
+				    },
+				    fail: function (res) {
+				        console.log(res.errMsg);
+				    }
+				});
+				// uni.navigateTo({
+				// 	url: "../SignIn/Signs"
+				// })
 			},
 		}
 	}
