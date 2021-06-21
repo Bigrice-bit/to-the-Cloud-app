@@ -199,7 +199,8 @@
 					"Creator": "",
 					"SignDate": "",
 					"EndDate": "",
-					"ClassCourseId": 0,
+					"ClassCourseId": null,
+					"Duration":60,
 				},
 			}
 		},
@@ -446,6 +447,9 @@
 				// 	}
 				// })
 				let item = encodeURIComponent(JSON.stringify(this.data))
+				this.$Api.CreateSign(this.data).then(res =>{
+					console.log(res);
+				})
 				uni.reLaunch({
 					url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
 				})
@@ -460,7 +464,20 @@
 							_this.TimLimitedSignIn();
 						}
 						else if(res.tapIndex == 1){
-							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+							// uni.showModal({
+							//     title: '提示',
+							//     content: '一键签到马上开始！请让学生做好准备',
+							//     success: function (res) {
+							//         if (res.confirm) {
+							//             console.log('用户点击确定');
+							//         } else if (res.cancel) {
+							//             console.log('用户点击取消');
+							//         }
+							//     }
+							// });
+							uni.navigateTo({
+								url:"/pages/class/SignIn/OneClickSignin"
+							})
 						}
 						else {
 							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');

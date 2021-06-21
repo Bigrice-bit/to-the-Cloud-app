@@ -82,6 +82,10 @@ export default {
 	//更新个人信息
 	UpdateInfo: (data) =>{
 		return api.request('/users','PUT',data)
+	},
+	//教师创建签到
+	CreateSign: (data) =>{
+		return api.request('/signs',"POST",data)
 	}
 	
 }

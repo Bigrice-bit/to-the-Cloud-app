@@ -3,7 +3,9 @@
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate">
+			<u-icon name="arrow-leftward" class="slot-wrap" @click="BackClass"></u-icon>
 		</u-navbar>
+		
 		<view class="content">
 			<view class="canvas">
 				<canvas class="canvas-hide" canvas-id="qrcode"
@@ -39,7 +41,7 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
-				isBack: true,
+				isBack: false,
 				search: false,
 				custom: false,
 				isFixed: true,
@@ -95,6 +97,12 @@
 					uni.hideLoading()
 					// url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
 				})
+			},
+			BackClass(){
+				console.log("点击返回")
+				uni.switchTab({
+					url: '/pages/index/class'
+				})
 			}
 		}
 	}
@@ -138,6 +146,15 @@
 		font-size: 36rpx;
 		color: #666666;
 	}
+	
+	.slot-wrap {
+			display: flex;
+			margin-left: 25rpx;
+			/* 如果您想让slot内容占满整个导航栏的宽度 */
+			/* flex: 1; */
+			/* 如果您想让slot内容与导航栏左右有空隙 */
+			/* padding: 0 30rpx; */
+		}
 
 	.canvas {
 		margin-top: 50rpx;

@@ -6,8 +6,8 @@
 	
 	<view>
 		<u-cell-group>
-				<u-cell-item  :title="begin" :value='userObj.SignDate' :arrow="false" ></u-cell-item>
-				<u-cell-item  :title="end" :value='userObj.EndDate' :arrow="false" class="cell"></u-cell-item>
+				<u-cell-item  :title="begin" :value='userObj.signDate' :arrow="false" ></u-cell-item>
+				<u-cell-item  :title="end" :value='userObj.endDate' :arrow="false" class="cell"></u-cell-item>
 			</u-cell-group>
 	</view>
 	<u-table class="u-table">
@@ -21,13 +21,15 @@
 </template>
 
 <script>
+	var _this;
 	export default {
+		
 		data() {
 			return {
 				title: '我的',
 				backText: '返回',
 				backIconName: 'nav-back',
-				isBack: true,
+				isBack: false,
 				isFixed: true,
 				begin: '开始时间:',
 				end: '结束时间:',
@@ -40,9 +42,13 @@
 		onLoad: function(option){
 			// decodeURIComponent 解密传过来的对象字符串
 						const item = JSON.parse(decodeURIComponent(option.item));
-						console.log(item)
-						this.userObj = item
-					console.log(new Date() - item.EndDate);
+						console.log(item.data.data)
+						this.userObj = item.data.data;
+						console.log(this.userObj)
+					// console.log(new Date() - item.EndDate);
+		},
+		created() {
+			_this = this;
 		},
 		methods: {
 			EndSign() {
@@ -52,7 +58,15 @@
 					content: '是否结束并完成签到',
 					success(res) {
 						if (res.confirm) {
-							console.log('用户点击确定')
+							_this.userObj.isEnd = 1;
+							_this.$Api.CreateSign(_this.userObj).then(res => {
+								console.log(res)
+								if(res.data.success){
+									uni.reLaunch({
+										url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(_this.userObj.classCourseId))
+									})
+								}
+							})
 							// uni.navigateBack({})
 						} else if (res.cancel) {
 							console.log('用户点击取消')

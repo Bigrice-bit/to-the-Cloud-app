@@ -2,15 +2,18 @@
 	<view>
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" title="班课名称" :back-icon-name="backIconName"
-			:back-text="backText" @click="newcreate"> </u-navbar>
+			:back-text="backText" @click="newcreate"> 
+			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
+			</u-navbar>
 		<view>
 			<image class="img" src="../../../static/发起签到.png" shape="circle" mode="center" @click="Signin"></image>
 		</view>
 
-		<text class="message-box">切换为按学号（经验值）显示</text>
+		<text class="message-box" @click="Query">切换为按学号（经验值）显示</text>
 		<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 			placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
 		<view class="u-demo">
+			</br>
 			<text>成员总数</text><text class="text">{{stunum}}人</text>
 			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
 				<view class="u-demo-area">
@@ -90,13 +93,22 @@
 				rightSlot: false,
 				useSlot: false,
 				tabbar: '',
-				isBack: true,
+				isBack: false,
 				search: false,
 				custom: false,
 				isFixed: true,
 				arrow: true,
 				keyword: '',
 				stunum: '',
+				SignDate: null,
+				EndDate:null,
+				data:{
+					"Creator": "",
+					"Duration":60,
+					"SignDate": "",
+					"EndDate": "",
+					"ClassCourseId": null,
+				},
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
@@ -113,6 +125,17 @@
 		// console.log(option.item)
 				var expr = 0;
 				const item = option.item;
+				this.data.ClassCourseId = item;
+				try {
+				    const Tvalue = uni.getStorageSync("LoginKey");
+					
+				    if(Tvalue) {
+				        console.log(Tvalue);
+						this.data.Creator = Tvalue;
+				    }
+				} catch(e){
+				    console.log(e);
+				}
 				console.log(item)
 				this.$Api.GetAllStu(item).then(res => {
 					console.log(res)
@@ -188,10 +211,18 @@
 				// 		})
 				// 	}
 				// })
-				let item = encodeURIComponent(JSON.stringify(this.data))
-				uni.reLaunch({
-					url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
+			//	console.log(this.data)
+				this.$Api.CreateSign(this.data).then(res => {
+					console.log(res)
+					if(res.data.success)
+					{
+						let item = encodeURIComponent(JSON.stringify(res))
+						uni.reLaunch({
+							url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
+						})
+					}
 				})
+
 			},
 			Signin() {
 				uni.showActionSheet({
@@ -215,6 +246,15 @@
 				// 	url: "../SignIn/Signs"
 				// })
 			},
+			BackClass(){
+				console.log("点击返回")
+				uni.switchTab({
+					url: '/pages/index/class'
+				})
+			},
+			Query(){
+				console.log("点击按学号（");
+			}
 		}
 	}
 </script>
@@ -285,11 +325,15 @@
 		color: #1abc9c;
 	}
 
+	
 	.slot-wrap {
-		display: flex;
-		align-items: center;
-		flex: 1;
-	}
+			display: flex;
+			margin-left: 25rpx;
+			/* 如果您想让slot内容占满整个导航栏的宽度 */
+			/* flex: 1; */
+			/* 如果您想让slot内容与导航栏左右有空隙 */
+			/* padding: 0 30rpx; */
+		}
 
 	.map-wrap {
 		display: flex;

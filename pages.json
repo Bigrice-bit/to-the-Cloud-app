@@ -153,6 +153,18 @@
 			"style": {
 				"navigationBarTitleText": "加入班课"
 			}
+		},
+		{
+			"path": "pages/class/SignIn/OneClickSignin",
+			"style": {
+				"navigationBarTitleText": "一键签到"
+			}
+		},
+		{
+			"path": "pages/class/SignIn/ManualReg",
+			"style": {
+				"navigationBarTitleText": "手工登记"
+			}
 		}
 		
 	],
