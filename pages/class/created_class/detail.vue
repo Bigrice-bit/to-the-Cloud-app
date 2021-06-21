@@ -1,14 +1,16 @@
 <template>
 			<view>
+
+					<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
+						:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
+						:back-text="backText" @click="newcreate"> 
+						<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
+						</u-navbar>
+
 				<view class="header">
 					<view class="bg">
 						<view class="box">
-							<view class="box-hd">
-								<view class="avator">
-									<!-- <img src="../../static/user/face.jpg"> -->
-								</view>
-								<view class="phone-number">{{phoneNumber}}</view>
-							</view>
+							
 							<view class="box-bd">
 								<view class="item">
 									<!-- <view class="icon"><img src="../../static/user/message.png"></view> -->
@@ -68,16 +70,13 @@
 							<image class="to" src="../../../static/user/to.png"></image>
 						</view>
 					</view>
-					<view class="list">
-						<view class="li noboder" @click="safe">
-							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
-							<view class="text" >账号安全</view>
-							<image class="to" src="../../../static/user/to.png"></image>
-						</view>
-			</view>
-			
+					<view>
+						<u-button class="button" type="warning" @click="EndeClass(1)">结束班课</u-button>
+						
+						<u-button class="button" type="default" @click="EndeClass(2)">删除班课</u-button>
+						<view class="text">只有已结束班课才可删除</view>
+					</view>
 		</view>
-		<u-button shape="circle" :plain="true" type="default" style="margin-top: 200rpx;" @click="exit">退出当前账号</u-button>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
 </template>
@@ -86,52 +85,54 @@
 	export default {
 		data() {
 			return {
-				title: '我的',
+				title: '课程名称',
 				tabbar: '',
-				phoneNumber: '暂未登录',
-				creator: null,
+				backText: '返回',
+				backIconName: 'nav-back',
+				right: false,
+				showAction: false,
+				rightSlot: false,
+				isBack: false,
+				isFixed: true,
+				arrow: true,
+				background: {
+					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
+				},
 				
 				
 			}
 		},
 		onLoad() {
-			const value = uni.getStorageSync("LoginKey");
-			if (value) {
-				console.log(value);
-				this.creator = value;
-			}
-			this.$Api.UserInfo(this.creator).then(res => {
-				console.log(res)
-				if(res.data.success)
-				{
-					
-					this.phoneNumber = res.data.data.phone
-				}
-			})
+			// const value = uni.getStorageSync("ClassKey");
+			// if (value) {
+			// 	console.log(value);
+			// 	this.classid = value;
+			// }
+			
 			this.tabbar = [{
-							iconPath: "home",
-							selectedIconPath: "home-fill",
-							text: '班课',
-							count: 2,
-							// isDot: true,
-							customIcon: false,
-							pagePath: "/pages/index/class"
-						},
-						{
-							iconPath: "photo",
-							selectedIconPath: "photo-fill",
-							text: '发现',
-							customIcon: false,
-							pagePath: "/pages/index/find"
-						},
-						{
-							iconPath: "photo",
-							selectedIconPath: "photo-fill",
-							text: '我的',
-							customIcon: false,
-							pagePath: "/pages/index/mine"
-						},
-					]
+					iconPath: "home",
+					selectedIconPath: "home-fill",
+					text: '消息',
+					count: 0,
+					// isDot: true,
+					customIcon: false,
+					pagePath: "/pages/class/created_class/message"
+				},
+				{
+					iconPath: "photo",
+					selectedIconPath: "photo-fill",
+					text: '成员',
+					customIcon: false,
+					pagePath: "/pages/class/created_class/home"
+				},
+				{
+					iconPath: "photo",
+					selectedIconPath: "photo-fill",
+					text: '详情',
+					customIcon: false,
+					pagePath: "/pages/class/created_class/detail"
+				},
+			]
 				},
 				methods:{
 					Person(){
@@ -148,7 +149,17 @@
 						uni.navigateTo({
 							url: '/pages/login/login'
 						})
+					},
+					EndeClass(index){
+						if(index == 1)
+						{
+							console.log("结束班课")
+						}
+						else{
+							console.log("判断是否结束班课，有则删除，未结束则提示不成功，需要先结束班课！")
+						}
 					}
+					
 				}
 			}
 </script>
@@ -181,7 +192,7 @@
 	}
 	
 	page{
-		background-color:#f1f1f1;
+		background-color:#ffffff;
 		font-size: 30upx;
 	}
 	.header{
@@ -196,8 +207,8 @@
 		}
 	}
 	.box{
-		width: 650upx;
-		height: 280upx;
+		width: 600upx;
+		height: 250upx;
 		border-radius: 20upx;
 		margin: 0 auto;
 		background: #fff;
@@ -249,11 +260,11 @@
 						height: 100%;
 					}
 				}
-				.text{
-					width: 100%;
-					text-align: center;
-					margin-top: 10upx;
-				}
+				// .text{
+				// 	width: 100%;
+				// 	text-align: center;
+				// 	margin-top: 10upx;
+				// }
 			}
 		}
 	}
@@ -263,7 +274,7 @@
 	}
 	.list{
 		width:100%;
-		border-bottom:15upx solid  #f1f1f1;
+		border-bottom:15upx solid  #ffffff;
 		background: #fff;
 		&:last-child{
 			border: none;
@@ -298,5 +309,13 @@
 				height:40upx;
 			}
 		}
+	}
+	
+	.button{
+		margin-top: 10rpx;
+	}
+	
+	.text{
+		color: #a6a6a6;
 	}
 </style>

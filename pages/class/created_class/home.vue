@@ -82,6 +82,7 @@
 
 <script>
 	var _this
+	// var app = getApp()
 	export default {
 		data() {
 			return {
@@ -126,6 +127,16 @@
 				var expr = 0;
 				const item = option.item;
 				this.data.ClassCourseId = item;
+				uni.setStorage({
+					key: 'ClassKey',
+					data: item,
+					success:function(){
+						setTimeout(function () {
+						              console.log("存储成功")
+						                 }, 1000);
+
+					}
+				})
 				try {
 				    const Tvalue = uni.getStorageSync("LoginKey");
 					
