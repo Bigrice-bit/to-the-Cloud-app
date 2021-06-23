@@ -80,7 +80,7 @@
 						
 						if (res.confirm) {
 							_this.userObj.isEnd = 1;
-							_this.$Api.CreateSign(_this.userObj).then(res => {
+							_this.$Api.UpdateSignIn(_this.userObj).then(res => {
 								console.log(res)
 								if(res.data.success){
 									uni.reLaunch({

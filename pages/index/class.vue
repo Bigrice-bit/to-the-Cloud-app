@@ -201,7 +201,7 @@
 					"EndDate": "",
 					"ClassCourseId": null,
 					"Duration":60,
-					"type": null,
+					"stuSignType": null,
 				},
 				status: 'loadmore',
 				iconType: 'flower',
@@ -477,7 +477,7 @@
 				this.timestamp = this.timestamp + 60;	// 一分钟限时
 				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.EndDate = this.EndDate;
-				this.data.type = 0;
+				this.data.stuSignType = 0;
 				// this.$Api.signIn(this.data).then((res) => {
 				// 	if(res.data.success){
 				// 		console.log(res.data.msg);
@@ -520,7 +520,7 @@
 							//         }
 							//     }
 							// });
-							_this.data.type = 1;
+							_this.data.stuSignType = 1;
 							_this.data.ClassCourseId = _this.objectArray[index].id;
 							console.log(_this.data);
 							_this.$Api.CreateSign(_this.data).then(res =>{
@@ -530,10 +530,13 @@
 							// 	uni.reLaunch({
 							// 		url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
 							// 	})
+							console.log(res)
 							if(res.data.success)
 							{
+								// console.log("！1111111")
+								let item = encodeURIComponent(JSON.stringify(res.data.data))
 								uni.navigateTo({
-									url:"/pages/class/SignIn/OneClickSignin"
+									url:"/pages/class/SignIn/OneClickSignin?item="+item
 								})
 							}
 							})
@@ -573,7 +576,7 @@
 					if(res.data.success)
 					{
 						console.log("有签到,根据返回type判断是哪种签到");
-						if(res.data.data.type == 0)
+						if(res.data.data.stuSignType == 0)
 						{
 							uni.navigateTo({
 								url: '/pages/class/Stu/Sign/TimeSignIn'

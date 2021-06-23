@@ -25,7 +25,7 @@
 </template>
 
 <script>
-	// var _this;
+	var _this;
 	export default {
 		
 		data() {
@@ -39,19 +39,20 @@
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				isshow:false,
+				SignInfo: {},
 				}
 		},
-		// onLoad: function(option){
-			
-		// 				const item = JSON.parse(decodeURIComponent(option.item));
-		// 				console.log(item.data.data)
-		// 				this.userObj = item.data.data;
-		// 				console.log(this.userObj)
-		// 			// console.log(new Date() - item.EndDate);
-		// },
-		// created() {
-		// 	_this = this;
-		// },
+		onLoad: function(option){
+			// decodeURIComponent 解密传过来的对象字符串
+						const item = JSON.parse(decodeURIComponent(option.item));
+						console.log(item)
+						this.SignInfo = item;
+						console.log(this.SignInfo)
+					// console.log(new Date() - item.EndDate);
+		},
+		created() {
+			_this = this;
+		},
 		methods: {
 			EndSign(index) {
 				if(index == 0)
@@ -66,6 +67,7 @@
 								// uni.navigateBack({})
 							} else if (res.cancel) {
 								console.log('用户点击取消')
+								
 							}
 						}
 					})
@@ -78,6 +80,13 @@
 						success(res) {
 							if (res.confirm) {
 								console.log('结束签到')
+								_this.SignInfo.isEnd = 1;
+								_this.$Api.UpdateSignIn(_this.SignInfo).then(res => {
+									console.log("结束成功!")
+									uni.reLaunch({
+										url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(_this.SignInfo.classCourseId))
+									})
+								})
 								// uni.navigateBack({})
 							} else if (res.cancel) {
 								console.log('用户点击取消')

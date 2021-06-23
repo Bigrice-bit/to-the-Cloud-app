@@ -87,6 +87,10 @@ export default {
 	CreateSign: (data) =>{
 		return api.request('/signs',"POST",data)
 	},
+	//更新老师创建的签到  比如放弃或结束
+	UpdateSignIn:(data) => {
+		return api.request('/signs','PUT',data)
+	},
 	//通过StartSignId获取创建学生签到的信息（查）
 	SignInfo: (data) => {
 		let url = '/sign/' + data
