@@ -12,10 +12,11 @@
 	</view>
 	<u-table class="u-table">
 			<u-tr class="tr">
-				<u-td>已签到人数</u-td>
-				<u-td>未签到人数</u-td>
+				<u-td>已签到人数{{Signed}}</u-td>
+				<u-td>未签到人数{{Unsign}}</u-td>
 			</u-tr>
 		</u-table>
+		<view></view>
 		<button class="button" type="default" @click="EndSign">结束签到</button>
 	</view>
 </template>
@@ -37,15 +38,34 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
+				Signed: null,
+				Unsign: null,
+				
 				}
 		},
 		onLoad: function(option){
 			// decodeURIComponent 解密传过来的对象字符串
 						const item = JSON.parse(decodeURIComponent(option.item));
-						console.log(item.data.data)
-						this.userObj = item.data.data;
+						console.log(item)
+						this.userObj = item;
 						console.log(this.userObj)
 					// console.log(new Date() - item.EndDate);
+		},
+		onShow:function(){
+			// for(let i = 0; i < this.userObj.duration; i--)
+			// {
+				console.log(this.userObj.startSignId)
+				this.$Api.SignInfo(this.userObj.startSignId).then(res => {
+					// if(res.success)
+					// {
+					// 	console.log("学生签到信息")
+					// 	console.log(res)
+					// }
+					console.log("学生签到信息")
+					console.log(res)
+				})
+				
+			// }
 		},
 		created() {
 			_this = this;
@@ -57,6 +77,7 @@
 					showCancel: true,
 					content: '是否结束并完成签到',
 					success(res) {
+						
 						if (res.confirm) {
 							_this.userObj.isEnd = 1;
 							_this.$Api.CreateSign(_this.userObj).then(res => {

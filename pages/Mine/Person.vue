@@ -252,7 +252,7 @@
 					}
 					
 					console.log("保存成功")
-					this.updateinfo.name = this.info.name;
+					this.updateinfo.userName = this.info.name;
 					this.updateinfo.BirthDate = this.info.birthday;
 					this.updateinfo.sex = '男';
 					this.updateinfo.school = null;

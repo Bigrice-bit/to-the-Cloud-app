@@ -15,7 +15,8 @@
 		{
 			"path": "pages/index/class",
 			"style": {
-				"navigationBarTitleText": "class"
+				"navigationBarTitleText": "class",
+				"enablePullDownRefresh":true
 
 			}
 		},
@@ -164,6 +165,18 @@
 			"path": "pages/class/SignIn/ManualReg",
 			"style": {
 				"navigationBarTitleText": "手工登记"
+			}
+		},
+		{
+			"path": "pages/class/Stu/Sign/TimeSignIn",
+			"style": {
+				"navigationBarTitleText": "限时签到"
+			}
+		},
+		{
+			"path": "pages/class/Stu/Sign/OneClick",
+			"style": {
+				"navigationBarTitleText": "一键签到"
 			}
 		}
 		

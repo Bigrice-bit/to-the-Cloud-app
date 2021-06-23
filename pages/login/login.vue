@@ -152,7 +152,7 @@
 							if (res.data.success) {
 								console.log('验证通过');
 								this.$u.vuex('vuex_jurisdiction.name','1');
-								let kins = res.data.data.userId;
+								let kins = res.data.data.user.userId;
 								uni.setStorage({
 									key:'LoginKey',
 									data:kins,
@@ -160,11 +160,11 @@
 										setTimeout(function () {
 										               uni.reLaunch({
 										               	url: '/pages/index/class',
-														 // success(){
-														 //        let page = getCurrentPages().pop(); //跳转页面成功之后
-														 //        if (!page) return; 
-														 //            page.onLoad(); //如果页面存在，则重新刷新页面
-														 //        }
+														 // // success(){
+														 // //        let page = getCurrentPages().pop(); //跳转页面成功之后
+														 // //        if (!page) return; 
+														 // //            page.onLoad(); //如果页面存在，则重新刷新页面
+														 // //        }
 										               });
 													   
 										                   }, 1000);

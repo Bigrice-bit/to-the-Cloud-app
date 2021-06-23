@@ -86,6 +86,20 @@ export default {
 	//教师创建签到
 	CreateSign: (data) =>{
 		return api.request('/signs',"POST",data)
+	},
+	//通过StartSignId获取创建学生签到的信息（查）
+	SignInfo: (data) => {
+		let url = '/sign/' + data
+		return api.request(url,'GET')
+	},
+	//学生签到
+	StuSign: (data) => {
+		return api.request('/signrecords','POST',data)
+	},
+	//判断是否有老师创建的该班课的签到
+	IsSignIn: (data) => {
+		let url = '/startsign/' + data
+		return api.request(url,'GET')
 	}
 	
 }

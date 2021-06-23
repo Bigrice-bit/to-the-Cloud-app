@@ -53,34 +53,35 @@
 											</u-row>
 											<u-row gutter="20" justify="space-between">
 												<u-col span="4">
-													<view class="icontest" @click="signin('signin')">
+													<view class="icontest" @click="signin('signin',index)">
 														<u-icon name="phone" label="签到"></u-icon>
 													</view>
 												</u-col>
 												<u-col span="4">
-													<view class="icontest" @click="signin('message')">
+													<view class="icontest" @click="signin('message',index)">
 														<u-icon name="rewind-right-fill" label="消息"></u-icon>
 													</view>
 												</u-col>
 												<u-col span="4">
-													<view class="icontest" @click="signin('question')">
+													<view class="icontest" @click="signin('question',index)">
 														<u-icon name="home" label="提问"></u-icon>
 													</view>
 												</u-col>
 											</u-row>
+											
 										</view>
-
 										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
 										</u-icon>
 									</view>
 								</view>
+								<u-loadmore :status="status" />
 							</u-card>
 						</scroll-view>
 					</swiper-item>
 					<swiper-item>
 						<scroll-view v-for="(item, index) in joinArray" :key="index" v-if="index >= 1">
 							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-								@tap="click(index)">
+								>
 
 								<view class="" slot="body">
 
@@ -90,16 +91,16 @@
 											mode="aspectFill"></image>
 										<view>
 
-											<u-row gutter="5">
+											<u-row gutter="5" @tap="StuClassdetail(index)">
 												<u-col span="6">
-													<view class="demo-layout">{{item.name}}</view>
+													<view class="demo-layout" >{{item.name}}</view>
 												</u-col>
 
 											</u-row>
 											<u-row gutter="20" justify="space-between">
 												<u-col span="4">
 													<view class="icontest">
-														<u-icon name="phone" label="签到"></u-icon>
+														<u-icon name="phone" label="签到" @click="Stusignin('signin',index)"></u-icon>
 													</view>
 												</u-col>
 												<u-col span="4">
@@ -114,7 +115,6 @@
 												</u-col>
 											</u-row>
 										</view>
-
 										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
 										</u-icon>
 									</view>
@@ -201,9 +201,20 @@
 					"EndDate": "",
 					"ClassCourseId": null,
 					"Duration":60,
+					"type": null,
 				},
+				status: 'loadmore',
+				iconType: 'flower',
+				page: 1,
+				limit: 5,
+				loadText: {
+							loadmore: '轻轻上拉',
+							loading: '努力加载中',
+							nomore: '实在没有了'
+						}
 			}
 		},
+		
 		onShow: function() {
 			try {
 				const value = uni.getStorageSync("lifeData");
@@ -257,8 +268,31 @@
 			if (value) {
 				console.log(value);
 				this.creator = value;
+				this.data.Creator = value;
 			}
 
+			// 获取用户信息，判断是否填写姓名和学号工号，没有的话就弹框填写
+			this.$Api.UserInfo(this.creator).then(res => {
+				if(res.data.success){
+					if(!res.data.data.userName || !res.data.data.userNum)
+					{
+						uni.showModal({
+						    title: '提示',
+							showCancel: false,
+						    content: '请完善个人信息',
+						    success: function (res) {
+						        if (res.confirm) {
+						            console.log('用户点击确定');
+									uni.navigateTo({
+										url: '/pages/Mine/Person'
+									})
+						        } 
+						    }
+						});
+					}
+				}
+			})
+			
 			this.$Api.GetAllCreatedClass(this.creator).then(res => {
 				console.log(res);
 				let serve = res.data.data;
@@ -401,6 +435,12 @@
 					url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(this.objectArray[index].id))
 				})
 			},
+			//学生班课信息
+			StuClassdetail(index){
+				console.log(index)
+				console.log(this.joinArray[index].id)
+				console.log("跳转学生详情页")
+			},
 			newcreate() {
 				console.log(this.curr)
 				if (this.curr === 0) //0是创建班课
@@ -430,13 +470,14 @@
 				}
 			},
 			//限时签到
-			TimLimitedSignIn() {
+			TimLimitedSignIn(index) {
 				this.timestamp = Math.round(new Date() / 1000);
 				this.SignDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.SignDate = this.SignDate;
 				this.timestamp = this.timestamp + 60;	// 一分钟限时
 				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.EndDate = this.EndDate;
+				this.data.type = 0;
 				// this.$Api.signIn(this.data).then((res) => {
 				// 	if(res.data.success){
 				// 		console.log(res.data.msg);
@@ -446,22 +487,26 @@
 				// 		})
 				// 	}
 				// })
-				let item = encodeURIComponent(JSON.stringify(this.data))
+				this.data.ClassCourseId = this.objectArray[index].id;
+				console.log(this.data)
 				this.$Api.CreateSign(this.data).then(res =>{
-					console.log(res);
+					let item = encodeURIComponent(JSON.stringify(res.data.data))
+					console.log(res.data.data)
+					console.log(item)
+					uni.reLaunch({
+						url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
+					})
 				})
-				uni.reLaunch({
-					url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
-				})
+				
 			},
-			//签到
-			signin(data){
+			//老师发起签到
+			signin(data,index){
 				if(data == 'signin'){
 				uni.showActionSheet({
 				    itemList: ['限时签到', '一键签到', '手工登记'],
 				    success: function (res) {
 						if(res.tapIndex == 0){
-							_this.TimLimitedSignIn();
+							_this.TimLimitedSignIn(index);
 						}
 						else if(res.tapIndex == 1){
 							// uni.showModal({
@@ -475,11 +520,29 @@
 							//         }
 							//     }
 							// });
-							uni.navigateTo({
-								url:"/pages/class/SignIn/OneClickSignin"
+							_this.data.type = 1;
+							_this.data.ClassCourseId = _this.objectArray[index].id;
+							console.log(_this.data);
+							_this.$Api.CreateSign(_this.data).then(res =>{
+							// 	let item = encodeURIComponent(JSON.stringify(res.data.data))
+							// 	console.log(res.data.data)
+							// 	console.log(item)
+							// 	uni.reLaunch({
+							// 		url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
+							// 	})
+							if(res.data.success)
+							{
+								uni.navigateTo({
+									url:"/pages/class/SignIn/OneClickSignin"
+								})
+							}
 							})
+							
 						}
 						else {
+							uni.navigateTo({
+								url:"/pages/class/SignIn/ManualReg"
+							})
 							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
 						}
 				    },
@@ -502,6 +565,44 @@
 					});
 				}
 			},
+			//学生签到
+			Stusignin(data,index){
+				console.log("判断老师是否发起签到，是的话进入签到界面，否的话提示未发起签到")
+				this.$Api.IsSignIn(this.joinArray[index].id).then(res => {
+					// console.log(res);
+					if(res.data.success)
+					{
+						console.log("有签到,根据返回type判断是哪种签到");
+						if(res.data.data.type == 0)
+						{
+							uni.navigateTo({
+								url: '/pages/class/Stu/Sign/TimeSignIn'
+							})
+						}
+						else{
+							uni.navigateTo({
+								url: '/pages/class/Stu/Sign/OneClick'
+							})
+						}
+					}
+					// else{
+					// 	uni.showModal({
+					// 	    title: '提示',
+					// 	    content: '老师未发起签到',
+					// 	    success: function (res) {
+					// 	        if (res.confirm) {
+					// 	            console.log('用户点击确定');
+					// 	        } 
+					// 			// else{
+					// 			// 	console.log('用户点击取消');
+					// 			// }
+					// 	    }
+					// 	});
+					// }
+				})
+			},
+
+				
 			joinclass() {
 				let i;
 				uni.scanCode({
@@ -525,6 +626,38 @@
 
 				});
 			},
+			
+			// //触底加载数据
+			// bottomOut() {
+			// 	this.status = 'loading';//滑到底部的时候显示状态为加载中
+			// 	this.page += 1;//请求页数+1
+			//     //判断没数据后停止请求接口数据，并修改显示状态为没有更多
+			//     if(this.page >= 6){
+			// 		this.status = 'nomore';
+			// 		return;
+			// 	}
+			// 	this.getDriverLogs();//调用数据请求
+			// },
+			 
+			// //数据请求根据自己情况写，我是封装好的请求，所以只展示部分相关代码
+			// //此代码写在请求完成后
+			// this.status = 'loadmore';//加载完成后状态改成加载前
+			 
+			// //如果也是请求为1，也就是第一次请求时this.datas存储需要的数据
+			// if(this.page == 1){
+			// 	this.joinArray = res.data;
+			// }
+			 
+			// //如果也是请求>1，也就是第二次之后请求时，使用concat拼接新老数据到this.datas
+			// if (this.page > 1) {
+			// 	this.joinArray=this.joinArray.concat(res.data);
+			// }
+			// //判断没有数据后执行
+			// if(this.page >=1 && res.data.length<7|| res.data.length==0){
+			// 	this.status = 'nomore';
+			// 	return;
+			// }
+			
 			searchBYID: function() {
 				this.$Api.SelectCourseById(this.classnum).then(res => {
 

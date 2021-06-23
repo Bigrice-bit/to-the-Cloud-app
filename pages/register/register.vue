@@ -212,7 +212,7 @@
 						this.$refs.uCode.start();
 					}, 2000);
 				} else {
-					this.$u.toast('请稍等。。');
+					this.$u.toast('请稍等');
 				}
 				console.log(this.$refs.uCode.canGetCode);
 			},

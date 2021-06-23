@@ -40,28 +40,27 @@
 					<swiper-item>
 						<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
 							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-								@tap="TeaClassdetail(index)">
+								@tap="Studetail(index)">
 								<view class="" slot="body">
 
 									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-										<text>1</text>
+										<text>{{index}}</text>
+										<image
+											src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
+											mode="aspectFill"></image>
 										<view>
-
+											
 											<u-row gutter="5">
 												<u-col span="6">
-													<view class="demo-layout">{{item.name}}</view>
-												</u-col>
-												
-												<u-col span="5">
-													<view class="test">{{item.id}}</view>
-												</u-col>
-												<u-col span="14">
-													<view class="test2">{{item.experience}}经验值</view>
+													<view class="demo-layout">{{item.name}}
+													{{item.id}}</view>
 												</u-col>
 											</u-row>
 											
+											
+											
 										</view>
-
+										<view class="test2">{{item.experience}}经验值</view>
 										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
 										</u-icon>
 									</view>
@@ -163,12 +162,13 @@
 							if(res.data.success)
 							{
 								console.log('res.data.success')
+								console.log(res)
 								expr = res.data.data.EmpiricalValue
 							}
 						})
 						var obj2 = {
-							id: res.data.data[i].account,
-							name: res.data.data[i].phone,
+							id: res.data.data[i].userNum,
+							name: res.data.data[i].userName,
 							experience: expr
 						}
 						console.log(obj2);
@@ -178,7 +178,7 @@
 				this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
-					text: '消息',
+					text: '签到记录',
 					count: 0,
 					// isDot: true,
 					customIcon: false,
@@ -187,14 +187,14 @@
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
-					text: '成员',
+					text: '班课成员',
 					customIcon: false,
 					pagePath: "/pages/class/created_class/home"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
-					text: '详情',
+					text: '班课详情',
 					customIcon: false,
 					pagePath: "/pages/class/created_class/detail"
 				},
@@ -227,7 +227,7 @@
 					console.log(res)
 					if(res.data.success)
 					{
-						let item = encodeURIComponent(JSON.stringify(res))
+						let item = encodeURIComponent(JSON.stringify(res.data.data))
 						uni.reLaunch({
 							url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
 						})
@@ -265,6 +265,10 @@
 			},
 			Query(){
 				console.log("点击按学号（");
+			},
+			Studetail(index){
+				console.log("点击进入学生详情页");
+				console.log("ddd");
 			}
 		}
 	}
@@ -406,8 +410,10 @@
 	
 	.test2 {
 		height: -1rpx;
-		// border-radius: 8rpx; 
-		 margin-left: 400rpx;
+		/* border-radius: 8rpx; */
+		 margin-left: 170rpx;
+		 margin-top: -1rpx;
+		 color: #f8b764;
 	}
 	
 	.demo-layout {

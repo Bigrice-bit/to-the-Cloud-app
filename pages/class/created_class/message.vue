@@ -20,7 +20,7 @@
 			this.tabbar = [{
 							iconPath: "home",
 							selectedIconPath: "home-fill",
-							text: '消息',
+							text: '签到记录',
 							count: 0,
 							// isDot: true,
 							customIcon: false,
@@ -29,14 +29,14 @@
 						{
 							iconPath: "photo",
 							selectedIconPath: "photo-fill",
-							text: '成员',
+							text: '班课成员',
 							customIcon: false,
 							pagePath: "/pages/class/created_class/home"
 						},
 						{
 							iconPath: "photo",
 							selectedIconPath: "photo-fill",
-							text: '详情',
+							text: '班课详情',
 							customIcon: false,
 							pagePath: "/pages/class/created_class/detail"
 						},

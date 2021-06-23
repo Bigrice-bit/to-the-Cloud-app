@@ -89,6 +89,9 @@
 				console.log(value);
 				this.creator = value;
 			}
+			else{
+				console.log("获取失败")
+			}
 			this.$Api.UserInfo(this.creator).then(res => {
 				console.log(res)
 				if(res.data.success)

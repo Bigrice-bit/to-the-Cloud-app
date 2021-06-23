@@ -9,33 +9,22 @@
 
 				<view class="header">
 					<view class="bg">
+						
 						<view class="box">
-							
 							<view class="box-bd">
-								<view class="item">
-									<!-- <view class="icon"><img src="../../static/user/message.png"></view> -->
-									<view class="text">经验值</view>
-								</view>
-								<view class="item" @click="Person">
-									<!-- <view class="icon"><img src="../../static/user/favorite.png"></view> -->
-									<view class="text">个人资料</view>
-								</view>
-								<view class="item">
-									<!-- <view class="icon"><img src="../../static/user/service.png"></view> -->
-									<view class="text">我的空间</view>
+								<view class="avator">
+								<image class="img" src="../../../static/1.png" mode="widthFix"></image>
+								</view><view class="text">
+									<view class="">获取课程名</view></br>
+									<view class="">获取班课名</view></br>
+									<view class="">获取学期</view>
 								</view>
 							</view>
 						</view>
 					</view>
 				</view>
 				<view class="list-content">
-					<view class="list">
-						<!-- <view class="li noborder" >
-							<view class="icon"><image src="../../static/user/card.png"></image></view>
-							<view class="text">我的名片</view>
-							<image class="to" src="../../static/user/to.png"></image>
-						</view> -->
-					</view>
+
 					<view class="list">
 						
 						<view class="li " >
@@ -47,7 +36,8 @@
 						<view class="li " >
 							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
 							<view class="text">允许加入</view>
-							<image class="to" src="../../../static/user/to.png"></image>
+							<label class="radio"><radio value="r1" :checked="checked" @click="radio"/></label>
+							<!-- <image class="to" src="../../../static/user/to.png"></image> -->
 						</view>
 						<view class="li " >
 							<!-- <view class="icon"><image src="../../static/user/about.png"></image></view> -->
@@ -98,6 +88,7 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
+				checked:false,
 				
 				
 			}
@@ -112,7 +103,7 @@
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
-					text: '消息',
+					text: '签到记录',
 					count: 0,
 					// isDot: true,
 					customIcon: false,
@@ -121,14 +112,14 @@
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
-					text: '成员',
+					text: '班课成员',
 					customIcon: false,
 					pagePath: "/pages/class/created_class/home"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
-					text: '详情',
+					text: '班课详情',
 					customIcon: false,
 					pagePath: "/pages/class/created_class/detail"
 				},
@@ -158,7 +149,15 @@
 						else{
 							console.log("判断是否结束班课，有则删除，未结束则提示不成功，需要先结束班课！")
 						}
-					}
+					},
+					radio(){
+						this.checked = !this.checked;
+						if(!this.checked)
+						{
+							console.log("此时不允许加入班课")
+							console.log("弹框提醒")
+						}
+					},
 					
 				}
 			}
@@ -197,12 +196,12 @@
 	}
 	.header{
 		background: #fff;
-		height: 390upx;
+		height: 300upx;
 		padding-bottom: 110upx;
 		.bg{
 			width: 100%;
 			height:200upx;
-			padding-top:100upx;
+			padding-top:40upx;
 			background-color:#1ABC9C;
 		}
 	}
@@ -253,12 +252,9 @@
 					border: none;
 				}
 				.icon{
-					width: 60upx;
-					height: 60upx;
-					img{
-						width: 100%;
-						height: 100%;
-					}
+					width: 1upx;
+					height: 1upx;
+					
 				}
 				// .text{
 				// 	width: 100%;
@@ -270,11 +266,11 @@
 	}
 	.list-content{
 		background: #fff;
-		// margin-top: 100rpx;
+		margin-top: -1rpx;
 	}
 	.list{
 		width:100%;
-		border-bottom:15upx solid  #ffffff;
+		border-bottom: 5upx solid  #ffffff;
 		background: #fff;
 		&:last-child{
 			border: none;
@@ -300,6 +296,7 @@
 			}
 			.text{
 				padding-left:20upx;
+				margin: -1rpx;
 				width:100%;
 				color:#666;
 			}
@@ -317,5 +314,24 @@
 	
 	.text{
 		color: #a6a6a6;
+		padding-right:-1upx;
+		// margin: rpx;
+		width:100%;
+
+		// margin: 0upx 0;
+	}
+	
+	.avator {
+		width: 300upx;
+		height: 250upx;
+		overflow: hidden;
+		border-radius: 10rpx;
+		border-style: ridge;
+		border-color: #f7f7f7;
+		margin-right: -1rpx;
+	}
+	
+	.avator .img {
+		width: 50%
 	}
 </style>
