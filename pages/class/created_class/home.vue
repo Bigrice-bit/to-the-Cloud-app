@@ -2,9 +2,9 @@
 	<view>
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" title="班课名称" :back-icon-name="backIconName"
-			:back-text="backText" @click="newcreate"> 
+			:back-text="backText" @click="newcreate">
 			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
-			</u-navbar>
+		</u-navbar>
 		<view>
 			<image class="img" src="../../../static/发起签到.png" shape="circle" mode="center" @click="Signin"></image>
 		</view>
@@ -12,34 +12,37 @@
 		<text class="message-box" @click="Query">切换为按学号（经验值）显示</text>
 		<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 			placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
-		<view class="u-demo">
+		<view class="">
 			</br>
 			<text>成员总数</text><text class="text">{{stunum}}人</text>
 			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
 				<view class="u-demo-area">
-					<<!-- u-cell-item center :is-link="true" value="29经验值" index="index" @click="click" 
-						title="张三" icon="list-dot" :label="label" :border-top="true">
+					<<!-- u-cell-item center :is-link="true" value="29经验值" index="index" @click="click" title="张三"
+						icon="list-dot" :label="label" :border-top="true">
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-					</u-cell-item>
-					<u-cell-item center :is-link="true" value="21经验值" index="index" @click="click" 
-						title="李四" icon="list-dot" :label="label">
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-					</u-cell-item>
-					<u-cell-item center :is-link="true" value="12经验值" index="index" @click="click" 
-						title="赵五" icon="list-dot" :label="label">
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-					</u-cell-item>
-					<u-cell-item center :is-link="true" value="10000经验值" index="index" @click="click" 
-						title="大米" icon="list-dot" :label="label">
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-					</u-cell-item> -->
-					<swiper-item>
-						<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
-							<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
+						</u-cell-item>
+						<u-cell-item center :is-link="true" value="21经验值" index="index" @click="click" title="李四"
+							icon="list-dot" :label="label">
+							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon">
+							</u-badge>
+							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+						</u-cell-item>
+						<u-cell-item center :is-link="true" value="12经验值" index="index" @click="click" title="赵五"
+							icon="list-dot" :label="label">
+							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon">
+							</u-badge>
+							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+						</u-cell-item>
+						<u-cell-item center :is-link="true" value="10000经验值" index="index" @click="click" title="大米"
+							icon="list-dot" :label="label">
+							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon">
+							</u-badge>
+							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+						</u-cell-item> -->
+						<swiper-item>
+							<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
+								<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
 								@tap="Studetail(index)">
 								<view class="" slot="body">
 
@@ -65,9 +68,23 @@
 										</u-icon>
 									</view>
 								</view>
-							</u-card>
-						</scroll-view>
-					</swiper-item>
+							</u-card> -->
+								<u-cell-group>
+									{{index}}
+									<u-cell-item @tap="Studetail(index)" :title=item.name :label=item.id
+										arrow-direction="right">
+
+										<u-icon @tap="Studetail(index)" slot="icon" size="100"
+											name="https://cdn.uviewui.com/uview/example/button.png"></u-icon>
+
+										<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
+										<view class="test2">{{item.experience}}经验值</view>
+
+									</u-cell-item>
+
+								</u-cell-group>
+							</scroll-view>
+						</swiper-item>
 
 				</view>
 			</view>
@@ -82,7 +99,11 @@
 <script>
 	var _this
 	// var app = getApp()
+	import yomolPrompt from '@/components/yomol-prompt.vue'
 	export default {
+		components: {
+			yomolPrompt
+		},
 		data() {
 			return {
 				title: '我的',
@@ -99,12 +120,12 @@
 				isFixed: true,
 				arrow: true,
 				keyword: '',
-				stunum: '',
+				stunum: null,
 				SignDate: null,
-				EndDate:null,
-				data:{
+				EndDate: null,
+				data: {
 					"Creator": "",
-					"Duration":60,
+					"Duration": 60,
 					"SignDate": "",
 					"EndDate": "",
 					"ClassCourseId": null,
@@ -113,69 +134,111 @@
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				label: '此处显示学号，后台返回',
-				Students:[{
+				Students: [{
 					name: null,
 					id: null,
-					experience : null,
-					}
-				]
+					experience: null,
+				}],
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
+				promptTitle: '提示',
+				promptDefaultValue: '',
+				promptInputType: 'text',
+				promptFunc: "", //空值不执行
+				maxlength: 18,
+
+				time: null,
+				i: null,
 			}
 		},
-		onLoad:function(option){//opthin为object类型，会序列化上页面传递的参数
-		// console.log(option.item)
-				var expr = 0;
-				const item = option.item;
-				this.data.ClassCourseId = item;
-				uni.setStorage({
-					key: 'ClassKey',
-					data: item,
-					success:function(){
-						setTimeout(function () {
-						              console.log("存储成功")
-						                 }, 1000);
+		onLoad: function(option) { //opthin为object类型，会序列化上页面传递的参数
+			// console.log(option.item)
+			const item = option.item;
+			this.data.ClassCourseId = item;
+			console.log("eeee")
+			console.log(this.data.ClassCourseId)
+			uni.setStorage({
+				key: 'ClassKey',
+				data: item,
+				success: function() {
+					setTimeout(function() {
+						console.log("存储成功")
+					}, 1000);
 
-					}
-				})
-				try {
-				    const Tvalue = uni.getStorageSync("LoginKey");
-					
-				    if(Tvalue) {
-				        console.log(Tvalue);
-						this.data.Creator = Tvalue;
-				    }
-				} catch(e){
-				    console.log(e);
 				}
-				console.log(item)
-				this.$Api.GetAllStu(item).then(res => {
-					console.log(res)
+			})
+			try {
+				const Tvalue = uni.getStorageSync("LoginKey");
+
+				if (Tvalue) {
+					// console.log(Tvalue);
+					this.data.Creator = Tvalue;
+				}
+			} catch (e) {
+				console.log(e);
+			}
+			// console.log(item)
+			
+			this.$Api.GetAllStu(item).then(res => {
+					// console.log(res)
+					
 					this.stunum = res.data.data.length;
-					for(var i = 0;i < this.stunum;i++){
-						
+					for (var i = 0; i < this.stunum; i++) {
+						console.log("从头")
+						// _this.expr = 5;
 						var obj1 = {
-							"StuId": res.data.data[i].userId,
-							"ClassCourseId": item, 
+							StuId: res.data.data[i].userId,
+							ClassCourseId: item,
 						}
-						console.log(obj1);
-						console.log('oooooo')
-						this.$Api.GetExper(obj1).then(res => {
-							if(res.data.success)
-							{
-								console.log('res.data.success')
-								console.log(res)
-								expr = res.data.data.EmpiricalValue
+						// console.log(obj1);
+						// console.log('↑obj')
+						
+						
+						const expr = 0
+						_this.$Api.GetExper(obj1).then(res => {
+							
+							// console.log("res")
+							console.log(res)
+							if (res.data.success) {
+								// console.log('res.data.success')
+								// console.log(res)
+								// if (res.data.data != null) {
+									console.log("!!!")
+									expr = res.data.data.empiricalValue
+
+								// } else {
+								// 	console.log("失败")
+								// 	_this.expr = 0
+								// }
+								
+							} 
+							else {
+								console.log("res失败")
 							}
 						})
 						var obj2 = {
-							id: res.data.data[i].userNum,
-							name: res.data.data[i].userName,
-							experience: expr
+							id:res.data.data[i].userNum,
+							name:res.data.data[i].userName,
+							experience: expr,
 						}
 						console.log(obj2);
-						this.Students.push(obj2);
+						_this.Students.push(obj2);
+						
 					}
+				}),
+				//自定义input处理事件监听
+				uni.$on('update-prompt', (data) => {
+					// data.value input输入值
+					// data.callback 处理后返回方法名
+					let val = data.value
+					// ...逻辑处理...
+
+					uni.$emit(e.callback, val)
 				})
-				this.tabbar = [{
+			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
 					text: '签到记录',
@@ -199,77 +262,158 @@
 					pagePath: "/pages/class/created_class/detail"
 				},
 			]
+			console.log("学生列表")
+			console.log(this.Students)
+		},
+		onBackPress() {
+			if (this.$refs.yomolPrompt.visible) {
+				this.$refs.yomolPrompt.hide()
+				return true
+			}
 		},
 		created() {
 			_this = this
-		
+
 		},
 		methods: {
 			//限时签到
-			TimLimitedSignIn() {
+			TimLimitedSignIn(index) {
+
+				let T = parseInt(this.time)
 				this.timestamp = Math.round(new Date() / 1000);
 				this.SignDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.SignDate = this.SignDate;
-				this.timestamp = this.timestamp + 60;	// 一分钟限时
+				this.data.Duration = T * 60;
+				this.timestamp = this.timestamp + this.data.Duration; // 限时
 				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.EndDate = this.EndDate;
-				// this.$Api.signIn(this.data).then((res) => {
-				// 	if(res.data.success){
-				// 		console.log(res.data.msg);
-				// 		let item = encodeURIComponent(JSON.stringify(data))
-				// 		uni.navigateTo({
-				// 			url: "./TimLimitedSignIn?item=" + item
-				// 		})
-				// 	}
-				// })
-			//	console.log(this.data)
+				this.data.type = 0;
+				this.data.ClassCourseId = this.objectArray[index].id;
+				console.log(this.data)
 				this.$Api.CreateSign(this.data).then(res => {
-					console.log(res)
-					if(res.data.success)
-					{
-						let item = encodeURIComponent(JSON.stringify(res.data.data))
-						uni.reLaunch({
-							url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
-						})
-					}
+					let item = encodeURIComponent(JSON.stringify(res.data.data))
+					console.log(res.data.data)
+					console.log(item)
+					uni.reLaunch({
+						url: "/pages/class/SignIn/TimLimitedSignIn?item=" + item
+					})
 				})
 
 			},
+			//老师发起
 			Signin() {
 				uni.showActionSheet({
-				    itemList: ['限时签到', '一键签到', '手工登记'],
-				    success: function (res) {
-						if(res.tapIndex == 0){
-							_this.TimLimitedSignIn();
-						}
-						else if(res.tapIndex == 1){
+					itemList: ['限时签到', '一键签到', '手工登记'],
+					success: function(res) {
+						if (res.tapIndex == 0) {
+							_this.onOpenPromptClick()
+						} else if (res.tapIndex == 1) {
+							uni.showModal({
+								title: '提示',
+								content: '一键签到马上开始！请让学生做好准备',
+								success: function(res) {
+									if (res.confirm) {
+										_this.timestamp = Math.round(new Date() / 1000);
+										_this.SignDate = _this.$u.timeFormat(_this.timestamp,
+											'yyyy/mm/dd hh:MM:ss');
+										_this.data.SignDate = _this.SignDate;
+										_this.timestamp = _this.timestamp + 60; // 一分钟限时
+										_this.data.Duration = 60
+										_this.EndDate = _this.$u.timeFormat(_this.timestamp,
+											'yyyy/mm/dd hh:MM:ss');
+										_this.data.EndDate = _this.EndDate;
+										_this.data.StuSignType = 1;
+										_this.data.ClassCourseId = _this.data.ClassCourseId;
+										uni.getLocation({
+											type: 'wgs84',
+											success: function(res) {
+												console.log('当前位置的经度：' + res
+													.longitude);
+												console.log('当前位置的纬度：' + res
+													.latitude);
+												_this.data.targetLongitude = res
+													.longitude //经度
+												_this.data.targetLatitude = res
+													.latitude //纬度
+												console.log(_this.data);
+												_this.$Api.CreateSign(_this.data)
+													.then(res => {
+														let item =
+															encodeURIComponent(
+																JSON.stringify(
+																	res.data
+																	.data))
+														console.log(res.data
+															.data)
+														console.log(item)
+														uni.reLaunch({
+															url: "/pages/class/SignIn/OneClickSignin?item=" +
+																item
+														})
+
+													});
+											}
+											// if(res.data.success)
+											// {
+											// 	uni.navigateTo({
+											// 		url:"/pages/class/SignIn/OneClickSignin"
+											// 	})
+											// }
+										})
+									} else if (res.cancel) {
+										console.log('用户点击取消');
+									}
+								}
+							});
+						} else {
 							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
 						}
-						else {
-							console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
-						}
-				    },
-				    fail: function (res) {
-				        console.log(res.errMsg);
-				    }
+					},
+					fail: function(res) {
+						console.log(res.errMsg);
+					}
 				});
 				// uni.navigateTo({
 				// 	url: "../SignIn/Signs"
 				// })
 			},
-			BackClass(){
+			BackClass() {
 				console.log("点击返回")
 				uni.switchTab({
 					url: '/pages/index/class'
 				})
 			},
-			Query(){
+			Query() {
 				console.log("点击按学号（");
 			},
-			Studetail(index){
+			Studetail(index) {
 				console.log("点击进入学生详情页");
 				console.log("ddd");
-			}
+				
+			},
+			/*
+			 * 打开提示框
+			 */
+			onOpenPromptClick() {
+				this.promptTitle = '选择限时签到时长' //提示名称
+				this.promptDefaultValue = '1分钟' //默认值
+				// this.promptInputType = 'text' //输入类型 同Input组件
+				// this.maxlength = 18 //最大长度
+				this.promptFunc = "update-prompt" //将定义好的处理逻辑名传给组件回调
+				this.$refs.yomolPrompt.show()
+			},
+			/* 
+			 * 输入内容
+			 */
+			onPromptConfirm(e) {
+				// console.log("Eee")
+				console.log(e);
+				this.time = e;
+				let T = parseInt(this.time);
+				console.log(T)
+				console.log(this.i)
+				this.TimLimitedSignIn(this.i);
+			},
 		}
 	}
 </script>
@@ -301,7 +445,7 @@
 		color: #8f8f94;
 	}
 
-	.img{
+	.img {
 		margin-left: 80rpx;
 	}
 
@@ -316,9 +460,10 @@
 		padding: 24rpx;
 	}
 
-	.text{
+	.text {
 		margin-left: 550rpx;
 	}
+
 	.navbar-right {
 		margin-right: 24rpx;
 		display: flex;
@@ -340,15 +485,15 @@
 		color: #1abc9c;
 	}
 
-	
+
 	.slot-wrap {
-			display: flex;
-			margin-left: 25rpx;
-			/* 如果您想让slot内容占满整个导航栏的宽度 */
-			/* flex: 1; */
-			/* 如果您想让slot内容与导航栏左右有空隙 */
-			/* padding: 0 30rpx; */
-		}
+		display: flex;
+		margin-left: 25rpx;
+		/* 如果您想让slot内容占满整个导航栏的宽度 */
+		/* flex: 1; */
+		/* 如果您想让slot内容与导航栏左右有空隙 */
+		/* padding: 0 30rpx; */
+	}
 
 	.map-wrap {
 		display: flex;
@@ -382,13 +527,13 @@
 		margin: 0 15rpx;
 		flex: 1;
 	}
-	
+
 	.u-body-item {
 		font-size: 30rpx;
 		color: #333;
 		padding: 0rpx 10rpx;
 	}
-	
+
 	.u-body-item image {
 		width: 150rpx;
 		flex: 120 0 120rpx;
@@ -396,26 +541,26 @@
 		border-radius: 8rpx;
 		margin-left: 10rpx;
 	}
-	
+
 	.u-body-item-titleu-line-1 {
 		margin-top: 10rpx;
 		margin-left: 20rpx;
 	}
-	
+
 	.test {
 		height: 50rpx;
-		 /* border-radius: 8rpx; */
+		/* border-radius: 8rpx; */
 		/* margin-left: 100rpx; */
 	}
-	
+
 	.test2 {
-		height: -1rpx;
+		/* height: -1rpx; */
 		/* border-radius: 8rpx; */
-		 margin-left: 170rpx;
-		 margin-top: -1rpx;
-		 color: #f8b764;
+		/* margin-left: 170rpx; */
+		/* margin-top: -1rpx; */
+		color: #f8b764;
 	}
-	
+
 	.demo-layout {
 		height: -1rpx;
 		border-radius: 20rpx;

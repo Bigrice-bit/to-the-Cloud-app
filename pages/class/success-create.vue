@@ -100,7 +100,7 @@
 			},
 			BackClass(){
 				console.log("点击返回")
-				uni.switchTab({
+				uni.reLaunch({
 					url: '/pages/index/class'
 				})
 			}

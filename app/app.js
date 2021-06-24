@@ -67,7 +67,7 @@ export default {
 	}, 
 	// 获取学生对应课程的经验值（查）
 	GetExper: (data)  => {
-		return api.request('/info','GET',data)
+		return api.request('/info','POST',data)
 	},
 	// 删除班课
 	DeleteClass: (data) => {
@@ -98,6 +98,9 @@ export default {
 	},
 	//学生签到
 	StuSign: (data) => {
+		// console.log("111")
+		// console.log(data)
+		
 		return api.request('/signrecords','POST',data)
 	},
 	//判断是否有老师创建的该班课的签到

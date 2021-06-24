@@ -6,8 +6,8 @@
 	
 	<view>
 		<u-cell-group>
-				<u-cell-item  :title="begin" :value='userObj.signDate' :arrow="false" ></u-cell-item>
-				<u-cell-item  :title="end" :value='userObj.endDate' :arrow="false" class="cell"></u-cell-item>
+				<u-cell-item  :title="begin" :value='signDate' :arrow="false" ></u-cell-item>
+				<u-cell-item  :title="end" :value='endDate' :arrow="false" class="cell"></u-cell-item>
 			</u-cell-group>
 	</view>
 	<u-table class="u-table">
@@ -40,7 +40,8 @@
 				},
 				Signed: null,
 				Unsign: null,
-				
+				signDate:null,
+				endDate:null,
 				}
 		},
 		onLoad: function(option){
@@ -49,7 +50,9 @@
 						console.log(item)
 						this.userObj = item;
 						console.log(this.userObj)
-					// console.log(new Date() - item.EndDate);
+						this.signDate = this.resolvingDate(this.userObj.signDate)
+						console.log(this.signDate)
+						this.endDate = this.resolvingDate(this.userObj.endDate)
 		},
 		onShow:function(){
 			// for(let i = 0; i < this.userObj.duration; i--)
@@ -70,7 +73,22 @@
 		created() {
 			_this = this;
 		},
+
 		methods: {
+			resolvingDate(date){
+			//date是传入的时间
+			  let d = new Date(date);
+			
+			  let month = (d.getMonth() + 1) < 10 ? '0'+(d.getMonth() + 1) : (d.getMonth() + 1);
+			  let day = d.getDate()<10 ? '0'+d.getDate() : d.getDate();
+			  let hours = d.getHours()<10 ? '0'+d.getHours() : d.getHours();
+			  let min = d.getMinutes()<10 ? '0'+d.getMinutes() : d.getMinutes();
+			  let sec = d.getSeconds()<10 ? '0'+d.getSeconds() : d.getSeconds();
+			
+			  let times=d.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + min + ':' + sec;
+			
+			  return times
+			},
 			EndSign() {
 				uni.showModal({
 					title: '提示',
