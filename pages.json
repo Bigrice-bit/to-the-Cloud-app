@@ -185,6 +185,12 @@
 			"style": {
 				"navigationBarTitleText": "成员详情"
 			}
+		},
+		{
+			"path": "pages/class/Stu/SignDetail",
+			"style": {
+				"navigationBarTitleText": "签到详情"
+			}
 		}
 		
 		

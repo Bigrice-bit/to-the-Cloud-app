@@ -16,7 +16,13 @@
 				<u-td>未签到人数{{Unsign}}</u-td>
 			</u-tr>
 		</u-table>
-		<view></view>
+		<view v-for="(item, index) in UnSignStudents" :key="index" >
+			<u-icon  slot="icon" size="500" class="icon"
+				name="../../../static/头像.png"></u-icon>
+			{{item.name}}
+			{{item.note}}
+			
+		</view>
 		<button class="button" type="default" @click="EndSign">结束签到</button>
 	</view>
 </template>
@@ -42,7 +48,14 @@
 				Unsign: null,
 				signDate:null,
 				endDate:null,
+				UnSignStudents:[{
+					name: null,
+					note:null,
+				}]
 				}
+		},
+		created() {
+			_this = this;
 		},
 		onLoad: function(option){
 			// decodeURIComponent 解密传过来的对象字符串
@@ -53,6 +66,16 @@
 						this.signDate = this.resolvingDate(this.userObj.signDate)
 						console.log(this.signDate)
 						this.endDate = this.resolvingDate(this.userObj.endDate)
+						this.$Api.GetAllStu(this.userObj.classCourseId).then(res => {
+							console.log(res)
+							for(var i = 0;i < res.data.data.length;i++){
+							var obj = {
+								name: res.data.data.userName,
+								note:"未签到"
+							}
+							_this.UnSignStudents.push(obj)
+							}
+						})
 		},
 		onShow:function(){
 			// for(let i = 0; i < this.userObj.duration; i--)
@@ -70,9 +93,7 @@
 				
 			// }
 		},
-		created() {
-			_this = this;
-		},
+	
 
 		methods: {
 			resolvingDate(date){
@@ -140,5 +161,9 @@
 	
 	.button {
 		margin-top: 800rpx;
+	}
+	
+	.icon{
+		margin-left: 30rpx;
 	}
 </style>

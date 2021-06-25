@@ -10,10 +10,13 @@
 			<view class="text1">发起签到</view>
 		</view>
 		<view class="message-box">
-		<text  @click="Query">切换为按学号（经验值）显示</text></view>
+		<text  @click="Query">切换为按学号显示</text></view>
 		<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 			placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
 		<view class="">
+			<yomol-prompt :title="promptTitle" :inputType="promptInputType" :maxlength="maxlength"
+				:defaultValue="promptDefaultValue" :func="promptFunc" ref="yomolPrompt" @onConfirm="onPromptConfirm">
+			</yomol-prompt>
 			</br>
 			<text>成员总数</text><text class="text">{{stunum}}人</text>
 			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
@@ -132,6 +135,7 @@
 					"SignDate": "",
 					"EndDate": "",
 					"ClassCourseId": null,
+					StuSignType:null
 				},
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
@@ -304,8 +308,8 @@
 				this.timestamp = this.timestamp + this.data.Duration; // 限时
 				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.EndDate = this.EndDate;
-				this.data.type = 0;
-				this.data.ClassCourseId = this.objectArray[index].id;
+				this.data.StuSignType = 0;
+				
 				console.log(this.data)
 				this.$Api.CreateSign(this.data).then(res => {
 					let item = encodeURIComponent(JSON.stringify(res.data.data))
@@ -402,6 +406,10 @@
 			},
 			Query() {
 				console.log("点击按学号（");
+				this.SortArray(this.Students);
+				console.log(this.Students);
+				
+				
 			},
 			Studetail(index) {
 				console.log("点击进入学生详情页");
@@ -411,6 +419,20 @@
 				})
 				
 			},
+			//数组排序方法
+			 SortArray(data){
+			       for(var i=0;i<data.length;i++){
+			         let num = {};
+			          for(var j=i+1;j<data.length;j++){
+			                 if(data[i].id>data[j].id){
+			                      num=data[j];
+			                      data[j]=data[i];
+			                      data[i]=num;
+			                   }
+			              }
+			                }
+			               
+			            },
 			/*
 			 * 打开提示框
 			 */

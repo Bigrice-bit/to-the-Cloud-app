@@ -137,6 +137,9 @@
 						});
 					},
 					exit(){
+						uni.removeStorageSync('LoginKey');
+						uni.removeStorageSync('lifeData');
+						uni.removeStorageSync('ClassKey');
 						uni.navigateTo({
 							url: '/pages/login/login'
 						})

@@ -230,6 +230,7 @@
 					"Duration": null,
 					targetLongitude: null,
 					targetLatitude: null,
+					StuSignType:null
 				},
 				status: 'loadmore',
 				iconType: 'flower',
@@ -562,7 +563,7 @@
 				this.timestamp = this.timestamp + this.data.Duration; // 限时
 				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.EndDate = this.EndDate;
-				this.data.type = 0;
+				this.data.StuSignType = 0;
 				this.data.ClassCourseId = this.objectArray[index].id;
 				console.log(this.data)
 				this.$Api.CreateSign(this.data).then(res => {
@@ -675,10 +676,10 @@
 			Stusignin(data, index) {
 				console.log("判断老师是否发起签到，是的话进入签到界面，否的话提示未发起签到")
 				this.$Api.IsSignIn(this.joinArray[index].id).then(res => {
-					// console.log(res);
+					console.log(res);
 					if (res.data.success) {
 						console.log("有签到,根据返回type判断是哪种签到");
-						if (res.data.data.type == 0) {
+						if (res.data.data.stuSignType == 0) {
 							uni.navigateTo({
 								url: '/pages/class/Stu/Sign/TimeSignIn'
 							})

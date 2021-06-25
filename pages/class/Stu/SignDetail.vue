@@ -7,44 +7,35 @@
 						<!-- <u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon> -->
 						</u-navbar>
 
-				<view class="header">
-					<view class="bg">
-						
-						<view class="box">
-							<view class="box-bd">
-								<view class="">
-								<u-icon  slot="" size="200" class="headicon"
-									name="../../../static/头像.png"></u-icon>
-								<!-- <image class="img" src="../../../static/头像.png" mode="widthFix"></image> -->
-								</view><view class="text1">
-									<view class="">{{name}}</view></br>
-									<view class="text2">{{classnum}}</view></br>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
 				<view class="list-content">
 
 					<view class="list">
 						
 						<view class="li " >
 							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">个人经验值
-							<view>{{experience}}</view></view>
-							<view class="detail" @click="SearchDetail">查看经验值明细</view>
+							<view class="text">签到成功
+							
+							<view class="text3">此处显示签到时间</view></view>
+							<view class="detail" @click="SearchDetail">+2</view>
 							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
 						</view>
 						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
-							<view class="text">签到经验值</view>
+							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
+							<view class="text">签到成功
+							
+							<view class="text3">此处显示签到时间</view></view>
+							<view class="detail" @click="SearchDetail">+2</view>
+							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
 						</view>
 						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
-							<view class="text">出勤等级
-							<view>2级</view></view>
+							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
+							<view class="text">签到成功
 							
+							<view class="text3">此处显示签到时间</view></view>
+							<view class="detail" @click="SearchDetail">+2</view>
+							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
 						</view>
+						
 						
 					</view>
 		</view>
@@ -57,7 +48,7 @@
 	export default {
 		data() {
 			return {
-				title: '成员详情',
+				title: '签到详情',
 				tabbar: '',
 				backText: '返回',
 				backIconName: 'nav-back',
@@ -162,9 +153,6 @@
 					SearchDetail(){
 						console.log("跳到签到明细")
 						console.log(this.id)
-						uni.navigateTo({
-							url: "/pages/class/Stu/SignDetail"
-						})
 					}
 					
 				}
@@ -330,6 +318,9 @@
 	}
 	.detail{
 		color: #6fcb7a;
+		margin-left: 200rpx;
+		font-weight: bold;
+		font-size: 50rpx;
 	}
 	.avator {
 		width: 200upx;
@@ -359,6 +350,11 @@
 		// font-weight: bold;
 		font-size: 30rpx;
 
+	}
+	
+	.text3{
+		font-size: 20rpx;
+		color: #e1e1e1;
 	}
 	
 	.headicon{

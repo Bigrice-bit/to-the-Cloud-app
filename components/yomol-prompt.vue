@@ -43,6 +43,10 @@
 				selectShow: false,
 				selectList: [
 					{
+						value: '1分钟',
+						label: '1分钟'
+					},
+					{
 						value: '2分钟',
 						label: '2分钟'
 					},
