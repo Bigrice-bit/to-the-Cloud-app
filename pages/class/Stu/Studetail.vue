@@ -12,12 +12,13 @@
 						
 						<view class="box">
 							<view class="box-bd">
-								<view class="avator">
-								<image class="img" src="../../../static/1.png" mode="widthFix"></image>
+								<view class="">
+								<u-icon  slot="" size="200" class="headicon"
+									name="../../../static/头像.png"></u-icon>
+								<!-- <image class="img" src="../../../static/头像.png" mode="widthFix"></image> -->
 								</view><view class="text1">
-									<view class="">{{item.course}}</view></br>
-									<view class="">{{item.class}}</view></br>
-									<view class="">{{item.term}}</view>
+									<view class="">{{name}}</view></br>
+									<view class="text2">{{classnum}}</view></br>
 								</view>
 							</view>
 						</view>
@@ -29,20 +30,9 @@
 						
 						<view class="li " >
 							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">班课号</view>
+							<view class="text">个人经验值</view>
 							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
-							<p>{{item.classCourseNum}}</p>
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">允许加入</view>
-							<label class="radio"><radio value="r1" :checked="checked" @click="radio"/></label>
-							<!-- <image class="to" src="../../../static/user/to.png"></image> -->
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/about.png"></image></view> -->
-							<view class="text">学校院系</view>
-							<image class="to" src="../../../static/user/to.png"></image>
+							<view class="test2">{{experience}}经验值</view>
 						</view>
 						<view class="li " >
 							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
@@ -60,12 +50,6 @@
 							<image class="to" src="../../../static/user/to.png"></image>
 						</view>
 					</view>
-					<view>
-						<u-button class="button" type="warning" @click="EndeClass(1)">结束班课</u-button>
-						
-						<u-button class="button" type="default" @click="EndeClass(2)">删除班课</u-button>
-						<view class="text">只有已结束班课才可删除</view>
-					</view>
 		</view>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
@@ -76,7 +60,7 @@
 	export default {
 		data() {
 			return {
-				title: '课程名称',
+				title: '成员详情',
 				tabbar: '',
 				backText: '返回',
 				backIconName: 'nav-back',
@@ -89,51 +73,68 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
-				checked:false,
-				classid: null,
-				item:{
-					course: null,
-					class: null,
-					term: null,
-					classCourseNum: null,
-					collegepointid:null,	//学校
-					courseId: null,
-				}
+				name:null,
+				classnum:null,
+				experience:null,
 				
 			}
 		},
 		created() {
 			_this = this
 		},
-		onLoad() {
+		onLoad(option) {
 			// const value = uni.getStorageSync("ClassKey");
 			// if (value) {
 			// 	console.log(value);
 			// 	this.classid = value;
+			
 			// }
-			try {
+			const item = option.item;
+			// this.data.ClassCourseId = item.id;
+			// this.title = item.classcoursename;
+			// console.log(this.title)
+			console.log(item)
+			// try {
 				const Tvalue = uni.getStorageSync("ClassKey");
 			
-				if (Tvalue) {
-					// console.log(Tvalue);
-					// this.classid = Tvalue;
-					this.$Api.SearchClass(Tvalue).then(res => {
-						console.log(res)
-						if(res.data.success){
-							_this.item.class = res.data.data.classCourseName,
-							_this.item.term  = res.data.data.term,
-							_this.item.classCourseNum = res.data.data.classCourseNum
-							_this.item.course = res.data.data.courseName
-						}
-					})
-					// this.$Api.SearchCourse(this.item.courseId).then(res => {
-					// 	this.item.course = res.data.data.courseName
-					// })
+			// 	if (Tvalue) {
+			// 		// console.log(Tvalue);
+			// 		// this.classid = Tvalue;
+			// 		this.$Api.SearchClass(Tvalue).then(res => {
+			// 			console.log(res)
+			// 			if(res.data.success){
+			// 				_this.item.class = res.data.data.classCourseName,
+			// 				_this.item.term  = res.data.data.term,
+			// 				_this.item.classCourseNum = res.data.data.classCourseNum
+			// 				_this.item.course = res.data.data.courseName
+			// 			}
+			// 		})
+			// 		// this.$Api.SearchCourse(this.item.courseId).then(res => {
+			// 		// 	this.item.course = res.data.data.courseName
+			// 		// })
+			// 	}
+			// } catch (e) {
+			// 	console.log(e);
+			// }
+			this.$Api.UserInfo(item).then(res => {
+				console.log(res)
+				if(res.data.success){
+					this.name = res.data.data.userName
+					this.classnum = res.data.data.userNum
+				
 				}
-			} catch (e) {
-				console.log(e);
+			})
+			var obj={
+				StuId: item,
+				ClassCourseId:Tvalue
 			}
-			
+			this.$Api.GetExper(obj).then(res => {
+				console.log(res)
+				if(res.data.success){
+					this.experience = res.data.data.empiricalValue
+				
+				}
+			})
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
@@ -160,38 +161,7 @@
 			]
 				},
 				methods:{
-					Person(){
-						uni.navigateTo({
-								url: '../Mine/Person'
-						});
-					},
-					safe(){
-						uni.navigateTo({
-								url: '../safe/index'
-						});
-					},
-					exit(){
-						uni.navigateTo({
-							url: '/pages/login/login'
-						})
-					},
-					EndeClass(index){
-						if(index == 1)
-						{
-							console.log("结束班课")
-						}
-						else{
-							console.log("判断是否结束班课，有则删除，未结束则提示不成功，需要先结束班课！")
-						}
-					},
-					radio(){
-						this.checked = !this.checked;
-						if(!this.checked)
-						{
-							console.log("此时不允许加入班课")
-							console.log("弹框提醒")
-						}
-					},
+		
 					
 				}
 			}
@@ -366,7 +336,7 @@
 	}
 	
 	.avator .img {
-		width: 100%
+		width: 50%,
 	}
 	
 	.text1{
@@ -374,5 +344,28 @@
 		// font-weight: bold;
 		font-size: 30rpx;
 		// padding-right:100upx;
+		margin-top: 60rpx;
+		margin-right: 500rpx;
+	}
+	
+	.text2{
+		color: #cccccc;
+		// font-weight: bold;
+		font-size: 30rpx;
+
+	}
+	.test2 {
+		/* height: -1rpx; */
+		/* border-radius: 8rpx; */
+		// margin-left: 10rpx;
+		// margin-right: 1000rpx;
+		/* margin-top: -1rpx; */
+		color: #f8b764;
+	}
+	.headicon{
+		width: 100%;
+		height:100%;
+		margin-top: 15rpx;
+		margin-left: 300rpx ;
 	}
 </style>

@@ -179,7 +179,14 @@
 			"style": {
 				"navigationBarTitleText": "一键签到"
 			}
+		},
+		{
+			"path": "pages/class/Stu/Studetail",
+			"style": {
+				"navigationBarTitleText": "成员详情"
+			}
 		}
+		
 		
 	],
 	"tabBar": {

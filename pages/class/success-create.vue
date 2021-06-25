@@ -7,11 +7,12 @@
 		</u-navbar>
 		
 		<view class="content">
-			<view class="canvas">
+			<!-- <view class="canvas">
 				<canvas class="canvas-hide" canvas-id="qrcode"
 					:style="{width: `${qrcodeSize}px`, height: `${qrcodeSize}px`}" />
-			</view>
-			<image src="../../static/success-create.png" mode=""></image>
+			</view> -->
+			<image class="img" src="../../static/创建班课完成图.png" mode="center"></image>
+			<view class="text">恭喜你成功创建班课，快将班课号告诉学生吧</view>
 			<view class="image">
 				<p class="class_number">
 					{{classnum}}
@@ -206,11 +207,29 @@
 	}
 
 	.class_number {
+		/* position: absolute; */
 		font-size: 30px;
+		font-weight: bold;
 		color: #FA3534;
+		margin-bottom: 5s0rpx;
 	}
 	
 	.Qrcode{
-		margin-top: 50rpx;
+		position: absolute;
+		/* margin-top: 10rpx; */
+		margin-bottom: 500upx;
+	}
+	
+	.text{
+		font-size: 30rpx;
+		font-weight: bold;
+		/* font-style: inherit; */
+		margin-left: 50rpx;
+		margin-top: 0rpx;
+		margin-bottom: 100rpx;
+	}
+	
+	.img{
+		margin-bottom: 10rpx;
 	}
 </style>

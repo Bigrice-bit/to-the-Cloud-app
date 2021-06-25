@@ -35,8 +35,9 @@
 			</yomol-prompt>
 			<view class="big">
 				<swiper style="height: 100vh;" :current="curr" @change="setCurr">
-					<swiper-item>
-						<scroll-view v-for="(item, index) in objectArray" :key="index" v-if="index >= 1">
+					<swiper-item >
+						<view v-if="isshow">
+						<scroll-view v-for="(item, index) in objectArray" :key="index" v-if="index >= 1" >
 							<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
 								<view class="" slot="body">
 
@@ -71,9 +72,10 @@
 								<u-loadmore :status="status" />
 							</u-card> -->
 							<u-cell-group >
-								<u-cell-item   :title=item.name arrow-direction="right" >
+								<u-cell-item   :title=item.coursename
+								:label=item.name   arrow-direction="right" >
 									
-									<u-icon  @tap="TeaClassdetail(index)" slot="icon" size="100" name="https://cdn.uviewui.com/uview/example/button.png"></u-icon>
+									<u-icon  @tap="TeaClassdetail(index)" slot="icon" size="100" name="../../static/班课图.png"></u-icon>
 									
 									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 									<view @tap="TeaClassdetail(index)">
@@ -85,7 +87,12 @@
 								
 							</u-cell-group>
 							
+							
 						</scroll-view>
+						</view>
+						<scroll-view v-if="!isshow "> <image class="img" src="../../static/课程列表为空.png" mode="aspectFit"></image>
+						<view class="text">还没有已创建的班课，快去创建一个吧~</view>
+						<button class="button" type="" size="mini" shape="circle" :plain="true" @click="newcreate">创建班课</button></scroll-view>
 					</swiper-item>
 					<swiper-item>
 						<scroll-view v-for="(item, index) in joinArray" :key="index" v-if="index >= 1">
@@ -121,9 +128,9 @@
 								</view>
 							</u-card> -->
 							<u-cell-group >
-								<u-cell-item   :title=item.name arrow-direction="right" @tap="StuClassdetail(index)">
+								<u-cell-item   :title=item.coursename :label=item.name arrow-direction="right" @tap="StuClassdetail(index)">
 									
-									<u-icon  slot="icon" size="100" name="https://cdn.uviewui.com/uview/example/button.png"></u-icon>
+									<u-icon  slot="icon" size="100" name="../../static/班课图.png"></u-icon>
 									
 									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 									<view>
@@ -197,12 +204,14 @@
 				objectArray: [{
 					id: null,
 					name: null,
-					number: null
+					number: null,
+					coursename:null,
 				}],
 				joinArray: [{
 					id: null,
 					name: null,
-					number: null
+					number: null,
+					coursename:null,
 				}],
 				classnum: '',
 				stringArray: ['a', 'b', 'c'],
@@ -224,7 +233,7 @@
 				},
 				status: 'loadmore',
 				iconType: 'flower',
-				page: 1,
+				page: null,
 				limit: 5,
 				loadText: {
 					loadmore: '轻轻上拉',
@@ -239,6 +248,7 @@
 
 				time: null,
 				i: null,
+				isshow: null,
 			}
 		},
 		onBackPress() {
@@ -324,25 +334,41 @@
 					}
 				}
 			})
-
+			
 			this.$Api.GetAllCreatedClass(this.creator).then(res => {
 				console.log(res);
 				let serve = res.data.data;
 				if (res.data.success) {
+					this.isshow=true;
 					console.log(serve.length)
+					this.page = serve.length
 					for (var i = 0; i < serve.length; i++) {
 						var obj = {
 							id: serve[i].classCourseId,
 							name: serve[i].classCourseName,
-							number: serve[i].classCourseNum
+							number: serve[i].classCourseNum,
+							coursename: serve[i].courseName
 						}
 						console.log(obj);
 						this.objectArray.push(obj);
 					}
 				} else {
 					console.log("失败或者无班课")
+					this.isshow=false;
 				}
+				
+				
 			})
+			// console.log(this.isshow)
+			// console.log("j" + this.objectArray.length)
+			
+			// console.log(this.objectArray)
+			// if(this.objectArray <= 1)
+			// {
+			// 	this.isshow = false;
+			// }
+			
+			
 			this.$Api.GetAllJoinedClass(this.creator).then(res => {
 				console.log(res);
 				let serve = res.data.data;
@@ -352,7 +378,8 @@
 						var obj = {
 							id: serve[i].classCourseId,
 							name: serve[i].classCourseName,
-							number: ''
+							number: '',
+							coursename: serve[i].courseName
 						}
 						console.log(obj);
 						this.joinArray.push(obj);
@@ -472,9 +499,13 @@
 			TeaClassdetail(index) {
 				console.log(index);
 				console.log(this.objectArray[index].id)
+				let obj={
+					id: this.objectArray[index].id,
+					classcoursename: this.objectArray[index].coursename
+				}
+				console.log(encodeURIComponent(JSON.stringify(obj)))
 				uni.reLaunch({
-					url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(this
-						.objectArray[index].id))
+					url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(obj))
 				})
 			},
 			//学生班课信息
@@ -482,6 +513,13 @@
 				console.log(index)
 				console.log(this.joinArray[index].id)
 				console.log("跳转学生详情页")
+				// let obj={
+				// 	id: this.objectArray[index].id,
+				// 	classcoursename: this.Join.coursename
+				// }
+				// uni.reLaunch({
+				// 	url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(obj))
+				// })
 			},
 			newcreate() {
 				console.log(this.curr)
@@ -785,6 +823,7 @@
 
 	.img {
 		width: 50%;
+		margin-left: 200rpx;
 	}
 
 	.u-demo {
@@ -909,7 +948,13 @@
 		// border-radius: 8rpx;
 		margin-left: 100rpx;
 	}
-
+	.text{
+		font-size: 20rpx;
+		font-style: inherit;
+		margin-left: 200rpx;
+		margin-top: 0rpx;
+		margin-bottom: 100rpx;
+	}
 	.test2 {
 		height: -1rpx;
 		// border-radius: 8rpx; 
@@ -924,6 +969,9 @@
 		height: 2000rpx;
 	}
 
+	.button{
+		margin-left: 300rpx;
+	}
 	.trade {
 		width: 100%;
 		color: #000000;

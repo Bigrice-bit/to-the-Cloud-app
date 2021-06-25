@@ -5,8 +5,9 @@
 			:back-text="backText" @click="newcreate"> </u-navbar>
 		<view class="avatorWrapper">
 			<view class="avator">
-				<u-upload ref="uUpload" :auto-upload="false" :action="action" :file-list="fileList" mode="aspectFill"
-					@tap="chooseAvatar"></u-upload>
+				<!-- <u-upload ref="uUpload" :auto-upload="false" :action="action" :file-list="fileList" mode="aspectFill"
+					@tap="chooseAvatar"></u-upload> -->
+					<image class="img" src="../../static/班课图.png" mode=""></image>
 			</view>
 		</view>
 		<!-- 		<view class="content">
@@ -22,7 +23,8 @@
 					<u-input v-model="form.class" placeholder="请输入班级名称" />
 				</u-form-item>
 				<u-form-item :label-position="labelPosition" label="课程" prop="team" label-width="150">
-					<u-input :border="border" type="select" v-model="form.course" placeholder="请输入课程名称" @click="ClassShow = true" />
+					<u-input :border="border"  v-model="form.course" placeholder="请输入课程名称"  />
+					<u-input :border="border" type="select"  placeholder="" @click="ClassShow = true" />
 				</u-form-item>
 			<!-- 	<u-form-item :label-position="labelPosition" label="课程" prop="team" label-width="150">
 					<u-input  v-model="form.course" placeholder="请输入课程名称" @click="ClassShow = true" />
@@ -41,7 +43,7 @@
 				<u-button type="default" :ripple="true" shape="circle" class="loginBtn" @click="submit">创建</u-button>
 				<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectTerm" @default-value="selectList[0]">
 				</u-select>
-				<u-select mode="single-column" :list="ClassList" v-model="ClassShow" @confirm="selectClass" @cancel="cancel">
+				<u-select mode="single-column" :list="CourseList" v-model="ClassShow" @confirm="selectClass" @cancel="cancel">
 				</u-select>
 				<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectSchool"
 					@cancel="cancel">
@@ -79,7 +81,6 @@
 					school: '',
 				},
 				errorType: ['message', 'border-bottom'],
-				show: false,
 				input: '',
 				rangKey: 'name',
 				mode: 'selector',
@@ -111,30 +112,15 @@
 				},
 				selectList: [
 					{
-						value: '2020-2021-2',
-						label: '2020-2021-2'
-					},
-					{
-						value: '2021-2022-1',
-						label: '2021-2022-1'
-					},
-					{
-						value: '2021-2022-2',
-						label: '2021-2022-2'
-					},
-					{
-						value: '2022-2023-1',
-						label: '2022-2023-1'
-					},
-					{
-						value: '2022-2023-2',
-						label: '2022-2023-2'
+						value: null,
+						label: null,
 					}
 				],
-				ClassList:[
+				CourseList:[
 					{
-						value: '工程实践',
-						label: '工程实践'
+						value: null,
+						label: null,
+						id: null,
 					}
 				],
 				SchoolList: [{
@@ -148,7 +134,9 @@
 							label: '请选择专业',
 						}]
 					}]
-				}]
+				}],
+				timestamp:null,
+				year:null,
 			};
 		},
 		computed: {
@@ -157,7 +145,7 @@
 			}
 		},
 		onLoad() {
-			this.form.term = this.selectList[1].value
+			// this.form.term = this.selectList[1].value
 			this.$Api.getCollege().then(res => {
 				console.log(res)
 				if (res.data.success) {
@@ -233,6 +221,47 @@
 					})
 				}
 			})
+			this.$Api.GetAllCourse().then(res => {
+				if(res.data.success){
+					console.log(res)
+					for(var i = 0;i < res.data.data.length; i++)
+					{
+					var obj = {
+						value: res.data.data[i].courseName,
+						label: res.data.data[i].courseName,
+						id: res.data.data[i].courseId
+					}
+						this.CourseList.push(obj)
+					}
+					console.log(this.CourseList)
+				}
+			})
+			// let T = parseInt(this.time)
+			this.timestamp = Math.round(new Date() / 1000);
+			this.year = this.$u.timeFormat(this.timestamp, 'yyyy');
+			console.log(this.year)
+			let T = parseInt(this.year)
+			var y = T - 1;
+			var t = T + 1;
+			for(var i = 1;i<3;i++){
+			var obj ={
+				value: y + '-' + this.year + '-' + i,
+				label: y + '-' + this.year + '-' + i
+			}
+			console.log(obj)
+			this.selectList.push(obj)
+			}
+			for(var i = 1;i<3;i++){
+				
+			var obj ={
+				value: this.year  + '-' + t + '-' + i,
+				label: this.year + '-' + t + '-' + i
+			}
+			console.log(obj)
+			this.selectList.push(obj)
+			}
+			
+			
 	},
 	methods: {
 		// 选择地区回调
@@ -242,32 +271,8 @@
 		statusChange(index) {
 			this.show = index == 0 ? true : false;
 		},
-		modeChange(index) {
-			this.mode = ['selector', 'multiSelector', 'time', 'region'][index];
-			if (this.mode == 'selector') {
-				this.range = ['一', '片', '冰', '心', '在', '玉', '壶'];
-				this.defaultSelector = [0];
-			}
-			if (this.mode == 'multiSelector') {
-				this.range = [
-					['亚洲', '欧洲'],
-					['中国', '日本'],
-					['北京', '上海', '广州']
-				];
-				this.defaultSelector = [0, 0, 0];
-			}
-			this.show = true;
-		},
-		defaultTimeChange(index) {
-			this.defaultTime = index == 0 ? '2019-12-11 20:15:35' : '2020-02-05 13:09:42';
-			this.mode = 'time';
-			this.show = true;
-		},
-		defaultRegionChange(index) {
-			this.defaultRegion = index == 0 ? ['广东省', '深圳市', '宝安区'] : ['海南省', '三亚市', '海棠区'];
-			this.mode = 'region';
-			this.show = true;
-		},
+		
+		
 		minSecChange(index) {
 			if (index == 0) {
 				this.params.hour = true;
@@ -285,9 +290,7 @@
 		cancel(e) {
 			console.log(e);
 		},
-		click() {
-			this.show = true;
-		},
+		
 		submit() {
 			// uni.getStorage({
 			// 	key: "LoginKey",
@@ -460,7 +463,8 @@
 	}
 
 	.avator .img {
-		width: 100%
+		width: 100%;
+		 height: 100%;
 	}
 
 	.form {

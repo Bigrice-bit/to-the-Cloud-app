@@ -107,6 +107,20 @@ export default {
 	IsSignIn: (data) => {
 		let url = '/startsign/' + data
 		return api.request(url,'GET')
+	},
+	//通过课程Id查找课程（查）
+	SearchCourse:(data) => {
+		let url = '/courses/' + data
+		return api.request(url,'GET')
+	},
+	//通过班课Id查找班课（查）
+	SearchClass:(data) => {
+		let url = '/classcourses/' + data
+		return api.request(url,'GET')
+	},
+	//获取所有课程
+	GetAllCourse: (data) => {
+		return api.request("/courses",'GET')
 	}
 	
 }

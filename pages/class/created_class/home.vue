@@ -1,15 +1,16 @@
 <template>
 	<view>
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
-			:background="background" :back-text-style="{color: '#fff'}" title="班课名称" :back-icon-name="backIconName"
+			:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate">
 			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 		</u-navbar>
 		<view>
-			<image class="img" src="../../../static/发起签到.png" shape="circle" mode="center" @click="Signin"></image>
+			<image class="img" src="../../../static/签到图标.png" shape="circle" mode="widthFix" @click="Signin"></image>
+			<view class="text1">发起签到</view>
 		</view>
-
-		<text class="message-box" @click="Query">切换为按学号（经验值）显示</text>
+		<view class="message-box">
+		<text  @click="Query">切换为按学号（经验值）显示</text></view>
 		<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 			placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
 		<view class="">
@@ -70,16 +71,18 @@
 								</view>
 							</u-card> -->
 								<u-cell-group>
-									{{index}}
+									
+									<view class="index">{{index}}</view>
 									<u-cell-item @tap="Studetail(index)" :title=item.name :label=item.id
 										arrow-direction="right">
-
-										<u-icon @tap="Studetail(index)" slot="icon" size="100"
-											name="https://cdn.uviewui.com/uview/example/button.png"></u-icon>
+										
+										
+										<u-icon @tap="Studetail(index)" slot="icon" size="100" class="icon"
+											name="../../../static/头像.png"></u-icon>
 
 										<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 										<view class="test2">{{item.experience}}经验值</view>
-
+									
 									</u-cell-item>
 
 								</u-cell-group>
@@ -106,7 +109,7 @@
 		},
 		data() {
 			return {
-				title: '我的',
+				title: '班课',
 				backText: '返回',
 				backIconName: 'nav-back',
 				right: false,
@@ -152,17 +155,26 @@
 
 				time: null,
 				i: null,
+				obj2:{
+					id:null,
+					name:null,
+					experience:null,
+					StuId: null,
+				}
 			}
 		},
 		onLoad: function(option) { //opthin为object类型，会序列化上页面传递的参数
 			// console.log(option.item)
-			const item = option.item;
-			this.data.ClassCourseId = item;
-			console.log("eeee")
-			console.log(this.data.ClassCourseId)
+			
+			const item = JSON.parse(decodeURIComponent(option.item));
+			this.data.ClassCourseId = item.id;
+			this.title = item.classcoursename;
+			// console.log(this.title)
+			console.log(item.id)
+			// console.log(this.data.ClassCourseId)
 			uni.setStorage({
 				key: 'ClassKey',
-				data: item,
+				data: item.id,
 				success: function() {
 					setTimeout(function() {
 						console.log("存储成功")
@@ -181,9 +193,10 @@
 				console.log(e);
 			}
 			// console.log(item)
-			
-			this.$Api.GetAllStu(item).then(res => {
-					// console.log(res)
+			// let T = parsent(this.data.ClassCourseId)
+			// console.log(option.item.id)
+			this.$Api.GetAllStu(item.id).then(res => {
+					console.log(res)
 					
 					this.stunum = res.data.data.length;
 					for (var i = 0; i < this.stunum; i++) {
@@ -191,13 +204,19 @@
 						// _this.expr = 5;
 						var obj1 = {
 							StuId: res.data.data[i].userId,
-							ClassCourseId: item,
+							ClassCourseId: item.id,
+						}
+						this.obj2 = {
+							id:res.data.data[i].userNum,
+							StuId: res.data.data[i].userId,
+							name:res.data.data[i].userName,
+							experience: null,
 						}
 						// console.log(obj1);
 						// console.log('↑obj')
 						
 						
-						const expr = 0
+						
 						_this.$Api.GetExper(obj1).then(res => {
 							
 							// console.log("res")
@@ -205,29 +224,27 @@
 							if (res.data.success) {
 								// console.log('res.data.success')
 								// console.log(res)
-								// if (res.data.data != null) {
+								if (res.data.data != null) {
 									console.log("!!!")
-									expr = res.data.data.empiricalValue
+									_this.obj2.experience = res.data.data.empiricalValue
 
-								// } else {
-								// 	console.log("失败")
-								// 	_this.expr = 0
-								// }
+								} else {
+									console.log("失败")
+									// _this.expr = 0
+									_this.obj2.experience = 0
+								}
 								
 							} 
 							else {
 								console.log("res失败")
 							}
 						})
-						var obj2 = {
-							id:res.data.data[i].userNum,
-							name:res.data.data[i].userName,
-							experience: expr,
-						}
-						console.log(obj2);
-						_this.Students.push(obj2);
+						
+						// console.log(this.obj2);
+						_this.Students.push(this.obj2);
 						
 					}
+					
 				}),
 				//自定义input处理事件监听
 				uni.$on('update-prompt', (data) => {
@@ -388,7 +405,10 @@
 			},
 			Studetail(index) {
 				console.log("点击进入学生详情页");
-				console.log("ddd");
+				console.log(this.Students[index].StuId)
+				uni.navigateTo({
+					url: '/pages/class/Stu/Studetail?item='+encodeURIComponent(JSON.stringify(this.Students[index].StuId))
+				})
 				
 			},
 			/*
@@ -446,7 +466,10 @@
 	}
 
 	.img {
-		margin-left: 80rpx;
+		margin-left: 300rpx;
+		width: 20%;
+		 height: 20%;
+		 margin-top: 40rpx;
 	}
 
 	.u-demo {
@@ -462,6 +485,14 @@
 
 	.text {
 		margin-left: 550rpx;
+	}
+	.text1 {
+		/* display: flex; */
+		/* justify-content: center; */
+		margin-top: 5rpx;
+		margin-left: 327rpx;
+		font-size: 25rpx;
+		color: #000000;
 	}
 
 	.navbar-right {
@@ -483,6 +514,7 @@
 
 	.message-box {
 		color: #1abc9c;
+		margin-top: 50upx;
 	}
 
 
@@ -565,5 +597,17 @@
 		height: -1rpx;
 		border-radius: 20rpx;
 		margin-left: 15rpx;
+	}
+	
+	.index{
+		/* margin-right: rpx; */
+		font-size: 40rpx;
+		margin-left: 25rpx;
+		/* margin-top: -1rpx; */
+		
+	}
+	
+	.icon{
+		margin-left: 30rpx;
 	}
 </style>
