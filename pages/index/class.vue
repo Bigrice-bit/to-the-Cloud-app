@@ -2,8 +2,8 @@
 	<view claas="content">
 		<view class="header">
 			<u-navbar title-color="#fff" back-icon-color="#ffffff" :is-fixed="isFixed" :is-back="isBack"
-				:background="background" :back-text-style="{color: '#fff'}" 
-				:back-icon-name="backIconName" :back-text="backText" @click="newcreate">
+				:background="background" :back-text-style="{color: '#fff'}" :back-icon-name="backIconName"
+				:back-text="backText" @click="newcreate">
 				<!-- <view>
 					<u-tabs-swiper activeColor="#f29100" ref="tabs" :list="list" :current="current" @change="change"
 						:is-scroll="false" swiperWidth="750"></u-tabs-swiper>
@@ -35,10 +35,10 @@
 			</yomol-prompt>
 			<view class="big">
 				<swiper style="height: 100vh;" :current="curr" @change="setCurr">
-					<swiper-item >
+					<swiper-item>
 						<view v-if="isshow">
-						<scroll-view v-for="(item, index) in objectArray" :key="index" v-if="index >= 1" >
-							<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
+							<scroll-view v-for="(item, index) in objectArray" :key="index" v-if="index >= 1">
+								<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
 								<view class="" slot="body">
 
 									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
@@ -71,28 +71,33 @@
 								</view>
 								<u-loadmore :status="status" />
 							</u-card> -->
-							<u-cell-group >
-								<u-cell-item   :title=item.coursename
-								:label=item.name   arrow-direction="right" >
-									
-									<u-icon  @tap="TeaClassdetail(index)" slot="icon" size="100" name="../../static/班课图.png"></u-icon>
-									
-									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
-									<view @tap="TeaClassdetail(index)">
-										{{item.number}}
-									</view>
-									<view class="icon" @click="signin('signin',index)"><u-icon size="45" name="edit-pen"></u-icon>发起签到</view>
-									
-								</u-cell-item>
-								
-							</u-cell-group>
-							
-							
-						</scroll-view>
+								<u-cell-group>
+									<u-cell-item :title=item.coursename :label=item.name arrow-direction="right">
+
+										<u-icon @tap="TeaClassdetail(index)" slot="icon" size="100"
+											name="../../static/班课图.png"></u-icon>
+
+										<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
+										<view @tap="TeaClassdetail(index)">
+											{{item.number}}
+										</view>
+										<view class="icon" @click="signin('signin',index)">
+											<u-icon size="45" name="edit-pen"></u-icon>发起签到
+										</view>
+
+									</u-cell-item>
+
+								</u-cell-group>
+
+
+							</scroll-view>
 						</view>
-						<scroll-view v-if="!isshow "> <image class="img" src="../../static/课程列表为空.png" mode="aspectFit"></image>
-						<view class="text">还没有已创建的班课，快去创建一个吧~</view>
-						<button class="button" type="" size="mini" shape="circle" :plain="true" @click="newcreate">创建班课</button></scroll-view>
+						<scroll-view v-if="!isshow ">
+							<image class="img" src="../../static/课程列表为空.png" mode="aspectFit"></image>
+							<view class="text">还没有已创建的班课，快去创建一个吧~</view>
+							<button class="button" type="" size="mini" shape="circle" :plain="true"
+								@click="newcreate">创建班课</button>
+						</scroll-view>
 					</swiper-item>
 					<swiper-item>
 						<scroll-view v-for="(item, index) in joinArray" :key="index" v-if="index >= 1">
@@ -127,19 +132,22 @@
 									</view>
 								</view>
 							</u-card> -->
-							<u-cell-group >
-								<u-cell-item   :title=item.coursename :label=item.name arrow-direction="right" @tap="StuClassdetail(index)">
-									
-									<u-icon  slot="icon" size="100" name="../../static/班课图.png"></u-icon>
-									
+							<u-cell-group>
+								<u-cell-item :title=item.coursename :label=item.name arrow-direction="right"
+									@tap="StuClassdetail(index)">
+
+									<u-icon slot="icon" size="100" name="../../static/班课图.png"></u-icon>
+
 									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 									<view>
 										{{item.number}}
 									</view>
-									<view class="icon" @click="Stusignin('signin',index)"><u-icon size="45" name="edit-pen"></u-icon> 签到</view>
-									
+									<view class="icon" @click="Stusignin('signin',index)">
+										<u-icon size="45" name="edit-pen"></u-icon> 签到
+									</view>
+
 								</u-cell-item>
-								
+
 							</u-cell-group>
 						</scroll-view>
 					</swiper-item>
@@ -205,13 +213,13 @@
 					id: null,
 					name: null,
 					number: null,
-					coursename:null,
+					coursename: null,
 				}],
 				joinArray: [{
 					id: null,
 					name: null,
 					number: null,
-					coursename:null,
+					coursename: null,
 				}],
 				classnum: '',
 				stringArray: ['a', 'b', 'c'],
@@ -230,7 +238,7 @@
 					"Duration": null,
 					targetLongitude: null,
 					targetLatitude: null,
-					StuSignType:null
+					StuSignType: null
 				},
 				status: 'loadmore',
 				iconType: 'flower',
@@ -335,12 +343,12 @@
 					}
 				}
 			})
-			
+
 			this.$Api.GetAllCreatedClass(this.creator).then(res => {
 				console.log(res);
 				let serve = res.data.data;
 				if (res.data.success) {
-					this.isshow=true;
+					this.isshow = true;
 					console.log(serve.length)
 					this.page = serve.length
 					for (var i = 0; i < serve.length; i++) {
@@ -355,21 +363,21 @@
 					}
 				} else {
 					console.log("失败或者无班课")
-					this.isshow=false;
+					this.isshow = false;
 				}
-				
-				
+
+
 			})
 			// console.log(this.isshow)
 			// console.log("j" + this.objectArray.length)
-			
+
 			// console.log(this.objectArray)
 			// if(this.objectArray <= 1)
 			// {
 			// 	this.isshow = false;
 			// }
-			
-			
+
+
 			this.$Api.GetAllJoinedClass(this.creator).then(res => {
 				console.log(res);
 				let serve = res.data.data;
@@ -500,7 +508,7 @@
 			TeaClassdetail(index) {
 				console.log(index);
 				console.log(this.objectArray[index].id)
-				let obj={
+				let obj = {
 					id: this.objectArray[index].id,
 					classcoursename: this.objectArray[index].coursename
 				}
@@ -518,9 +526,15 @@
 				// 	id: this.objectArray[index].id,
 				// 	classcoursename: this.Join.coursename
 				// }
-				// uni.reLaunch({
-				// 	url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(obj))
-				// })
+				let obj = {
+					id: this.joinArray[index].id,
+					classcoursename: this.joinArray[index].coursename
+				}
+				console.log(encodeURIComponent(JSON.stringify(obj)))
+				uni.reLaunch({
+					url: '/pages/class/Stu/Detail/home?item=' + encodeURIComponent(JSON.stringify(obj)),
+					
+				})
 			},
 			newcreate() {
 				console.log(this.curr)
@@ -593,6 +607,7 @@
 									content: '一键签到马上开始！请让学生做好准备',
 									success: function(res) {
 										if (res.confirm) {
+											console.log("点击确认")
 											_this.timestamp = Math.round(new Date() / 1000);
 											_this.SignDate = _this.$u.timeFormat(_this.timestamp,
 												'yyyy/mm/dd hh:MM:ss');
@@ -680,8 +695,9 @@
 					if (res.data.success) {
 						console.log("有签到,根据返回type判断是哪种签到");
 						if (res.data.data.stuSignType == 0) {
+							let item = encodeURIComponent(JSON.stringify(res.data.data))
 							uni.navigateTo({
-								url: '/pages/class/Stu/Sign/TimeSignIn'
+								url: '/pages/class/Stu/Sign/TimeSignIn?item=' + item
 							})
 						} else {
 							let item = encodeURIComponent(JSON.stringify(res.data.data))
@@ -897,8 +913,8 @@
 		height: 100px;
 		// margin-top: 100px;
 	}
-	
-	.icon{
+
+	.icon {
 		// margin-bottom: 0;
 		// margin-right: 10;
 		position: absolute;
@@ -949,13 +965,15 @@
 		// border-radius: 8rpx;
 		margin-left: 100rpx;
 	}
-	.text{
+
+	.text {
 		font-size: 20rpx;
 		font-style: inherit;
 		margin-left: 200rpx;
 		margin-top: 0rpx;
 		margin-bottom: 100rpx;
 	}
+
 	.test2 {
 		height: -1rpx;
 		// border-radius: 8rpx; 
@@ -970,9 +988,10 @@
 		height: 2000rpx;
 	}
 
-	.button{
+	.button {
 		margin-left: 300rpx;
 	}
+
 	.trade {
 		width: 100%;
 		color: #000000;

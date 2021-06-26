@@ -131,21 +131,21 @@
 					count: 0,
 					// isDot: true,
 					customIcon: false,
-					pagePath: "/pages/class/created_class/message"
+					pagePath: "/pages/class/Stu/Detail/record"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课成员',
 					customIcon: false,
-					pagePath: "/pages/class/created_class/home"
+					pagePath: "/pages/class/Stu/Detail/home"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课详情',
 					customIcon: false,
-					pagePath: "/pages/class/created_class/detail"
+					pagePath: "/pages/class/Stu/Detail/detail"
 				},
 			]
 				},

@@ -16,12 +16,50 @@
 				<u-td>未签到人数{{Unsign}}</u-td>
 			</u-tr>
 		</u-table>
-		<view v-for="(item, index) in UnSignStudents" :key="index" >
-			<u-icon  slot="icon" size="500" class="icon"
-				name="../../../static/头像.png"></u-icon>
-			{{item.name}}
-			{{item.note}}
-			
+		<view >
+			<swiper class="swiper" @change="change">
+					<swiper-item>
+						<u-grid :col="4" >
+							<u-grid-item v-for="(item, index) in UnSignStudents" :index="index" v-if="index >= 1" :key="index" bg-color="#f2fbfa">
+								<u-icon name="../../../static/头像.png" :size="100" ></u-icon>
+								<text class="grid-text">{{item.name}}</text>
+								<text class="grid-text">{{item.note}}</text>
+								<!-- <text class="grid-text">大米</text>
+								<text class="grid-text">未签到</text> -->
+							</u-grid-item>
+						</u-grid>
+					</swiper-item>
+				</swiper>
+				<!-- <view class="indicator-dots" v-if="isSwiper">
+					<view class="indicator-dots-item" :class="[current == 0 ? 'indicator-dots-active' : '']">
+					</view>
+					<view class="indicator-dots-item" :class="[current == 1 ? 'indicator-dots-active' : '']">
+					</view>
+					<view class="indicator-dots-item" :class="[current == 2 ? 'indicator-dots-active' : '']">
+					</view>
+				</view> -->
+<!-- 		<u-grid :col="4" v-for="(item, index) in UnSignStudents" :key="index" v-if="index >= 1">
+				<u-grid-item>
+					<u-icon name="../../../static/头像.png" :size="150"></u-icon>
+					 <view class="grid-text"><image src="../../../static/头像.png" class="icon" mode="" ></image></view> -->
+				<!-- 	</br>{{item.name}}</br>
+					{{item.note}}
+				</u-grid-item>
+				<u-grid-item>
+					<u-icon name="../../../static/头像.png" :size="150"></u-icon>
+					<!-- <view class="grid-text"><image src="../../../static/头像.png" class="icon" mode="" ></image></view> -->
+				<!-- 	</br>{{item.name}}</br>
+					{{item.note}}
+				</u-grid-item> --> 
+			<!-- 	<u-grid-item>
+					<u-icon name="lock" :size="46"></u-icon>
+					<view class="grid-text">锁头</view>
+				</u-grid-item>
+				<u-grid-item>
+					<u-icon name="hourglass" :size="46"></u-icon>
+					<view class="grid-text">沙漏</view>
+				</u-grid-item> -->
+			</u-grid>
 		</view>
 		<button class="button" type="default" @click="EndSign">结束签到</button>
 	</view>
@@ -51,7 +89,10 @@
 				UnSignStudents:[{
 					name: null,
 					note:null,
-				}]
+					userId:null,
+				}],
+				current: 0,
+				Stulength: null,
 				}
 		},
 		created() {
@@ -70,12 +111,17 @@
 							console.log(res)
 							for(var i = 0;i < res.data.data.length;i++){
 							var obj = {
-								name: res.data.data.userName,
-								note:"未签到"
+								name: res.data.data[i].userName,
+								note:"未签到",
+								userId:res.data.data[i].userId
 							}
+							// console.log("_this.UnSignStudents")
+							// console.log(res.data.data.userName)
 							_this.UnSignStudents.push(obj)
 							}
+							// console.log(_this.UnSignStudents)
 						})
+						this.Stulength = this.UnSignStudents.length
 		},
 		onShow:function(){
 			// for(let i = 0; i < this.userObj.duration; i--)
@@ -87,6 +133,22 @@
 					// 	console.log("学生签到信息")
 					// 	console.log(res)
 					// }
+					if(res.data.success){
+						
+						for(var i = 0;i < res.data.data.length;i++){
+							if(res.data.data[i].signStatus == "已签到")
+							{
+								for(var j = 1;j < this.UnSignStudents.length;j++)
+								{
+									if(this.UnSignStudents[j].userId === res.data.data[i].stuId)
+									{
+										this.UnSignStudents.splice(this.UnSignStudents[j])
+									}
+								}
+							}
+						}
+						
+					}
 					console.log("学生签到信息")
 					console.log(res)
 				})
@@ -133,7 +195,10 @@
 						}
 					}
 				})
-			}
+			},
+			change(e) {
+							this.current = e.detail.current;
+						}
 		}
 	}
 </script>
@@ -160,10 +225,47 @@
 	}
 	
 	.button {
-		margin-top: 800rpx;
+		margin-top: 250rpx;
 	}
 	
 	.icon{
-		margin-left: 30rpx;
+		/* margin-left: 30rpx; */
+		width: 100rpx;
+		height: 100rpx;
+	}
+	
+	.grid-text {
+			font-size: 28rpx;
+			margin-top: 4rpx;
+			color: $u-type-info;
+		}
+
+.grid-text {
+		font-size: 28rpx;
+		margin-top: 4rpx;
+		color: $u-type-info;
+	}
+	
+	.swiper {
+		height: 480rpx;
+	}
+	
+	.indicator-dots {
+		margin-top: 40rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.indicator-dots-item {
+		background-color: $u-tips-color;
+		height: 6px;
+		width: 6px;
+		border-radius: 10px;
+		margin: 0 3px;
+	}
+	
+	.indicator-dots-active {
+		background-color: $u-type-primary;
 	}
 </style>

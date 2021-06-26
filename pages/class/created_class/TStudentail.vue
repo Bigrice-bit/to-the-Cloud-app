@@ -32,7 +32,7 @@
 							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
 							<view class="text">个人经验值
 							<view>{{experience}}</view></view>
-							<view class="detail" @click="SearchDetail">查看经验值明细</view>
+							<!-- <view class="detail" @click="SearchDetail">查看经验值明细</view> -->
 							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
 						</view>
 						<view class="li " >
@@ -140,21 +140,21 @@
 					count: 0,
 					// isDot: true,
 					customIcon: false,
-					pagePath: "/pages/class/Stu/Detail/record"
+					pagePath: "/pages/class/created_class/message"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课成员',
 					customIcon: false,
-					pagePath: "/pages/class/Stu/Detail/home"
+					pagePath: "/pages/class/created_class/home"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课详情',
 					customIcon: false,
-					pagePath: "/pages/class/Stu/Detail/detail"
+					pagePath: "/pages/class/created_class/detail"
 				},
 			]
 				},

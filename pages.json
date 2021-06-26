@@ -187,9 +187,36 @@
 			}
 		},
 		{
+			"path": "pages/class/created_class/TStudentail",
+			"style": {
+				"navigationBarTitleText": "成员详情"
+		}
+		},
+		{
 			"path": "pages/class/Stu/SignDetail",
 			"style": {
 				"navigationBarTitleText": "签到详情"
+			}
+		},
+		{
+			"path": "pages/class/Stu/Detail/home",
+			"style": {
+				"navigationBarTitleText": "班课成员"
+		
+			}
+		},
+		{
+			"path": "pages/class/Stu/Detail/record",
+			"style": {
+				"navigationBarTitleText": "签到记录"
+		
+			}
+		},
+		{
+			"path": "pages/class/Stu/Detail/detail",
+			"style": {
+				"navigationBarTitleText": "班课详情"
+		
 			}
 		}
 		
@@ -235,6 +262,24 @@
 				"iconPath": "static/uview/example/template.png",
 				"selectedIconPath": "static/uview/example/template_select.png",
 				"text": "详情"
+			},
+			{
+				"pagePath": "pages/class/Stu/Detail/detail",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "详情"
+			},
+			{
+				"pagePath": "pages/class/Stu/Detail/home",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "学生首页"
+			},
+			{
+				"pagePath": "pages/class/Stu/Detail/record",
+				"iconPath": "static/uview/example/template.png",
+				"selectedIconPath": "static/uview/example/template_select.png",
+				"text": "签到记录"
 			}
 		]
 	},

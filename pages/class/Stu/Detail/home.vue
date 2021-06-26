@@ -3,116 +3,54 @@
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate">
-			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 		</u-navbar>
-		<view>
-			<image class="img" src="../../../static/签到图标.png" shape="circle" mode="widthFix" @click="Signin"></image>
-			<view class="text1">发起签到</view>
-		</view>
-		<view class="message-box">
-		<text  @click="Query">切换为按学号显示</text></view>
-		<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
-			placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
-		<view class="">
-			<yomol-prompt :title="promptTitle" :inputType="promptInputType" :maxlength="maxlength"
-				:defaultValue="promptDefaultValue" :func="promptFunc" ref="yomolPrompt" @onConfirm="onPromptConfirm">
-			</yomol-prompt>
-			</br>
-			<text>成员总数</text><text class="text">{{stunum}}人</text>
-			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
-				<view class="u-demo-area">
-					<<!-- u-cell-item center :is-link="true" value="29经验值" index="index" @click="click" title="张三"
-						icon="list-dot" :label="label" :border-top="true">
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item>
-						<u-cell-item center :is-link="true" value="21经验值" index="index" @click="click" title="李四"
-							icon="list-dot" :label="label">
-							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon">
-							</u-badge>
-							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item>
-						<u-cell-item center :is-link="true" value="12经验值" index="index" @click="click" title="赵五"
-							icon="list-dot" :label="label">
-							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon">
-							</u-badge>
-							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item>
-						<u-cell-item center :is-link="true" value="10000经验值" index="index" @click="click" title="大米"
-							icon="list-dot" :label="label">
-							<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon">
-							</u-badge>
-							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						</u-cell-item> -->
-						<swiper-item>
-							<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
-								<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-								@tap="Studetail(index)">
-								<view class="" slot="body">
-
-									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-										<text>{{index}}</text>
-										<image
-											src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-											mode="aspectFill"></image>
-										<view>
-											
-											<u-row gutter="5">
-												<u-col span="6">
-													<view class="demo-layout">{{item.name}}
-													{{item.id}}</view>
-												</u-col>
-											</u-row>
-											
-											
-											
-										</view>
-										<view class="test2">{{item.experience}}经验值</view>
-										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
-										</u-icon>
-									</view>
-								</view>
-							</u-card> -->
-								<u-cell-group>
+	<view class="bgcolor">
+		</br><!-- <image class="img" src="../../../../static/签到图标.png" shape="circle" mode="widthFix" @click="Signin"></image> -->
+		<view class="text1">第 {{paiming}} 名</view>
+		<view class="expr">当前获得{{cord}}经验值</view>
+	</view>
+	<view class="">
+		</br>
+		<text>成员总数</text><text class="text">{{stunum}}人</text>
+		<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
+			<view class="u-demo-area">
+				
+					<swiper-item>
+						<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
+						<!-- <scroll-view> -->
+							<u-cell-group>
+								
+								<view class="index">{{index}}</view>
+								<u-cell-item @tap="Studetail(index)" :title=item.name :label=item.id
+									arrow-direction="right">
 									
-									<view class="index">{{index}}</view>
-									<u-cell-item @tap="Studetail(index)" :title=item.name :label=item.id
-										arrow-direction="right">
-										
-										
-										<u-icon @tap="Studetail(index)" slot="icon" size="100" class="icon"
-											name="../../../static/头像.png"></u-icon>
-
-										<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
-										<view class="test2">{{item.experience}}经验值</view>
 									
-									</u-cell-item>
-
-								</u-cell-group>
-							</scroll-view>
-						</swiper-item>
-
-				</view>
+									<u-icon @tap="Studetail(index)" slot="icon" size="100" class="icon"
+										name="../../../../static/头像.png"></u-icon>
+								
+									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
+									<view class="test2">{{item.experience}}经验值</view>
+								
+								</u-cell-item>
+	
+							</u-cell-group>
+						</scroll-view>
+					</swiper-item>
+	
 			</view>
 		</view>
-
-
-
+	</view>
+		
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
 </template>
 
 <script>
 	var _this
-	// var app = getApp()
-	import yomolPrompt from '@/components/yomol-prompt.vue'
 	export default {
-		components: {
-			yomolPrompt
-		},
 		data() {
 			return {
-				title: '班课',
+				title: '课程名称',
 				backText: '返回',
 				backIconName: 'nav-back',
 				right: false,
@@ -120,7 +58,7 @@
 				rightSlot: false,
 				useSlot: false,
 				tabbar: '',
-				isBack: false,
+				isBack: true,
 				search: false,
 				custom: false,
 				isFixed: true,
@@ -145,6 +83,7 @@
 					name: null,
 					id: null,
 					experience: null,
+					StuId: null,
 				}],
 				loadText: {
 					loadmore: '轻轻上拉',
@@ -164,7 +103,9 @@
 					name:null,
 					experience:null,
 					StuId: null,
-				}
+				},
+				paiming: null,
+				cord: null,
 			}
 		},
 		onLoad: function(option) { //opthin为object类型，会序列化上页面传递的参数
@@ -183,12 +124,12 @@
 					setTimeout(function() {
 						console.log("存储成功")
 					}, 1000);
-
+		
 				}
 			})
 			try {
 				const Tvalue = uni.getStorageSync("LoginKey");
-
+		
 				if (Tvalue) {
 					// console.log(Tvalue);
 					this.data.Creator = Tvalue;
@@ -222,7 +163,7 @@
 						
 						
 						_this.$Api.GetExper(obj1).then(res => {
-							
+							var that = _this
 							// console.log("res")
 							console.log(res)
 							if (res.data.success) {
@@ -230,12 +171,12 @@
 								// console.log(res)
 								if (res.data.data != null) {
 									console.log("!!!")
-									_this.obj2.experience = res.data.data.empiricalValue
-
+									that.obj2.experience = res.data.data.empiricalValue
+		
 								} else {
 									console.log("失败")
 									// _this.expr = 0
-									_this.obj2.experience = 0
+									that.obj2.experience = 1
 								}
 								
 							} 
@@ -248,17 +189,34 @@
 						_this.Students.push(this.obj2);
 						
 					}
-					
-				}),
+					console.log("123")
+					console.log(this.stunum)
+					for(var i = 1;i <= this.stunum;i++)
+					{
+						console.log("111")
+						console.log(this.data.Creator)
+						
+						if(this.data.Creator == this.Students[i].StuId)
+						{
+							console.log(this.Students[i])
+							this.cord = this.Students[i].experience;
+							console.log("222")
+							console.log(this.cord)
+							break;
+						}
+					}
+				})
+				
 				//自定义input处理事件监听
 				uni.$on('update-prompt', (data) => {
 					// data.value input输入值
 					// data.callback 处理后返回方法名
 					let val = data.value
 					// ...逻辑处理...
-
+		
 					uni.$emit(e.callback, val)
 				})
+			
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
@@ -266,21 +224,21 @@
 					count: 0,
 					// isDot: true,
 					customIcon: false,
-					pagePath: "/pages/class/created_class/message"
+					pagePath: "/pages/class/Stu/Detail/record"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课成员',
 					customIcon: false,
-					pagePath: "/pages/class/created_class/home"
+					pagePath: "/pages/class/Stu/Detail/home"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课详情',
 					customIcon: false,
-					pagePath: "/pages/class/created_class/detail"
+					pagePath: "/pages/class/Stu/Detail/detail"
 				},
 			]
 			console.log("学生列表")
@@ -415,7 +373,7 @@
 				console.log("点击进入学生详情页");
 				console.log(this.Students[index].StuId)
 				uni.navigateTo({
-					url: '/pages/class/created_class/TStudentail?item='+encodeURIComponent(JSON.stringify(this.Students[index].StuId))
+					url: '/pages/class/Stu/Studetail?item='+encodeURIComponent(JSON.stringify(this.Students[index].StuId))
 				})
 				
 			},
@@ -476,6 +434,12 @@
 		margin-right: auto;
 		margin-bottom: 50rpx;
 	}
+	
+		.bgcolor{
+			background-color: #1abc9c;
+			width: 1000rpx;
+			height: 200rpx;
+		}
 
 	.text-area {
 		/* display: flex; */
@@ -511,10 +475,19 @@
 	.text1 {
 		/* display: flex; */
 		/* justify-content: center; */
-		margin-top: 5rpx;
-		margin-left: 327rpx;
-		font-size: 25rpx;
-		color: #000000;
+		margin-top: 2rpx;
+		margin-left: 300rpx;
+		font-size: 50rpx;
+		font-weight: bold;
+		color: #ffffff;
+	}
+	
+	.expr{
+		margin-top: 10rpx;
+		margin-left:260rpx;
+		font-size: 30rpx;
+		/* font-weight: bold; */
+		color: #ffffff;
 	}
 
 	.navbar-right {

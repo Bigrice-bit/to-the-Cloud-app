@@ -32,7 +32,7 @@
 		
 		data() {
 			return {
-				title: '限时签到',
+				title: '一键签到',
 				backText: '返回',
 				backIconName: 'nav-back',
 				isBack: true,

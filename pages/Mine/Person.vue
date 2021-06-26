@@ -22,16 +22,17 @@
 				<u-cell-group class="">
 					<u-cell-item center :is-link="true"  i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="姓名" >
-					 <u-input class="input" placeholder='请输入姓名'	v-model="info.name" :type="type" :border="border" />
+					 <u-input class="inputname" placeholder='请输入姓名'	v-model="info.name" :type="type" :border="border" />
 					</u-cell-item>
 					<u-cell-item center :is-link="true"  :value="info.phone" i ndex="index" @click="click" :hover-class="hoverClass"
+					 :arrow="false" title="手机号" >
+					</u-cell-item>
+					<u-cell-item center :is-link="true"  :value="info.account" i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="账号" >
 					</u-cell-item>
-					<u-cell-item center :is-link="true"   i ndex="index" @click="selectShow = true" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"  i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="出生年份" >
-					<u-input :border="border" class="inputbir" type="select" :select-open="selectShow" v-model="info.birthday"
-					placeholder="请选择出生日期" ></u-input>
-					
+					 <u-input class="input" placeholder='请输入xxxx年'	v-model="info.birthday" :type="type" :border="border" />
 					</u-cell-item>
 					<u-cell-item center :is-link="true"  value="" i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="选择性别" >
@@ -43,10 +44,12 @@
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
-					<u-cell-item center :is-link="true" :label="info.school" value="" i ndex="index" @click="ChangeSchool" :hover-class="hoverClass"
-					 :arrow="arrow" title="你所在的学校、院系及专业(索引列表)" >
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+					<u-cell-item center :is-link="true" :label="info.school" value="" i ndex="index"  :hover-class="hoverClass"
+					 :arrow="arrow" title="你所在的学校、院系及专业" >
+						<!-- <u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
+						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch> -->
+						<u-input :border="border" type="select" :select-open="pickerShow" 
+							placeholder="" @click="Show"></u-input>
 					</u-cell-item>
 					<u-cell-item center :is-link="true"  value="" index="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="选择身份" >
@@ -63,12 +66,13 @@
 					 <u-input class="inputnum" placeholder='请输入学号/工号'	v-model="info.cardnum" :type="type" :border="border" />
 					</u-cell-item>
 				</u-cell-group>
-			
+			<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectSchool"
+				@cancel="cancel">
+			</u-select>
 			</view>
 		</view>
 		<button type="error" class="button" @click="SaveChange">保存</button>
-		<u-select mode="single-column" :list="selectList" v-model="selectShow" @confirm="selectTerm" >
-		</u-select>
+		
 	</view>
 </template>
 
@@ -92,6 +96,7 @@
 						school: null,
 						cardnum: null,
 						iden: null,
+						account:null,
 						},
 				type: 'text',
 				background: {
@@ -130,38 +135,36 @@
 				shape: 'circle', 
 				value: '荔枝',
 				activeColor: '#2979ff',
+				
 				size: 34,
 				wrap: false,
 				width: 'auto',
 				icon: 'setting',
-				arrow: true,
+				arrow: false,
 				label: '后端返回学校等',
 				rightSlot: true,
 				checked: false,
-	
+				pickerShow: false,
 				selectShow: false,
 				creator: null,
 				updateinfo: null,
-				selectList: [
+				SchoolList: [{
+					value: null,
+					label: '请选择学校',
+					children: [{
+						value: null,
+						label: '请选择学院',
+						children: [{
+							value: null,
+							label: '请选择专业',
+						}]
+					}]
+				}],
+				CourseList:[
 					{
-						value: '1922年',
-						label: '1922年'
-					},
-					{
-						value: '1923年',
-						label: '1923年'
-					},
-					{
-						value: '1924年',
-						label: '1924年'
-					},
-					{
-						value: '1925年',
-						label: '1925年'
-					},
-					{
-						value: '1926年',
-						label: '1926年'
+						value: null,
+						label: null,
+						id: null,
 					}
 				],
 			};
@@ -191,14 +194,108 @@
 			this.creator = uni.getStorageSync("LoginKey");
 			this.$Api.UserInfo(this.creator).then(res => {
 				if(res.data.success){
+					console.log(res)
 					this.info.name = res.data.data.userName;
 					this.info.phone = res.data.data.phone;
 					this.info.birthday = res.data.data.birthDate;
 					this.info.school = res.data.data.collegePointId;
 					this.info.cardnum = res.data.data.userNum;
+					this.info.account = res.data.data.account;
 					this.updateinfo = res.data.data;
 				}
 			});
+				// this.form.term = this.selectList[1].value
+				this.$Api.getCollege().then(res => {
+					console.log(res)
+					if (res.data.success) {
+						// console.log(res.data.success)
+						let server = res.data.data;
+						// for (var i = 0; i < server.length; i++) {
+						// 	var obj1 = {
+						// 		label: server[i].collegePoint.collegePointName,
+						// 		value: server[i].collegePoint.collegePointId,
+						// 	};
+						// 	this.SchoolList.push(obj1);
+						// 	for (var j = 0; j < server[i].collegePoints.length; j++) {
+						// 		var obj2 = {
+						// 			label: server[i].collegePoints[j].collegePoint.collegePointName,
+						// 			value: server[i].collegePoints[j].collegePoint.collegePointId,
+						// 		};
+						// 		this.SchoolList[i].children.push(obj2)
+						// 		for (var k = 0; k < server[i].collegePoints[j].collegePoints.length; k++) {
+						// 			var obj3 = {
+						// 				label: server[i].collegePoints[j].collegePoints[k].collegePoint.collegePointName,
+						// 				value: server[i].collegePoints[j].collegePoints[k].collegePoint.collegePointId,
+						// 			};
+						// 			// console.log(obj3);
+						// 			this.SchoolList[i].children[j].children.push(obj3)
+						// 		}
+						// 	}
+			
+						// }
+						for (var i = 0; i < server.length; i++) {
+							var obj1 = {
+								label: server[i].collegePoint.collegePointName,
+								value: server[i].collegePoint.collegePointId,
+								children: []
+							};
+							this.SchoolList.push(obj1);
+							}
+						for (var i = 0; i < server.length; i++) {
+							// console.log(server[i].collegePoints.length)
+							for (var j = 0; j < server[i].collegePoints.length; j++) {
+								var obj = {
+									label: server[i].collegePoints[j].collegePoint.collegePointName,
+									value: server[i].collegePoints[j].collegePoint.collegePointId,
+									children: []
+								};
+								// console.log(obj);
+								this.SchoolList[i+1].children.push(obj)
+							}
+							// console.log('2')
+							// console.log(this.SchoolList[i].children)
+						}
+						console.log(server.length)
+						for (var i = 0;i < server.length; i++) {
+							console.log(server[i].collegePoints.length)
+							for (var j = 0; j < server[i].collegePoints.length; j++) {
+								// console.log(server[i].collegePoints[j].length)
+								for (var k = 0; k < server[i].collegePoints[j].collegePoints.length; k++) {
+									var obj = {
+										label: server[i].collegePoints[j].collegePoints[k].collegePoint
+											.collegePointName,
+										value: server[i].collegePoints[j].collegePoints[k].collegePoint
+											.collegePointId,
+									};
+									// console.log(obj);
+									this.SchoolList[i+1].children[j].children.push(obj)
+								
+								}
+							}
+						}
+					} else {
+						uni.showToast({
+							icon: "none",
+							title: '暂无数据'
+						})
+					}
+				})
+				this.$Api.GetAllCourse().then(res => {
+					if(res.data.success){
+						console.log(res)
+						for(var i = 0;i < res.data.data.length; i++)
+						{
+						var obj = {
+							value: res.data.data[i].courseName,
+							label: res.data.data[i].courseName,
+							id: res.data.data[i].courseId
+						}
+							this.CourseList.push(obj)
+						}
+						console.log(this.CourseList)
+					}
+				})
+				
 		},
 		computed: {
 			hoverClass() {
@@ -225,17 +322,37 @@
 			click(index) {
 				// console.log(index);
 			},
-			ChangeSchool(){
-				uni.navigateTo({
-						url: './selectSchool'
-				});
-			},
+			// ChangeSchool(){
+			// 	uni.navigateTo({
+			// 			url: './selectSchool'
+			// 	});
+			// },
 			selectTerm(e) {
 					this.info.birthday = '';
 					e.map((val, index) => {
 						this.info.birthday += this.info.birthday == '' ? val.label : '-' + val.label;
 					})
 			},
+			Show() {
+				this.pickerShow = true;
+				console.log(this.SchoolList)
+				},
+				selectSchool(e) {
+					this.info.school = '';
+					e.map((val, index) => {
+						// if(val.label != null){
+						this.info.school += this.info.school == '' ? val.label : '-' + val.label;
+						// }
+						// else{
+						// 	this.info.school += this.info.school;
+						// }
+						if(val.value != null){
+							this.updateinfo.CollegePointId = val.value;
+							}
+						console.log('val.value:');
+					})
+					console.log(this.updateinfo.CollegePointId);
+				},
 			SaveChange(){
 			if(this.info.name!=null && this.info.iden!=null && this.info.cardnum!=null)
 			{
@@ -243,40 +360,45 @@
 					if(this.info.iden === "我是老师")
 					{
 						this.$u.vuex('vuex_jurisdiction.name','0');
+						this.updateinfo.RoleId = 2;
 					}
 					else if(this.info.iden === "其他"){
 						this.$u.vuex('vuex_jurisdiction.name','2');
+						this.updateinfo.RoleId = 5;
 					}
 					else{
 						this.$u.vuex('vuex_jurisdiction.name','1');
+						this.updateinfo.RoleId = 5;
 					}
 					
 					console.log("保存成功")
 					this.updateinfo.userName = this.info.name;
 					this.updateinfo.BirthDate = this.info.birthday;
-					this.updateinfo.sex = '男';
-					this.updateinfo.school = null;
-					this.updateinfo.userNum = this.info.cardnum
+					this.updateinfo.sex = '女';
+					// this.updateinfo.CollegePointId = null;
+					this.updateinfo.userNum = this.info.cardnum;
+					this.updateinfo.birthDate = this.info.birthday+'年'
+					// conso.log(
 					console.log(this.updateinfo)
-					this.$Api.UpdateInfo(this.updateinfo).then(res => {
+			// 		this.$Api.UpdateInfo(this.updateinfo).then(res => {
 			
-						if(res.data.success)
-						{
-							uni.showToast({
-							title: '保存成功',
-							duration: 1000
-							});
-							uni.reLaunch({
-								url:'/pages/index/class'
-							})
-						}
-						else{
-							uni.showToast({
-							title: 'error',
-							duration: 1000
-							});
-						}
-					})
+			// 			if(res.data.success)
+			// 			{
+			// 				uni.showToast({
+			// 				title: '保存成功',
+			// 				duration: 1000
+			// 				});
+			// 				uni.reLaunch({
+			// 					url:'/pages/index/class'
+			// 				})
+			// 			}
+			// 			else{
+			// 				uni.showToast({
+			// 				title: 'error',
+			// 				duration: 1000
+			// 				});
+			// 			}
+			// 		})
 					
 						
 
@@ -407,6 +529,9 @@ page{
 
 	
 .input{
+	margin-left: 400rpx;
+}
+.inputname{
 	margin-left: 480rpx;
 }
 .inputnum{
