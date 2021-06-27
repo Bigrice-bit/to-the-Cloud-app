@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="avatorWrapper">
 			<view class="avator">
-				<image class="img" src="../../static/1.png" mode="widthFix"></image>
+				<image class="img" src="../../static/headimage.png" mode="widthFix"></image>
 			</view>
 		</view>
 		<view class="form">
@@ -153,11 +153,18 @@
 								console.log('验证通过');
 								this.$u.vuex('vuex_jurisdiction.name','1');
 								let kins = res.data.data.user.userId;
+								uni.showToast({
+								title: res.data.msg,
+								duration: 1000
+								});
+								// resolve(res);
 								uni.setStorage({
 									key:'LoginKey',
 									data:kins,
 									success:function(){
+										
 										setTimeout(function () {
+											
 										               uni.reLaunch({
 										               	url: '/pages/index/class',
 														 // // success(){

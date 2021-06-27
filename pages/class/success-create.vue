@@ -11,7 +11,7 @@
 				<canvas class="canvas-hide" canvas-id="qrcode"
 					:style="{width: `${qrcodeSize}px`, height: `${qrcodeSize}px`}" />
 			</view> -->
-			<image class="img" src="../../static/创建班课完成图.png" mode="center"></image>
+			<image class="img" src="../../static/success-class.png" mode="center"></image>
 			<view class="text">恭喜你成功创建班课，快将班课号告诉学生吧</view>
 			<view class="image">
 				<p class="class_number">

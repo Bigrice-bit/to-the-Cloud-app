@@ -23,11 +23,11 @@ const request = (url, method, data, isUpload = false) => {
 				},
 				success: (res) => { //具体捕获请看自己接口返回的形式
 					if (res.data.code == 200 || res.data.code == 0 || res.data.code == 1204) {
-						uni.showToast({
-						title: res.data.msg,
-						duration: 1000
-						});
-						resolve(res)
+						// uni.showToast({
+						// title: res.data.msg,
+						// duration: 1000
+						// });
+						resolve(res);
 					} else {
 						// uni.showModal({
 						// 	title: '提示',

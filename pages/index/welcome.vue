@@ -16,12 +16,7 @@
 		data() {
 			return {
 				guidePages: true,
-				list: [
-					'../../static/1.png',
-					'../../static/2.png',
-					'../../static/3.png',
-					'../../static/3.png'
-				]
+				
 			}
 		},
 		onLoad() {

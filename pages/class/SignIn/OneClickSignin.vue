@@ -11,6 +11,19 @@
 				<u-td>未签到人数</u-td>
 			</u-tr>
 		</u-table>
+		<swiper class="swiper" @change="change">
+				<swiper-item>
+					<u-grid :col="4" >
+						<u-grid-item v-for="(item, index) in UnSignStudents" :index="index" v-if="index >= 1" :key="index" bg-color="#f2fbfa">
+							<u-icon name="../../../static/headimage.png" :size="100" ></u-icon>
+							<text class="grid-text">{{item.name}}</text>
+							<text class="grid-text">{{item.note}}</text>
+							<!-- <text class="grid-text">大米</text>
+							<text class="grid-text">未签到</text> -->
+						</u-grid-item>
+					</u-grid>
+				</swiper-item>
+			</swiper>
 		<view class="list">
 			<view class="li">
 		<u-button  class="button" size="medium" @click="EndSign(0)">放弃</u-button>
@@ -39,16 +52,34 @@
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				isshow:false,
-				SignInfo: {},
+				userObj: {},
+				UnSignStudents:[{
+					name: null,
+					note:null,
+					userId:null,
+				}],
 				}
 		},
 		onLoad: function(option){
 			// decodeURIComponent 解密传过来的对象字符串
 						const item = JSON.parse(decodeURIComponent(option.item));
 						console.log(item)
-						this.SignInfo = item;
-						console.log(this.SignInfo)
-					// console.log(new Date() - item.EndDate);
+					this.userObj = item;
+					this.$Api.GetAllStu(this.userObj.classCourseId).then(res => {
+						console.log(res)
+						for(var i = 0;i < res.data.data.length;i++){
+						var obj = {
+							name: res.data.data[i].userName,
+							note:"未签到",
+							userId:res.data.data[i].userId
+						}
+						// console.log("_this.UnSignStudents")
+						// console.log(res.data.data.userName)
+						_this.UnSignStudents.push(obj)
+						}
+						// console.log(_this.UnSignStudents)
+					})
+					this.Stulength = this.UnSignStudents.length
 		},
 		created() {
 			_this = this;

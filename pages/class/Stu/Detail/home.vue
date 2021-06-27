@@ -26,7 +26,7 @@
 									
 									
 									<u-icon @tap="Studetail(index)" slot="icon" size="100" class="icon"
-										name="../../../../static/头像.png"></u-icon>
+										name="../../../../static/headimage.png"></u-icon>
 								
 									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 									<view class="test2">{{item.experience}}经验值</view>

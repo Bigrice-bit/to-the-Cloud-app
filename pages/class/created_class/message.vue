@@ -9,12 +9,12 @@
 
 				<view class="list-content">
 
-		<u-cell-group >
-			<u-cell-item   title="日期签到" label="时间" arrow-direction="right" @tap="StuClassdetail(index)">
+		<u-cell-group v-for="(i, index) in item" :key="index">
+			<u-cell-item   :title="i.date" :label="i.time" arrow-direction="right" v-if="index >= 1">
 				
 				
 				<view>
-					xx人/xx人
+					{{i.stusignnum}}人/{{i.allstu}}人
 				</view>
 				
 			</u-cell-item>
@@ -45,15 +45,61 @@
 				},
 				name:null,
 				classnum:null,
-				experience:null,
 				id:null,
+				userid:null,
+				classcourseid: null,
+				item:[{
+					date:null,
+					time:null,
+					stusignnum: null,
+					allstu:null
+				}],
+				info:{}
 			}
 		},
 		created() {
 			_this = this
 		},
 		onLoad(option) {
+			let that = this;
+			this.userid = uni.getStorageSync("LoginKey");
+			this.classcourseid = uni.getStorageSync("ClassKey");
 			
+			this.$Api.TeaRecord(this.userid,this.classcourseid).then(async (res) => {
+				this.info = res
+				console.log(res)
+				if(res.data.success){
+					// let time = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
+					// let t =res.data.data.signDate
+					// console.log(t)
+					await this.$Api.GetAllStu(res.data.data[0].classCourseId).then(res => {
+						if(res.data.success){
+							that.classnum = res.data.data.length
+							console.log(that.classnum)
+						}
+					})
+						console.log(that.classnum)
+					for(var i = 0;i < res.data.data.length;i++){
+					let time1 = this.dateFormat (new Date(res.data.data[i].signDate), 'yyyy-MM-dd');
+					let time2 = this.dateFormat (new Date(res.data.data[i].signDate), 'HH:MM');
+					var obj= {
+						date: time1 + '                    '+ '签到',
+						time:time2,
+						stusignnum: 0,
+						allstu: this.classnum
+					}
+					this.$Api.SignInfo(res.data.data[i].startSignId).then(res => {
+						if(res.data.success){
+							obj.stusignnum = res.data.data.length
+						}
+					})
+					
+						// console.log(obj)
+						_this.item.push(obj)
+					// console.log(time)
+					}
+				}
+			})
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
@@ -80,6 +126,34 @@
 			]
 				},
 				methods:{
+					dateFormat (time, format) {
+					  var t = new Date(time)
+					  var tf = function (i) {
+					    return (i < 10 ? '0' : '') + i
+					  }
+					  return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+					    switch (a) {
+					      case 'yyyy':
+					        return tf(t.getFullYear())
+					      // break
+					      case 'MM':
+					        return tf(t.getMonth() + 1)
+					      // break
+					      case 'mm':
+					        return tf(t.getMinutes())
+					      // break
+					      case 'dd':
+					        return tf(t.getDate())
+					      // break
+					      case 'HH':
+					        return tf(t.getHours())
+					      // break
+					      case 'ss':
+					        return tf(t.getSeconds())
+					      // break
+					    }
+					  })
+					},
 					
 					
 				}

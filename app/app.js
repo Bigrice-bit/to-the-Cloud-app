@@ -74,6 +74,10 @@ export default {
 		let url = '/classcourses/' + data
 		return api.request(url,'DELETE')
 	},
+	//更新班课（改）
+	UpdateClass: (data) => {
+		return api.request('/classcourses','PUT',data)
+	},
 	//获取个人信息
 	UserInfo: (data) => {
 		let url = '/users/' + data
@@ -121,6 +125,11 @@ export default {
 	//获取所有课程
 	GetAllCourse: (data) => {
 		return api.request("/courses",'GET')
+	},
+	//老师发起某一班课classcourseid的签到记录
+	TeaRecord: (data,index) => {
+		let url = '/startsign/' + data + '/' + index
+		return api.request(url,'GET')
 	}
 	
 }

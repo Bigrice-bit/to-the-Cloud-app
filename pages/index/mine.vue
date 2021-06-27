@@ -5,7 +5,7 @@
 						<view class="box">
 							<view class="box-hd">
 								<view class="avator">
-									<img src="../../static/头像.png">
+									<img src="../../static/headimage.png">
 								</view>
 								<view class="phone-number">{{phoneNumber}}</view>
 							</view>

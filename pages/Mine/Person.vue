@@ -22,7 +22,7 @@
 				<u-cell-group class="">
 					<u-cell-item center :is-link="true"  i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="姓名" >
-					 <u-input class="inputname" placeholder='请输入姓名'	v-model="info.name" :type="type" :border="border" />
+					 <u-input class="inputname" placeholder='请输入姓名'	v-model="info.name" type="text" :border="border" />
 					</u-cell-item>
 					<u-cell-item center :is-link="true"  :value="info.phone" i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="手机号" >
@@ -32,12 +32,12 @@
 					</u-cell-item>
 					<u-cell-item center :is-link="true"  i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="出生年份" >
-					 <u-input class="input" placeholder='请输入xxxx年'	v-model="info.birthday" :type="type" :border="border" />
+					 <u-input class="input" placeholder='请输入年份'	v-model="info.birthday" @click="show=true" type="select" :border="border" :select-open="YearShow" />
 					</u-cell-item>
 					<u-cell-item center :is-link="true"  value="" i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="false" title="选择性别" >
-					 <u-radio-group :shape="shape" :size="size" :width="width" :wrap="wrap" v-model="value" @change="radioGroupChange" :activeColor="activeColor">
-					 	<u-radio @change="radioChange" v-for="(item, index) in list" :disabled="item.disabled"
+					 <u-radio-group :shape="shape" :size="size" :width="width" :wrap="wrap" v-model="info.sex" @change="radioGroupChange" :activeColor="activeColor">
+					 	<u-radio @change="radioChangeS" v-for="(item, index) in list" :disabled="item.disabled"
 					 		:key="index" :name="item.name"
 					 	>{{item.name}}</u-radio>
 					 </u-radio-group>
@@ -55,7 +55,7 @@
 					 :arrow="false" title="选择身份" >
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
-						<u-radio-group :shape="shape" :size="size" :width="width" :wrap="wrap" v-model="value" @change="radioGroupChange" :activeColor="activeColor">
+						<u-radio-group :shape="shape" :size="size" :width="width" :wrap="wrap" v-model="info.iden" @change="radioGroupChange" :activeColor="activeColor">
 							<u-radio @change="radioChange" v-for="(item, index) in identity" :disabled="item.disabled"
 								:key="index" :name="item.name" v-model="info.iden"
 							>{{item.name}}</u-radio>
@@ -67,8 +67,9 @@
 					</u-cell-item>
 				</u-cell-group>
 			<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectSchool"
-				@cancel="cancel">
+				>
 			</u-select>
+			<u-picker mode="time" v-model="show" :params="params"   @confirm="selectYear"></u-picker>
 			</view>
 		</view>
 		<button type="error" class="button" @click="SaveChange">保存</button>
@@ -97,8 +98,14 @@
 						cardnum: null,
 						iden: null,
 						account:null,
+						sex: null,
 						},
-				type: 'text',
+				show: false,
+				params: {
+						year: true,
+		
+					},
+				type: 'number',
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
@@ -133,7 +140,7 @@
 				disabled: false,
 				result: '荔枝',
 				shape: 'circle', 
-				value: '荔枝',
+				value: '',
 				activeColor: '#2979ff',
 				
 				size: 34,
@@ -145,6 +152,7 @@
 				rightSlot: true,
 				checked: false,
 				pickerShow: false,
+				YearShow: false,
 				selectShow: false,
 				creator: null,
 				updateinfo: null,
@@ -193,6 +201,8 @@
 			}
 			this.creator = uni.getStorageSync("LoginKey");
 			this.$Api.UserInfo(this.creator).then(res => {
+				console.log("以下为返回的用户信息")
+				console.log(res.data.data)
 				if(res.data.success){
 					console.log(res)
 					this.info.name = res.data.data.userName;
@@ -201,7 +211,9 @@
 					this.info.school = res.data.data.collegePointId;
 					this.info.cardnum = res.data.data.userNum;
 					this.info.account = res.data.data.account;
+					this.info.sex = res.data.data.sex;
 					this.updateinfo = res.data.data;
+					
 				}
 			});
 				// this.form.term = this.selectList[1].value
@@ -310,6 +322,11 @@
 						console.log(e);
 						this.info.iden = e;
 					},
+					radioChangeS(e) {
+						
+						console.log(e);
+						this.info.sex = e;
+					},
 					// 选中任一radio时，由radio-group触发
 					radioGroupChange(e) {
 						// console.log(e);
@@ -347,11 +364,16 @@
 						// 	this.info.school += this.info.school;
 						// }
 						if(val.value != null){
-							this.updateinfo.CollegePointId = val.value;
+							this.updateinfo.collegePointId = val.value;
 							}
 						console.log('val.value:');
 					})
 					console.log(this.updateinfo.CollegePointId);
+				},
+				selectYear(e) {
+					this.info.birthday = '';
+					console.log(e)
+						this.info.birthday =e.year;
 				},
 			SaveChange(){
 			if(this.info.name!=null && this.info.iden!=null && this.info.cardnum!=null)
@@ -360,45 +382,50 @@
 					if(this.info.iden === "我是老师")
 					{
 						this.$u.vuex('vuex_jurisdiction.name','0');
-						this.updateinfo.RoleId = 2;
+						this.updateinfo.roleidlist = 2;
+						this.updateinfo.rolenamelist = "老师";
 					}
 					else if(this.info.iden === "其他"){
 						this.$u.vuex('vuex_jurisdiction.name','2');
-						this.updateinfo.RoleId = 5;
+						this.updateinfo.roleidlist = 5;
+						this.updateinfo.rolenamelist = "学生"
 					}
 					else{
 						this.$u.vuex('vuex_jurisdiction.name','1');
-						this.updateinfo.RoleId = 5;
+						this.updateinfo.roleidlist = 5;
+						this.updateinfo.rolenamelist = "学生"
 					}
 					
 					console.log("保存成功")
 					this.updateinfo.userName = this.info.name;
-					this.updateinfo.BirthDate = this.info.birthday;
+					this.updateinfo.birthDate = this.info.birthday;
 					this.updateinfo.sex = '女';
+					// this.updateinfo.stuid
 					// this.updateinfo.CollegePointId = null;
 					this.updateinfo.userNum = this.info.cardnum;
-					this.updateinfo.birthDate = this.info.birthday+'年'
+					this.updateinfo.birthDate = this.info.birthday + '年'
 					// conso.log(
+					console.log("以下为更新的用户信息")
 					console.log(this.updateinfo)
-			// 		this.$Api.UpdateInfo(this.updateinfo).then(res => {
+					this.$Api.UpdateInfo(this.updateinfo).then(res => {
 			
-			// 			if(res.data.success)
-			// 			{
-			// 				uni.showToast({
-			// 				title: '保存成功',
-			// 				duration: 1000
-			// 				});
-			// 				uni.reLaunch({
-			// 					url:'/pages/index/class'
-			// 				})
-			// 			}
-			// 			else{
-			// 				uni.showToast({
-			// 				title: 'error',
-			// 				duration: 1000
-			// 				});
-			// 			}
-			// 		})
+						if(res.data.success)
+						{
+							uni.showToast({
+							title: '保存成功',
+							duration: 1000
+							});
+							uni.reLaunch({
+								url:'/pages/index/class'
+							})
+						}
+						else{
+							uni.showToast({
+							title: 'error',
+							duration: 1000
+							});
+						}
+					})
 					
 						
 

@@ -3,25 +3,18 @@
 		<swiper :indicator-dots="true" class="swiper" :autoplay="autoplay">
 			<swiper-item>
 				<view class="swiper-item">
-					<image class="swiper-item-img" src="../../static/1.png" mode="scaleToFill"></image>
+					<image class="swiper-item-img" src="../../static/wel1.png" mode="scaleToFill"></image>
 				</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image class="swiper-item-img" src="../../static/2.png" mode="scaleToFill"></image>
+					<image class="swiper-item-img" src="../../static/wel2.png" mode="scaleToFill"></image>
 					<view class="jump-over" @click="launchFlag()">{{jumpover}}</view>
 				</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image class="swiper-item-img" src="../../static/3.png" mode="scaleToFill"></image>
-					<!-- <view class="swiper-item-img"><image src="../../static/guide/icon_03.png" mode="aspectFit"></image></view> -->
-				</view>
-				<view class="jump-over" @click="launchFlag()">{{jumpover}}</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper-item">
-					<image class="swiper-item-img" src="../../static/3.png" mode="scaleToFill"></image>
+					<image class="swiper-item-img" src="../../static/wel3.png" mode="scaleToFill"></image>
 				</view>
 				<view class="experience" @click="launchFlag()">{{experience}}</view>
 			</swiper-item>

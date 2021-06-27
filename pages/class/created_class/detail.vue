@@ -2,7 +2,7 @@
 			<view>
 
 					<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
-						:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
+						:background="background" :back-text-style="{color: '#fff'}" :title="item.course" :back-icon-name="backIconName"
 						:back-text="backText" @click="newcreate"> 
 						<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 						</u-navbar>
@@ -13,11 +13,12 @@
 						<view class="box">
 							<view class="box-bd">
 								<view class="avator">
-								<image class="img" src="../../../static/1.png" mode="widthFix"></image>
-								</view><view class="text1">
-									<view class="">{{item.course}}</view></br>
-									<view class="">{{item.class}}</view></br>
-									<view class="">{{item.term}}</view>
+								<image class="img" src="../../../static/Class.png" mode="aspectFill"></image>
+								</view>
+								<view class="text1">
+									<view>{{item.course}}</view></br>
+									<view>{{item.class}}</view></br>
+									<view>{{item.term}}</view>
 								</view>
 							</view>
 						</view>
@@ -26,46 +27,40 @@
 				<view class="list-content">
 
 					<view class="list">
-						
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">班课号</view>
-							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
-							<p>{{item.classCourseNum}}</p>
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">允许加入</view>
-							<label class="radio"><radio value="r1" :checked="checked" @click="radio"/></label>
-							<!-- <image class="to" src="../../../static/user/to.png"></image> -->
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/about.png"></image></view> -->
-							<view class="text">学校院系</view>
-							<image class="to" src="../../../static/user/to.png"></image>
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
-							<view class="text">学习要求</view>
-							<image class="to" src="../../../static/user/to.png"></image>
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
-							<view class="text">教学进度</view>
-							<image class="to" src="../../../static/user/to.png"></image>
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
-							<view class="text">考试安排</view>
-							<image class="to" src="../../../static/user/to.png"></image>
-						</view>
-					</view>
+						<u-cell-group class="">
+							<u-cell-item center :is-link="true"   
+							 :arrow="false" title="班课号" :value="item.classCourseNum">
+							</u-cell-item>
+							<u-cell-item center :is-link="true" 
+							 :arrow="false" title="允许加入" >
+							 <label class="radio"><radio value="r1" :checked="checked" @click="radio"/></label>
+							</u-cell-item>
+							
+							<u-cell-item center :is-link="true" :label="school" value="" i ndex="index"  
+							 :arrow="false" title="学校院系" >
+							<u-input :border="border" type="select" :select-open="pickerShow"
+								placeholder="" @click="Show" ></u-input>
+							</u-cell-item>
+							<u-cell-item center :is-link="true"   :arrow="arrow"
+							 title="学习要求" label="暂无" @click="Input(0)">
+							</u-cell-item>
+							<u-cell-item center :is-link="true"  
+							  title="教学进度" label="暂无"  @click="Input(1)">
+							</u-cell-item>
+							<u-cell-item center :is-link="true"  
+							 title="考试安排" label="暂无"  @click="Input(2)">
+							</u-cell-item>
+						</u-cell-group>
+							</view>
 					<view>
 						<u-button class="button" type="warning" @click="EndeClass(1)">结束班课</u-button>
 						
 						<u-button class="button" type="default" @click="EndeClass(2)">删除班课</u-button>
 						<view class="text">只有已结束班课才可删除</view>
 					</view>
+					<u-select mode="mutil-column-auto" :list="SchoolList" v-model="pickerShow" @confirm="selectSchool"
+						>
+					</u-select>
 		</view>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
@@ -76,7 +71,7 @@
 	export default {
 		data() {
 			return {
-				title: '课程名称',
+				title: '',
 				tabbar: '',
 				backText: '返回',
 				backIconName: 'nav-back',
@@ -89,7 +84,7 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
-				checked:false,
+				checked:true,
 				classid: null,
 				item:{
 					course: null,
@@ -98,8 +93,32 @@
 					classCourseNum: null,
 					collegepointid:null,	//学校
 					courseId: null,
-				}
-				
+					isEnd:null,
+				},
+				updateclass: {
+				},
+				border: false,
+				pickerShow: false,
+				school: null,
+				SchoolList: [{
+					value: null,
+					label: '请选择学校',
+					children: [{
+						value: null,
+						label: '请选择学院',
+						children: [{
+							value: null,
+							label: '请选择专业',
+						}]
+					}]
+				}],
+				CourseList:[
+					{
+						value: null,
+						label: null,
+						id: null,
+					}
+				],
 			}
 		},
 		created() {
@@ -119,11 +138,20 @@
 					// this.classid = Tvalue;
 					this.$Api.SearchClass(Tvalue).then(res => {
 						console.log(res)
+						_this.updateclass = res.data.data
 						if(res.data.success){
 							_this.item.class = res.data.data.classCourseName,
 							_this.item.term  = res.data.data.term,
 							_this.item.classCourseNum = res.data.data.classCourseNum
 							_this.item.course = res.data.data.courseName
+							_this.item.isEnd = res.data.data.isEnd
+							if(res.data.data.isAdd == 0)
+							{
+								_this.checked = true;
+							}
+							else{
+								_this.checked = false;
+							}
 						}
 					})
 					// this.$Api.SearchCourse(this.item.courseId).then(res => {
@@ -133,7 +161,97 @@
 			} catch (e) {
 				console.log(e);
 			}
-			
+			// this.title = this.item.course;
+			this.$Api.getCollege().then(res => {
+				console.log(res)
+				if (res.data.success) {
+					// console.log(res.data.success)
+					let server = res.data.data;
+					// for (var i = 0; i < server.length; i++) {
+					// 	var obj1 = {
+					// 		label: server[i].collegePoint.collegePointName,
+					// 		value: server[i].collegePoint.collegePointId,
+					// 	};
+					// 	this.SchoolList.push(obj1);
+					// 	for (var j = 0; j < server[i].collegePoints.length; j++) {
+					// 		var obj2 = {
+					// 			label: server[i].collegePoints[j].collegePoint.collegePointName,
+					// 			value: server[i].collegePoints[j].collegePoint.collegePointId,
+					// 		};
+					// 		this.SchoolList[i].children.push(obj2)
+					// 		for (var k = 0; k < server[i].collegePoints[j].collegePoints.length; k++) {
+					// 			var obj3 = {
+					// 				label: server[i].collegePoints[j].collegePoints[k].collegePoint.collegePointName,
+					// 				value: server[i].collegePoints[j].collegePoints[k].collegePoint.collegePointId,
+					// 			};
+					// 			// console.log(obj3);
+					// 			this.SchoolList[i].children[j].children.push(obj3)
+					// 		}
+					// 	}
+						
+					// }
+					for (var i = 0; i < server.length; i++) {
+						var obj1 = {
+							label: server[i].collegePoint.collegePointName,
+							value: server[i].collegePoint.collegePointId,
+							children: []
+						};
+						this.SchoolList.push(obj1);
+						}
+					for (var i = 0; i < server.length; i++) {
+						// console.log(server[i].collegePoints.length)
+						for (var j = 0; j < server[i].collegePoints.length; j++) {
+							var obj = {
+								label: server[i].collegePoints[j].collegePoint.collegePointName,
+								value: server[i].collegePoints[j].collegePoint.collegePointId,
+								children: []
+							};
+							// console.log(obj);
+							this.SchoolList[i+1].children.push(obj)
+						}
+						// console.log('2')
+						// console.log(this.SchoolList[i].children)
+					}
+					console.log(server.length)
+					for (var i = 0;i < server.length; i++) {
+						console.log(server[i].collegePoints.length)
+						for (var j = 0; j < server[i].collegePoints.length; j++) {
+							// console.log(server[i].collegePoints[j].length)
+							for (var k = 0; k < server[i].collegePoints[j].collegePoints.length; k++) {
+								var obj = {
+									label: server[i].collegePoints[j].collegePoints[k].collegePoint
+										.collegePointName,
+									value: server[i].collegePoints[j].collegePoints[k].collegePoint
+										.collegePointId,
+								};
+								// console.log(obj);
+								this.SchoolList[i+1].children[j].children.push(obj)
+							
+							}
+						}
+					}
+				} else {
+					uni.showToast({
+						icon: "none",
+						title: '暂无数据'
+					})
+				}
+			})
+			this.$Api.GetAllCourse().then(res => {
+				if(res.data.success){
+					console.log(res)
+					for(var i = 0;i < res.data.data.length; i++)
+					{
+					var obj = {
+						value: res.data.data[i].courseName,
+						label: res.data.data[i].courseName,
+						id: res.data.data[i].courseId
+					}
+						this.CourseList.push(obj)
+					}
+					console.log(this.CourseList)
+				}
+			})
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
@@ -160,6 +278,20 @@
 			]
 				},
 				methods:{
+					Show() {
+						this.pickerShow = true;
+						console.log(this.SchoolList)
+						},
+						selectSchool(e) {
+							this.school = '';
+							e.map((val, index) => {
+								// if(val.label != null){
+								this.school += this.school == '' ? val.label : '-' + val.label;
+								
+							})
+							// console.log(this.updateinfo.CollegePointId);
+						},
+
 					Person(){
 						uni.navigateTo({
 								url: '../Mine/Person'
@@ -178,11 +310,81 @@
 					EndeClass(index){
 						if(index == 1)
 						{
+							console.log("弹框提醒")
+							this.updateclass.isEnd = 1;
+							uni.showModal({
+								title: '提示',
+								content: '是否结束班课？',
+								success: function(res) {
+									if (res.confirm) {
+										console.log(_this.updateclass)
+										_this.$Api.UpdateClass(_this.updateclass).then(res => {
+											if(res.data.success)
+											{
+												uni.showToast({
+												title: '成功结束班课',
+												duration: 1000
+												});
+												_this.item.isEnd = 1;
+												console.log(res);
+											}
+										})
+											}
+										else {
+										console.log('用户点击取消');
+									}
+								}
+							});
 							console.log("结束班课")
+							
 						}
 						else{
-							console.log("判断是否结束班课，有则删除，未结束则提示不成功，需要先结束班课！")
-						}
+							if(this.updateclass.isEnd == 0){
+								uni.showModal({
+									title: '提示',
+									content: '请先结束班课再删除',
+									
+								});
+								}
+								else{
+									this.$Api.DeleteClass(this.updateclass.classCourseId).then(res => {
+										if(res.data.success)
+										{
+											uni.showModal({
+												title: '提示',
+												content: '是否删除班课',
+												success: function(res) {
+													if (res.confirm) {
+															
+																uni.showToast({
+																title: '成功删除班课',
+																duration: 1000
+																});
+																setTimeout(function () {
+																	
+																   uni.reLaunch({
+																               	url: '/pages/index/class',
+																               });
+																			   
+																                   }, 1000);
+																console.log(res);
+													
+															}
+														else {
+														console.log('用户点击取消');
+													}
+												}
+											});
+										}
+										else{
+											uni.showToast({
+											title: '删除失败',
+											duration: 1000
+											});
+										}
+									});
+								}
+							}
 					},
 					radio(){
 						this.checked = !this.checked;
@@ -190,8 +392,60 @@
 						{
 							console.log("此时不允许加入班课")
 							console.log("弹框提醒")
+							this.updateclass.isAdd = 1;
+							uni.showModal({
+								title: '提示',
+								content: '不允许学生加入班课',
+								success: function(res) {
+									if (res.confirm) {
+										console.log(_this.updateclass)
+										_this.$Api.UpdateClass(_this.updateclass).then(res => {
+											if(res.data.success)
+											{
+												uni.showToast({
+												title: '成功关闭班课',
+												duration: 1000
+												});
+												console.log(res);
+											}
+										})
+											}
+										else {
+										console.log('用户点击取消');
+									}
+								}
+							});
+							
+							
+						}
+						else{
+							this.updateclass.isAdd = 0;
+							this.$Api.UpdateClass(this.updateclass).then(res => {
+									if(res.data.success)
+									{
+										console.log(res.data)
+										uni.showToast({
+										title: '成功开启班课',
+										duration: 1000
+										});
+									}
+								})
+								
 						}
 					},
+					input(index){
+						if(index == 0)
+						{
+							console.log("学习要求")
+						}
+						else if(index == 1)
+						{
+							console.log("教学进度")
+						}
+						else{
+							console.log("考试安排")
+						}
+					}
 					
 				}
 			}
@@ -357,22 +611,27 @@
 	
 	.avator {
 		width: 200upx;
-		height: 250upx;
+		height: 210upx;
 		overflow: hidden;
 		border-radius: 10rpx;
 		border-style: ridge;
 		border-color: #f7f7f7;
-		margin-right: 220rpx;
+		margin-right: 350rpx;
+		margin-top: 25rpx;
 	}
 	
 	.avator .img {
-		width: 100%
+		width: 100%;
+		height:100%;
 	}
 	
 	.text1{
+		position: absolute;
 		color: #000000;
 		// font-weight: bold;
 		font-size: 30rpx;
 		// padding-right:100upx;
+		margin-left: 100rpx;
+		margin-top: 20rpx;
 	}
 </style>

@@ -75,7 +75,7 @@
 									<u-cell-item :title=item.coursename :label=item.name arrow-direction="right">
 
 										<u-icon @tap="TeaClassdetail(index)" slot="icon" size="100"
-											name="../../static/班课图.png"></u-icon>
+											name="../../static/Class.png"></u-icon>
 
 										<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 										<view @tap="TeaClassdetail(index)">
@@ -93,7 +93,7 @@
 							</scroll-view>
 						</view>
 						<scroll-view v-if="!isshow ">
-							<image class="img" src="../../static/课程列表为空.png" mode="aspectFit"></image>
+							<image class="img" src="../../static/null.png" mode="aspectFit"></image>
 							<view class="text">还没有已创建的班课，快去创建一个吧~</view>
 							<button class="button" type="" size="mini" shape="circle" :plain="true"
 								@click="newcreate">创建班课</button>
@@ -136,7 +136,7 @@
 								<u-cell-item :title=item.coursename :label=item.name arrow-direction="right"
 									@tap="StuClassdetail(index)">
 
-									<u-icon slot="icon" size="100" name="../../static/班课图.png"></u-icon>
+									<u-icon slot="icon" size="100" name="../../static/Class.png"></u-icon>
 
 									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 									<view>
@@ -910,7 +910,7 @@
 	}
 
 	.search-box {
-		height: 100px;
+		height: 50px;
 		// margin-top: 100px;
 	}
 

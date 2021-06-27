@@ -6,7 +6,7 @@
 			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 		</u-navbar>
 		<view>
-			<image class="img" src="../../../static/签到图标.png" shape="circle" mode="widthFix" @click="Signin"></image>
+			<image class="img" src="../../../static/signicon.png" shape="circle" mode="widthFix" @click="Signin"></image>
 			<view class="text1">发起签到</view>
 		</view>
 		<view class="message-box">
@@ -81,7 +81,7 @@
 										
 										
 										<u-icon @tap="Studetail(index)" slot="icon" size="100" class="icon"
-											name="../../../static/头像.png"></u-icon>
+											name="../../../static/headimage.png"></u-icon>
 
 										<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 										<view class="test2">{{item.experience}}经验值</view>
@@ -221,7 +221,7 @@
 						
 						
 						
-						_this.$Api.GetExper(obj1).then(res => {
+						_this.$Api.GetExper(obj1).then(async (res) => {
 							
 							// console.log("res")
 							console.log(res)

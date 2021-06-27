@@ -7,7 +7,7 @@
 			<view class="avator">
 				<!-- <u-upload ref="uUpload" :auto-upload="false" :action="action" :file-list="fileList" mode="aspectFill"
 					@tap="chooseAvatar"></u-upload> -->
-					<image class="img" src="../../static/班课图.png" mode=""></image>
+					<image class="img" src="../../static/Class.png" mode=""></image>
 			</view>
 		</view>
 		<!-- 		<view class="content">
