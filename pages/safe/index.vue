@@ -7,21 +7,19 @@
 			<view class="list">
 			
 				<u-cell-group class="">
-					<u-cell-item center :is-link="true"  value="后端返回" i ndex="index" @click="click" :hover-class="hoverClass"
-					 :arrow="false" title="手机号" >
+					<u-cell-item center :is-link="true"  :value="info.phone" i ndex="index" @click="click" :hover-class="hoverClass"
+					 :arrow="true" title="手机号" >
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
-					<u-cell-item class="bgcell" center :is-link="true"  value="未关联" i ndex="index" @click="click" :hover-class="hoverClass"
-					 :arrow="false" title="邮箱" >
+					<u-cell-item class="bgcell" center :is-link="true"  :value="info.email" i ndex="index" @click="click" :hover-class="hoverClass"
+					 :arrow="true" title="邮箱" >
 						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
 						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
 					<view class="list"></view>
-					<u-cell-item center :is-link="true"  value="" i ndex="index" @click="click" :hover-class="hoverClass"
+					<u-cell-item center :is-link="true"  value="" i ndex="index" @click="changepwd" :hover-class="hoverClass"
 					 :arrow="false" title="修改密码" >
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 					</u-cell-item>
 				</u-cell-group>
 				
@@ -45,31 +43,10 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
-				list: [
-								{
-									name: '男',
-									disabled: false
-								},
-								{
-									name: '女',
-									disabled: false
-								}
-							],
-				identity:[
-								{
-									name: '我是老师',
-									disabled: false
-								},
-								{
-									name: '我是学生',
-									disabled: false
-								},
-								{
-									name: '其他',
-									disabled: false
-								}
-							],
-							// u-radio-group的v-model绑定的值如果设置为某个radio的name，就会被默认选中
+				info:{
+					phone:null,
+					email: '未关联',
+				},
 				disabled: false,
 				result: '荔枝',
 				shape: 'circle', 
@@ -82,10 +59,17 @@
 				arrow: true,
 				label: '后端返回学校等',
 				rightSlot: true,
-				checked: false
+				checked: false,
 			};
 		},
 		onLoad() {
+			const item = uni.getStorageSync('LoginKey')
+			this.$Api.UserInfo(item).then(res => {
+				if(res.data.success){
+					this.info.phone = res.data.data.phone;
+					this.info.email = res.data.data.email;
+				}
+			})
 		},
 		computed: {
 			hoverClass() {
@@ -120,6 +104,9 @@
 				        console.log(res.errMsg);
 				    }
 				});
+			},
+			changepwd(){
+				console.log("修改密码")
 			},
 			ChangeSchool(){
 				uni.navigateTo({

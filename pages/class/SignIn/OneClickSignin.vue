@@ -28,8 +28,8 @@
 				</swiper>
 			</u-grid>
 		</view>
-		<u-button  class="button1" size="medium" @click="EndSign(0)">放弃</u-button>
-		<u-button  class="button2" size="medium" @click="EndSign(1)">结束</u-button>
+		<view><u-button  class="button1" size="medium" @click="EndSign(0)">放弃</u-button></view>
+		<view><u-button  class="button2" size="medium" @click="EndSign(1)">结束</u-button></view>
 		
 	</view>
 	</view>
@@ -55,6 +55,8 @@
 					note:null,
 					userId:null,
 				}],
+				startid:null,
+				user:{},
 				}
 		},
 		onLoad: function(option){
@@ -66,7 +68,8 @@
 					// console.log(this.userObj)
 					this.$Api.GetAllStu(this.userObj.classCourseId).then(res => {
 						console.log(res)
-						for(var i = 0;i < res.data.data.length;i++){
+						this.user = res.data.data
+						for(var i = 0;i < use.length;i++){
 						var obj = {
 							name: res.data.data[i].userName,
 							note:"未签到",
@@ -79,6 +82,32 @@
 						// console.log(_this.UnSignStudents)
 					})
 					this.Stulength = this.UnSignStudents.length
+		},
+		onShow() {
+			setTimeout(function() {
+						let temp = 0;
+						console.log(temp)
+						_this.$Api.SignInfo(_this.userObj.startSignId).then(res =>{
+							this.UnSignStudents={}
+							for(var i = 0;i < res.data.data.length;i++){
+							var obj = {
+								name: res.data.data[i].userName,
+								note:"未签到",
+								userId:res.data.data[i].userId
+							}
+							for(var j = 0;j < this.user.length;j++){
+								if(res.data.data[i].stuId == this.user[j].stuId)
+								{
+									temp++;
+								}
+							}
+							if(temp = 0)
+							// console.log("_this.UnSignStudents")
+							// console.log(res.data.data.userName)
+								_this.UnSignStudents.push(obj)	
+							}
+						})
+					}, 10000)
 		},
 		created() {
 			_this = this;
@@ -94,6 +123,38 @@
 						success(res) {
 							if (res.confirm) {
 								console.log('放弃签到')
+								console.log(_this.userObj)
+								console.log(_this.userObj.startSignId)
+								_this.$Api.DeleteSign(_this.userObj.startSignId).then(res => {
+									if(res.data.success){
+										
+										_this.$Api.SearchClass(_this.userObj.classCourseId).then(async (res) => {
+												if(res.data.success)
+												{
+													console.log(res)
+													let obj = {
+														id: res.data.data.classCourseId,
+														classcoursename: res.data.data.courseName,
+													}
+													
+													uni.showToast({
+													title: '放弃成功',
+													duration: 1000
+													});
+													setTimeout(function () {
+														
+													  uni.reLaunch({
+													  	url: '/pages/class/created_class/home'
+													  })
+																   
+													                   }, 1000);
+													
+												}
+												
+											})
+												}
+										})
+										
 								// uni.navigateBack({})
 							} else if (res.cancel) {
 								console.log('用户点击取消')
@@ -128,9 +189,18 @@
 											}
 											console.log("obj")
 											console.log(obj)
-											uni.reLaunch({
-												url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(obj))
-											})
+											uni.showToast({
+											title: '成功结束班课',
+											duration: 1000
+											});
+											setTimeout(function () {
+												
+											  uni.reLaunch({
+											  	url: '/pages/class/created_class/home'
+											  })
+														   
+											                   }, 1000);
+											
 										}
 										
 									})

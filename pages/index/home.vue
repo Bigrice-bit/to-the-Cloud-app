@@ -14,7 +14,6 @@
 						iconPath: "home",
 						selectedIconPath: "home-fill",
 						text: '班课',
-						count: 2,
 						isDot: true,
 						customIcon: false,
 					},

@@ -3,18 +3,18 @@
 		<swiper :indicator-dots="true" class="swiper" :autoplay="autoplay">
 			<swiper-item>
 				<view class="swiper-item">
-					<image class="swiper-item-img" src="../../static/wel1.png" mode="scaleToFill"></image>
+					<image class="swiper-item-img" src="../../static/wel1.png" mode="widthFix"></image>
 				</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image class="swiper-item-img" src="../../static/wel2.png" mode="scaleToFill"></image>
+					<image class="swiper-item-img" src="../../static/wel2.png" mode="widthFix"></image>
 					<view class="jump-over" @click="launchFlag()">{{jumpover}}</view>
 				</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image class="swiper-item-img" src="../../static/wel3.png" mode="scaleToFill"></image>
+					<image class="swiper-item-img" src="../../static/wel3.png" mode="widthFix"></image>
 				</view>
 				<view class="experience" @click="launchFlag()">{{experience}}</view>
 			</swiper-item>
@@ -81,6 +81,8 @@
 		width: 100%;
 		height: 100%;
 		margin: 0 auto;
+		/* margin-top: 200rpx; */
+		margin-bottom: 300rpx;
 	}
 
 	.swiper-item-img image {

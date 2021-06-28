@@ -3,6 +3,8 @@
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate">
+			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
+			
 		</u-navbar>
 		<view>
 			<view class="text1" @click="SignIn">参与签到</view>
@@ -152,6 +154,12 @@
 
 		},
 		methods: {
+			BackClass() {
+				console.log("点击返回")
+				uni.switchTab({
+					url: '/pages/index/class'
+				})
+			},
 			SignIn(){
 				//学生签到
 				try {
@@ -462,5 +470,14 @@
 	
 	.icon{
 		margin-left: 30rpx;
+	}
+	
+	.slot-wrap {
+		display: flex;
+		margin-left: 25rpx;
+		/* 如果您想让slot内容占满整个导航栏的宽度 */
+		/* flex: 1; */
+		/* 如果您想让slot内容与导航栏左右有空隙 */
+		/* padding: 0 30rpx; */
 	}
 </style>

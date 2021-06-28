@@ -139,6 +139,29 @@ export default {
 	//学生退出班课
 	ExitClass: (data) =>{
 		return api.request('/stuclasscourses','DELETE',data)
+	},
+	// 通过StartSignId删除创建的签到（删）
+	DeleteSign:(data) => {
+		let url='/signs/'+data
+		return api.request(url,'DELETE')
+	},
+	//更新学生签到状态（改）
+	UpdateStuStatus: (data) => {
+		return api.request('/signrecords','PUT',data)
+	},
+	//用户退出登录
+	Exit:(data) => {
+		let url = '/auth/logout/'+data
+		return api.request(url,'DELETE')
+	},
+	//关联邮箱
+	Email: (data) => {
+		return api.request('/emailchange','POST',data)
+	},
+	//获取总经验值
+	AllExpr:(data) => {
+		let url = '/info/'+data
+		return api.request(url,'GET')
 	}
 	
 }

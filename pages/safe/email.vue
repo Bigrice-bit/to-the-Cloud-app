@@ -12,7 +12,7 @@
 		     		>
 		     		</u-field>
 		</view>
-		<button type="error" class="button">关联</button>
+		<button type="error" class="button" @click="link">关联</button>
 	</view>
 </template>
 
@@ -37,13 +37,36 @@
 			 onKeyInput: function(event) {
 			            this.inputValue = event.target.value
 			        },
+			link(){
+				let item = uni.getStorageSync('LoginKey')
+				this.$Api.UserInfo(item).then(res => {
+					if(res.data.success){
+						res.data.data.email = this.email;
+						this.$Api.UpdateInfo(res.data.data).then(res => {
+							if(res.data.success){
+								uni.showToast({
+									title:"关联成功",
+									duration: 1000
+								})
+								setTimeout(function () {
+									
+								  uni.reLaunch({
+								  	url: '/pages/safe/index'
+								  })
+											   
+								                   }, 1000);
+							}
+						})
+					}
+				})
+			}
 		}
 	}
 </script>
 
 <style lang="scss">
 page{
-	background-color:#f1f1f1;
+	background-color:#ffffff;
 	font-size: 30upx;
 }
 

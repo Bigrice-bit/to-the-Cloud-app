@@ -307,6 +307,11 @@
 							url: '/pages/login/login'
 						})
 					},
+					BackClass(){
+						uni.reLaunch({
+							url: '/pages/index/class'
+						})
+					},
 					EndeClass(index){
 						if(index == 1)
 						{
@@ -556,6 +561,16 @@
 		background: #fff;
 		margin-top: -1rpx;
 	}
+	
+	.slot-wrap {
+		display: flex;
+		margin-left: 25rpx;
+		/* 如果您想让slot内容占满整个导航栏的宽度 */
+		/* flex: 1; */
+		/* 如果您想让slot内容与导航栏左右有空隙 */
+		/* padding: 0 30rpx; */
+	}
+	
 	.list{
 		width:100%;
 		border-bottom: 5upx solid  #ffffff;

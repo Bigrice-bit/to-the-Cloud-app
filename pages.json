@@ -218,6 +218,34 @@
 				"navigationBarTitleText": "班课详情"
 		
 			}
+		},
+		{
+			"path": "pages/Mine/agreement",
+			"style": {
+				"navigationBarTitleText": "用户协议"
+		
+			}
+		},
+		{
+			"path": "pages/Mine/Privacy",
+			"style": {
+				"navigationBarTitleText": "隐私政策"
+		
+			}
+		},
+		{
+			"path": "pages/Mine/about",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+		
+			}
+		},
+		{
+			"path": "pages/safe/changepwd",
+			"style": {
+				"navigationBarTitleText": "修改密码"
+		
+			}
 		}
 		
 		

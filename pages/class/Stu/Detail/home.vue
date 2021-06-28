@@ -3,44 +3,46 @@
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate">
+			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 		</u-navbar>
-	<view class="bgcolor">
-		</br><!-- <image class="img" src="../../../../static/签到图标.png" shape="circle" mode="widthFix" @click="Signin"></image> -->
-		<view class="text1">第 {{paiming}} 名</view>
-		<view class="expr">当前获得{{cord}}经验值</view>
-	</view>
-	<view class="">
-		</br>
-		<text>成员总数</text><text class="text">{{stunum}}人</text>
-		<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
-			<view class="u-demo-area">
-				
+		<view class="bgcolor">
+			</br>
+			<!-- <image class="img" src="../../../../static/签到图标.png" shape="circle" mode="widthFix" @click="Signin"></image> -->
+			<view class="text1">第 {{paiming}} 名</view>
+			<view class="expr">当前获得{{cord}}经验值</view>
+		</view>
+		<view class="">
+			</br>
+			<text>成员总数</text><text class="text">{{stunum}}人</text>
+			<view class="u-demo-wrap" style="padding-left:0;padding-right:0;margin-left: -20rpx;margin-right: -5rpx;">
+				<view class="u-demo-area">
+
 					<swiper-item>
 						<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
-						<!-- <scroll-view> -->
+							<!-- <scroll-view> -->
 							<u-cell-group>
-								
+
 								<view class="index">{{index}}</view>
 								<u-cell-item @tap="Studetail(index)" :title=item.name :label=item.id
 									arrow-direction="right">
-									
-									
+
+
 									<u-icon @tap="Studetail(index)" slot="icon" size="100" class="icon"
 										name="../../../../static/headimage.png"></u-icon>
-								
+
 									<!-- <u-icon  label="签到" slot="icon" size="30" name="edit-pen"></u-icon> -->
 									<view class="test2">{{item.experience}}经验值</view>
-								
+
 								</u-cell-item>
-	
+
 							</u-cell-group>
 						</scroll-view>
 					</swiper-item>
-	
+
+				</view>
 			</view>
 		</view>
-	</view>
-		
+
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
 </template>
@@ -58,7 +60,7 @@
 				rightSlot: false,
 				useSlot: false,
 				tabbar: '',
-				isBack: true,
+				isBack: false,
 				search: false,
 				custom: false,
 				isFixed: true,
@@ -73,17 +75,17 @@
 					"SignDate": "",
 					"EndDate": "",
 					"ClassCourseId": null,
-					StuSignType:null
+					StuSignType: null
 				},
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				label: '此处显示学号，后台返回',
 				Students: [{
-					name: null,
-					id: null,
-					experience: null,
-					StuId: null,
+					'name': null,
+					'id': null,
+					'experience': null,
+					'StuId': null,
 				}],
 				loadText: {
 					loadmore: '轻轻上拉',
@@ -98,19 +100,19 @@
 
 				time: null,
 				i: null,
-				obj2:{
-					id:null,
-					name:null,
-					experience:null,
+				obj2: {
+					id: null,
+					name: null,
+					experience: null,
 					StuId: null,
 				},
 				paiming: null,
-				cord: null,
+				cord: '',
 			}
 		},
 		onLoad: function(option) { //opthin为object类型，会序列化上页面传递的参数
 			// console.log(option.item)
-			
+
 			const item = JSON.parse(decodeURIComponent(option.item));
 			this.data.ClassCourseId = item.id;
 			this.title = item.classcoursename;
@@ -124,12 +126,12 @@
 					setTimeout(function() {
 						console.log("存储成功")
 					}, 1000);
-		
+
 				}
 			})
 			try {
 				const Tvalue = uni.getStorageSync("LoginKey");
-		
+
 				if (Tvalue) {
 					// console.log(Tvalue);
 					this.data.Creator = Tvalue;
@@ -137,86 +139,105 @@
 			} catch (e) {
 				console.log(e);
 			}
+			
+			this.doGet()
 			// console.log(item)
 			// let T = parsent(this.data.ClassCourseId)
 			// console.log(option.item.id)
-			this.$Api.GetAllStu(item.id).then(res => {
-					console.log(res)
-					
-					this.stunum = res.data.data.length;
-					for (var i = 0; i < this.stunum; i++) {
-						console.log("从头")
-						// _this.expr = 5;
-						var obj1 = {
-							StuId: res.data.data[i].userId,
-							ClassCourseId: item.id,
-						}
-						this.obj2 = {
-							id:res.data.data[i].userNum,
-							StuId: res.data.data[i].userId,
-							name:res.data.data[i].userName,
-							experience: null,
-						}
-						// console.log(obj1);
-						// console.log('↑obj')
-						
-						
-						
-						_this.$Api.GetExper(obj1).then(res => {
-							var that = _this
-							// console.log("res")
-							console.log(res)
-							if (res.data.success) {
-								// console.log('res.data.success')
-								// console.log(res)
-								if (res.data.data != null) {
-									console.log("!!!")
-									that.obj2.experience = res.data.data.empiricalValue
-		
-								} else {
-									console.log("失败")
-									// _this.expr = 0
-									that.obj2.experience = 1
-								}
-								
-							} 
-							else {
-								console.log("res失败")
-							}
-						})
-						
-						// console.log(this.obj2);
-						_this.Students.push(this.obj2);
-						
-					}
-					console.log("123")
-					console.log(this.stunum)
-					for(var i = 1;i <= this.stunum;i++)
-					{
-						console.log("111")
-						console.log(this.data.Creator)
-						
-						if(this.data.Creator == this.Students[i].StuId)
-						{
-							console.log(this.Students[i])
-							this.cord = this.Students[i].experience;
-							console.log("222")
-							console.log(this.cord)
-							break;
-						}
-					}
-				})
-				
-				//自定义input处理事件监听
-				uni.$on('update-prompt', (data) => {
-					// data.value input输入值
-					// data.callback 处理后返回方法名
-					let val = data.value
-					// ...逻辑处理...
-		
-					uni.$emit(e.callback, val)
-				})
-			
+
+
+			// this.$Api.GetAllStu(item.id).then(async (res) => {
+			// 	console.log(res)
+			// 	this.stunum = res.data.data.length;
+			// 	console.log(this.stunum)
+			// 	for (var i = 0; i < this.stunum; i++) {
+			// 		console.log("从头")
+			// 		// _this.expr = 5;
+			// 		var obj1 = {
+			// 			'StuId': res.data.data[i].userId,
+			// 			'ClassCourseId': item.id,
+			// 		}
+			// 		var obj2 = {
+			// 			'id': res.data.data[i].userNum,
+			// 			'StuId': res.data.data[i].userId,
+			// 			'name': res.data.data[i].userName,
+			// 			'experience': 0,
+			// 		}
+			// 		_this.doGet(obj1)
+			// 		// console.log(obj1);
+			// 		// console.log('↑obj')
+
+
+
+			// 		// _this.$Api.GetExper(obj1).then(async (res) => {
+			// 		// 	console.log('GetExper', "res")
+			// 		// 	console.log(res)
+			// 		// 	if (res.data.success) {
+			// 		// 		// console.log('res.data.success')
+			// 		// 		// console.log(res)
+			// 		// 		if (res.data.data.empiricalValue != null) {
+			// 		// 			obj2.experience = res.data.data.empiricalValue
+			// 		// 		} else {
+			// 		// 			obj2.experience = 0
+			// 		// 		}
+			// 		// 		console.log(obj2.experience)
+
+
+			// 		// 		_this.Students.push(obj2);
+			// 		// 	} else {
+			// 		// 		console.log("res失败")
+			// 		// 	}
+			// 		// })
+
+			// 		// console.log(this.obj2);
+
+			// 	}
+
+
+			// 	console.log("学生数组197")
+			// 	console.log(this.Students)
+			// 	for (var i = 1; i <= this.stunum; i++) {
+
+			// 		console.log('Creator', this.data.Creator)
+
+			// 		if (this.data.Creator == this.Students[i].StuId) {
+			// 			console.log(this.Students[i])
+			// 			this.cord = this.Students[i].experience;
+
+			// 			console.log("当前用户登录经验值209")
+			// 			console.log('experience', this.Students[i].experience)
+
+			// 			break;
+			// 		}
+			// 	}
+
+			// 	for (var i = 1; i <= this.stunum; i++) {
+
+			// 		this.paiming = this.stunum;
+			// 		console.log("111111111111111")
+
+			// 		console.log(this.cord)
+			// 		if (this.Students[i].experience < this.cord) {
+			// 			console.log("排名")
+			// 			this.paiming--;
+			// 		}
+			// 		// console.log("排名")
+			// 		// console.log(this.paiming)
+			// 	}
+			// })
+			// console.log("111")
+			// console.log(this.stunum)
+
+			//自定义input处理事件监听
+			uni.$on('update-prompt', (data) => {
+				// data.value input输入值
+				// data.callback 处理后返回方法名
+				let val = data.value
+				// ...逻辑处理...
+
+				uni.$emit(e.callback, val)
+			})
+
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
@@ -244,6 +265,8 @@
 			console.log("学生列表")
 			console.log(this.Students)
 		},
+
+
 		onBackPress() {
 			if (this.$refs.yomolPrompt.visible) {
 				this.$refs.yomolPrompt.hide()
@@ -255,6 +278,45 @@
 
 		},
 		methods: {
+			async doGet() {
+				this.$Api.GetAllStu(this.data.ClassCourseId).then(async (res) => {
+					console.log(res)
+					this.stunum = res.data.data.length;
+					console.log(this.stunum)
+					for (var i = 0; i < this.stunum; i++) {
+						// _this.expr = 5;
+						var obj1 = {
+							'StuId': res.data.data[i].userId,
+							'ClassCourseId': this.data.ClassCourseId,
+						}
+						await this.getData(obj1)
+					}
+					console.log(_this.Students,'_this.Students')
+				})
+			},
+			getData: function(obj1) {
+				return new Promise((resolve, reject) => {
+					_this.$Api.GetExper(obj1).then(async (res) => {
+						console.log('GetExper', "res")
+						console.log(res)
+						if (res.data.success) {
+							// console.log('res.data.success')
+							// console.log(res)
+							if (res.data.data.empiricalValue != null) {
+								obj2.experience = res.data.data.empiricalValue
+							} else {
+								obj2.experience = 0
+							}
+							console.log(obj2.experience)
+
+
+							_this.Students.push(obj2);
+						} else {
+							console.log("res失败")
+						}
+					})
+				})
+			},
 			//限时签到
 			TimLimitedSignIn(index) {
 
@@ -267,7 +329,7 @@
 				this.EndDate = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 				this.data.EndDate = this.EndDate;
 				this.data.StuSignType = 0;
-				
+
 				console.log(this.data)
 				this.$Api.CreateSign(this.data).then(res => {
 					let item = encodeURIComponent(JSON.stringify(res.data.data))
@@ -278,6 +340,11 @@
 					})
 				})
 
+			},
+			BackClass() {
+				uni.reLaunch({
+					url: '/pages/index/class'
+				})
 			},
 			//老师发起
 			Signin() {
@@ -292,39 +359,66 @@
 								content: '一键签到马上开始！请让学生做好准备',
 								success: function(res) {
 									if (res.confirm) {
-										_this.timestamp = Math.round(new Date() / 1000);
-										_this.SignDate = _this.$u.timeFormat(_this.timestamp,
+										_this.timestamp = Math.round(
+											new Date() / 1000);
+										_this.SignDate = _this.$u.timeFormat(
+											_this.timestamp,
 											'yyyy/mm/dd hh:MM:ss');
 										_this.data.SignDate = _this.SignDate;
-										_this.timestamp = _this.timestamp + 60; // 一分钟限时
+										_this.timestamp = _this.timestamp +
+											60; // 一分钟限时
 										_this.data.Duration = 60
-										_this.EndDate = _this.$u.timeFormat(_this.timestamp,
+										_this.EndDate = _this.$u.timeFormat(
+											_this.timestamp,
 											'yyyy/mm/dd hh:MM:ss');
 										_this.data.EndDate = _this.EndDate;
 										_this.data.StuSignType = 1;
-										_this.data.ClassCourseId = _this.data.ClassCourseId;
+										_this.data.ClassCourseId = _this.data
+											.ClassCourseId;
 										uni.getLocation({
 											type: 'wgs84',
 											success: function(res) {
-												console.log('当前位置的经度：' + res
+												console.log(
+													'当前位置的经度：' +
+													res
 													.longitude);
-												console.log('当前位置的纬度：' + res
+												console.log(
+													'当前位置的纬度：' +
+													res
 													.latitude);
-												_this.data.targetLongitude = res
+												_this.data
+													.targetLongitude =
+													res
 													.longitude //经度
-												_this.data.targetLatitude = res
+												_this.data
+													.targetLatitude =
+													res
 													.latitude //纬度
-												console.log(_this.data);
-												_this.$Api.CreateSign(_this.data)
+												console.log(_this
+													.data);
+												_this.$Api
+													.CreateSign(
+														_this.data)
 													.then(res => {
 														let item =
 															encodeURIComponent(
-																JSON.stringify(
-																	res.data
-																	.data))
-														console.log(res.data
-															.data)
-														console.log(item)
+																JSON
+																.stringify(
+																	res
+																	.data
+																	.data
+																)
+															)
+														console
+															.log(
+																res
+																.data
+																.data
+															)
+														console
+															.log(
+																item
+															)
 														uni.reLaunch({
 															url: "/pages/class/SignIn/OneClickSignin?item=" +
 																item
@@ -366,31 +460,33 @@
 				console.log("点击按学号（");
 				this.SortArray(this.Students);
 				console.log(this.Students);
-				
-				
+
+
 			},
 			Studetail(index) {
 				console.log("点击进入学生详情页");
 				console.log(this.Students[index].StuId)
 				uni.navigateTo({
-					url: '/pages/class/Stu/Studetail?item='+encodeURIComponent(JSON.stringify(this.Students[index].StuId))
+					url: '/pages/class/Stu/Studetail?item=' + encodeURIComponent(JSON
+						.stringify(this.Students[
+							index].StuId))
 				})
-				
+
 			},
 			//数组排序方法
-			 SortArray(data){
-			       for(var i=0;i<data.length;i++){
-			         let num = {};
-			          for(var j=i+1;j<data.length;j++){
-			                 if(data[i].id>data[j].id){
-			                      num=data[j];
-			                      data[j]=data[i];
-			                      data[i]=num;
-			                   }
-			              }
-			                }
-			               
-			            },
+			SortArray(data) {
+				for (var i = 0; i < data.length; i++) {
+					let num = {};
+					for (var j = i + 1; j < data.length; j++) {
+						if (data[i].id > data[j].id) {
+							num = data[j];
+							data[j] = data[i];
+							data[i] = num;
+						}
+					}
+				}
+
+			},
 			/*
 			 * 打开提示框
 			 */
@@ -434,12 +530,12 @@
 		margin-right: auto;
 		margin-bottom: 50rpx;
 	}
-	
-		.bgcolor{
-			background-color: #1abc9c;
-			width: 1000rpx;
-			height: 200rpx;
-		}
+
+	.bgcolor {
+		background-color: #1abc9c;
+		width: 1000rpx;
+		height: 200rpx;
+	}
 
 	.text-area {
 		/* display: flex; */
@@ -454,8 +550,8 @@
 	.img {
 		margin-left: 300rpx;
 		width: 20%;
-		 height: 20%;
-		 margin-top: 40rpx;
+		height: 20%;
+		margin-top: 40rpx;
 	}
 
 	.u-demo {
@@ -472,6 +568,7 @@
 	.text {
 		margin-left: 550rpx;
 	}
+
 	.text1 {
 		/* display: flex; */
 		/* justify-content: center; */
@@ -481,10 +578,10 @@
 		font-weight: bold;
 		color: #ffffff;
 	}
-	
-	.expr{
+
+	.expr {
 		margin-top: 10rpx;
-		margin-left:260rpx;
+		margin-left: 260rpx;
 		font-size: 30rpx;
 		/* font-weight: bold; */
 		color: #ffffff;
@@ -593,16 +690,25 @@
 		border-radius: 20rpx;
 		margin-left: 15rpx;
 	}
-	
-	.index{
+
+	.index {
 		/* margin-right: rpx; */
 		font-size: 40rpx;
 		margin-left: 25rpx;
 		/* margin-top: -1rpx; */
-		
+
 	}
-	
-	.icon{
+
+	.icon {
 		margin-left: 30rpx;
+	}
+
+	.slot-wrap {
+		display: flex;
+		margin-left: 25rpx;
+		/* 如果您想让slot内容占满整个导航栏的宽度 */
+		/* flex: 1; */
+		/* 如果您想让slot内容与导航栏左右有空隙 */
+		/* padding: 0 30rpx; */
 	}
 </style>

@@ -4,6 +4,7 @@
 					<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 						:background="background" :back-text-style="{color: '#fff'}" :title="item.course" :back-icon-name="backIconName"
 						:back-text="backText" @click="newcreate"> 
+						<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 						</u-navbar>
 
 				<view class="header">
@@ -69,7 +70,7 @@
 				right: false,
 				showAction: false,
 				rightSlot: false,
-				isBack: true,
+				isBack: false,
 				isFixed: true,
 				arrow: false,
 				background: {
@@ -142,21 +143,21 @@
 					count: 0,
 					// isDot: true,
 					customIcon: false,
-					pagePath: "/pages/class/created_class/message"
+					pagePath: "/pages/class/Stu/Detail/record"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课成员',
 					customIcon: false,
-					pagePath: "/pages/class/created_class/home"
+					pagePath: "/pages/class/Stu/Detail/home"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课详情',
 					customIcon: false,
-					pagePath: "/pages/class/created_class/detail"
+					pagePath: "/pages/class/Stu/Detail/detail"
 				},
 			]
 				},
@@ -188,6 +189,12 @@
 					exit(){
 						uni.navigateTo({
 							url: '/pages/login/login'
+						})
+					},
+					BackClass() {
+						console.log("点击返回")
+						uni.switchTab({
+							url: '/pages/index/class'
 						})
 					},
 					EndeClass(){
@@ -452,6 +459,15 @@
 	.avator .img {
 		width: 100%;
 		height:100%;
+	}
+	
+	.slot-wrap {
+		display: flex;
+		margin-left: 25rpx;
+		/* 如果您想让slot内容占满整个导航栏的宽度 */
+		/* flex: 1; */
+		/* 如果您想让slot内容与导航栏左右有空隙 */
+		/* padding: 0 30rpx; */
 	}
 	
 	.text1{

@@ -14,7 +14,7 @@
 							<view class="box-bd">
 								<view class="">
 								<u-icon  slot="" size="200" class="headicon"
-									name="../../../static/头像.png"></u-icon>
+									name="../../../static/headimage.png"></u-icon>
 								<!-- <image class="img" src="../../../static/头像.png" mode="widthFix"></image> -->
 								</view><view class="text1">
 									<view class="">{{name}}</view></br>

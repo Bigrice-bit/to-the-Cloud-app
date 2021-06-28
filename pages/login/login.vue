@@ -42,7 +42,7 @@
 				<u-icon name="phone"></u-icon><text @click="ToReGister(3)">手机验证码登录</text>
 			</view>
 			<view class="loginBtn">
-				<u-icon name="qq-fill"></u-icon><text @click="ToReGister(4)">QQ登录</text>
+				<u-icon name="github-circle-fill"></u-icon><text @click="ToReGister(4)">Github登录</text>
 			</view>
 		</view>
 	</view>
@@ -161,6 +161,10 @@
 								uni.setStorage({
 									key:'LoginKey',
 									data:kins,
+									})
+								uni.setStorage({
+									key:'TOKEN',
+									data:res.data.extra,
 									success:function(){
 										
 										setTimeout(function () {

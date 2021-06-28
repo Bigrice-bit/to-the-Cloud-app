@@ -288,7 +288,7 @@
 					iconPath: "home",
 					selectedIconPath: "home-fill",
 					text: '班课',
-					count: 2,
+					count: 0,
 					//	isDot: true,
 					customIcon: false,
 					pagePath: "/pages/index/class"
@@ -513,8 +513,19 @@
 					classcoursename: this.objectArray[index].coursename
 				}
 				console.log(encodeURIComponent(JSON.stringify(obj)))
+				uni.setStorage({
+					key: 'ClassKey',
+					data: this.objectArray[index].id,
+					success: function() {
+						setTimeout(function() {
+							console.log("存储成功")
+						}, 1000);
+				
+					}
+				})
 				uni.reLaunch({
-					url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(obj))
+					// url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(obj))
+					url: '/pages/class/created_class/home'
 				})
 			},
 			//学生班课信息
@@ -598,7 +609,16 @@
 						itemList: ['限时签到', '一键签到', '手工登记'],
 						success: function(res) {
 							if (res.tapIndex == 0) {
-
+							uni.setStorage({
+								key: 'ClassKey',
+								data: _this.objectArray[index].id,
+								success: function() {
+									setTimeout(function() {
+										console.log("存储成功")
+									}, 1000);
+							
+								}
+							})
 								_this.onOpenPromptClick()
 
 							} else if (res.tapIndex == 1) {
@@ -608,6 +628,16 @@
 									success: function(res) {
 										if (res.confirm) {
 											console.log("点击确认")
+											uni.setStorage({
+												key: 'ClassKey',
+												data: _this.objectArray[index].id,
+												success: function() {
+													setTimeout(function() {
+														console.log("存储成功")
+													}, 1000);
+											
+												}
+											})
 											_this.timestamp = Math.round(new Date() / 1000);
 											_this.SignDate = _this.$u.timeFormat(_this.timestamp,
 												'yyyy/mm/dd hh:MM:ss');
@@ -663,8 +693,12 @@
 
 
 							} else {
-								uni.navigateTo({
-									url: "/pages/class/SignIn/ManualReg"
+								uni.setStorage({
+									key:'ClassKey',
+									data: _this.objectArray[index].id,
+									})
+								uni.reLaunch({
+									url: "/pages/class/created_class/message"
 								})
 								console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
 							}
@@ -690,7 +724,9 @@
 			//学生签到
 			Stusignin(data, index) {
 				console.log("判断老师是否发起签到，是的话进入签到界面，否的话提示未发起签到")
+				
 				this.$Api.IsSignIn(this.joinArray[index].id).then(res => {
+					
 					console.log(res);
 					if (res.data.success) {
 						console.log("有签到,根据返回type判断是哪种签到");
@@ -926,8 +962,9 @@
 	}
 
 	.search-box {
-		height: 50px;
-		// margin-top: 100px;
+		position: flex;
+		// height: 1px;
+		margin-top: 400px;
 	}
 
 	.icon {

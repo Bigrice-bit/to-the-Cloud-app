@@ -17,7 +17,9 @@
             "delay" : 0
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "Maps" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -44,7 +46,13 @@
             "ios" : {},
             /* SDK配置 */
             "sdkConfigs" : {
-                "ad" : {}
+                "ad" : {},
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "b785db98c74bcceadeb4af80cdcdaac4",
+                        "appkey_android" : "b785db98c74bcceadeb4af80cdcdaac4"
+                    }
+                }
             },
             "splashscreen" : {
                 "androidStyle" : "default",

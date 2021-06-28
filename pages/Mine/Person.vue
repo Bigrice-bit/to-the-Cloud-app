@@ -207,7 +207,8 @@
 					console.log(res)
 					this.info.name = res.data.data.userName;
 					this.info.phone = res.data.data.phone;
-					this.info.birthday = res.data.data.birthDate;
+					let time = res.data.data.birthDate;
+					this.info.birthday = this.dateFormat(new Date(time), 'yyyy');
 					this.info.school = res.data.data.collegePointId;
 					this.info.cardnum = res.data.data.userNum;
 					this.info.account = res.data.data.account;
@@ -375,6 +376,34 @@
 					console.log(e)
 						this.info.birthday =e.year;
 				},
+				dateFormat (time, format) {
+				  var t = new Date(time)
+				  var tf = function (i) {
+				    return (i < 10 ? '0' : '') + i
+				  }
+				  return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+				    switch (a) {
+				      case 'yyyy':
+				        return tf(t.getFullYear())
+				      // break
+				      case 'MM':
+				        return tf(t.getMonth() + 1)
+				      // break
+				      case 'mm':
+				        return tf(t.getMinutes())
+				      // break
+				      case 'dd':
+				        return tf(t.getDate())
+				      // break
+				      case 'HH':
+				        return tf(t.getHours())
+				      // break
+				      case 'ss':
+				        return tf(t.getSeconds())
+				      // break
+				    }
+				  })
+				},
 			SaveChange(){
 			if(this.info.name!=null && this.info.iden!=null && this.info.cardnum!=null)
 			{
@@ -382,28 +411,28 @@
 					if(this.info.iden === "我是老师")
 					{
 						this.$u.vuex('vuex_jurisdiction.name','0');
-						this.updateinfo.roleidlist = 2;
-						this.updateinfo.rolenamelist = "老师";
+						this.updateinfo.roleIdList = 2;
+						this.updateinfo.roleNameList = "教师";
 					}
 					else if(this.info.iden === "其他"){
 						this.$u.vuex('vuex_jurisdiction.name','2');
-						this.updateinfo.roleidlist = 3;
-						this.updateinfo.rolenamelist = "学生"
+						this.updateinfo.roleIdList = 3;
+						this.updateinfo.roleNameList = "学生"
 					}
 					else{
 						this.$u.vuex('vuex_jurisdiction.name','1');
-						this.updateinfo.roleidlist = 3;
-						this.updateinfo.rolenamelist = "学生"
+						this.updateinfo.roleIdList = 3;
+						this.updateinfo.roleNameList = "学生"
 					}
 					
 					console.log("保存成功")
 					this.updateinfo.userName = this.info.name;
-					this.updateinfo.birthDate = this.info.birthday;
-					this.updateinfo.sex = '女';
+					this.updateinfo.birthDate = this.info.birthday +'/02/01';	//this.info.birthday
+					this.updateinfo.sex = this.info.sex;
 					// this.updateinfo.stuid
 					// this.updateinfo.CollegePointId = null;
 					this.updateinfo.userNum = this.info.cardnum;
-					this.updateinfo.birthDate = this.info.birthday + '年'
+					// this.updateinfo.birthDate = this.info.birthday
 					// conso.log(
 					console.log("以下为更新的用户信息")
 					console.log(this.updateinfo)
@@ -415,9 +444,14 @@
 							title: '保存成功',
 							duration: 1000
 							});
-							uni.reLaunch({
-								url:'/pages/index/class'
-							})
+							setTimeout(function () {
+								
+							   uni.reLaunch({
+							   	url:'/pages/index/class'
+							   })
+										   
+							                   }, 1000);
+							
 						}
 						else{
 							uni.showToast({

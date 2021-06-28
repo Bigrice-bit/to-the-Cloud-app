@@ -4,13 +4,13 @@
 					<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 						:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
 						:back-text="backText" @click="newcreate"> 
-						<!-- <u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon> -->
+						<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 						</u-navbar>
 
 				<view class="list-content">
 
 		<u-cell-group v-for="(i, index) in item" :key="index">
-			<u-cell-item   :title="i.date" :label="i.time" arrow-direction="right" v-if="index >= 1">
+			<u-cell-item   :title="i.date" :label="i.time" arrow-direction="right" v-if="index >= 1" @click="maureg(index)">
 				
 				
 				<view>
@@ -37,7 +37,7 @@
 				right: false,
 				showAction: false,
 				rightSlot: false,
-				isBack: true,
+				isBack: false,
 				isFixed: true,
 				arrow: true,
 				background: {
@@ -52,21 +52,31 @@
 					date:null,
 					time:null,
 					stusignnum: null,
-					allstu:null
+					allstu:null,
+					startSignId:null
 				}],
-				info:{}
+				info:{},
+				
 			}
 		},
 		created() {
 			_this = this
 		},
 		onLoad(option) {
+			this.item = [{
+					date:null,
+					time:null,
+					stusignnum: null,
+					allstu:null,
+					startSignId:null
+				}];
 			let that = this;
 			this.userid = uni.getStorageSync("LoginKey");
 			this.classcourseid = uni.getStorageSync("ClassKey");
 			
 			this.$Api.TeaRecord(this.userid,this.classcourseid).then(async (res) => {
-				this.info = res
+				this.info = res;
+				
 				console.log(res)
 				if(res.data.success){
 					// let time = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
@@ -86,9 +96,11 @@
 						date: time1 + '                    '+ '签到',
 						time:time2,
 						stusignnum: 0,
-						allstu: this.classnum
+						allstu: this.classnum,
+						startSignId: res.data.data[i].startSignId
 					}
 					this.$Api.SignInfo(res.data.data[i].startSignId).then(res => {
+						console.log(res)
 						if(res.data.success){
 							obj.stusignnum = res.data.data.length
 						}
@@ -154,7 +166,18 @@
 					    }
 					  })
 					},
-					
+					BackClass(){
+						uni.reLaunch({
+							url: '/pages/index/class'
+						})
+					},
+					maureg(index){
+						console.log("tiaozhuan")
+						console.log(this.item[index].startSignId)
+						uni.navigateTo({
+							url: '/pages/class/SignIn/ManualReg?item='+encodeURIComponent(JSON.stringify(this.item[index].startSignId))
+						})
+					}
 					
 				}
 			}
@@ -335,6 +358,15 @@
 	
 	.avator .img {
 		width: 50%,
+	}
+	
+	.slot-wrap {
+		display: flex;
+		margin-left: 25rpx;
+		/* 如果您想让slot内容占满整个导航栏的宽度 */
+		/* flex: 1; */
+		/* 如果您想让slot内容与导航栏左右有空隙 */
+		/* padding: 0 30rpx; */
 	}
 	
 	.text1{

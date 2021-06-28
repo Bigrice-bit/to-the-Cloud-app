@@ -10,9 +10,9 @@
 								<view class="phone-number">{{phoneNumber}}</view>
 							</view>
 							<view class="box-bd">
-								<view class="item">
-									<view class="icon"><img src="../../static/user/message.png"></view>
-									<view class="text">经验值</view>
+								<view class="item" >
+									<view class="exprtext">{{expr}}</view>
+									<view class="text">总经验值</view>
 								</view>
 								<view class="item" @click="Person">
 									<view class="icon"><img src="../../static/user/favorite.png"></view>
@@ -38,24 +38,20 @@
 						
 						<view class="li " >
 							<view class="icon"><image src="../../static/user/help.png"></image></view>
-							<view class="text">用户协议</view>
+							<view class="text" @click="to(1)">用户协议</view>
 							<image class="to" src="../../static/user/to.png"></image>
 						</view>
 						<view class="li " >
 							<view class="icon"><image src="../../static/user/help.png"></image></view>
-							<view class="text">隐私政策</view>
+							<view class="text" @click="to(2)">隐私政策</view>
 							<image class="to" src="../../static/user/to.png"></image>
 						</view>
 						<view class="li " >
 							<view class="icon"><image src="../../static/user/about.png"></image></view>
-							<view class="text">关于我们</view>
+							<view class="text" @click="to(3)">关于我们</view>
 							<image class="to" src="../../static/user/to.png"></image>
 						</view>
-						<view class="li " >
-							<view class="icon"><image src="../../static/user/opinion.png"></image></view>
-							<view class="text">意见反馈</view>
-							<image class="to" src="../../static/user/to.png"></image>
-						</view>
+						
 					</view>
 					<view class="list">
 						<view class="li noboder" @click="safe">
@@ -72,6 +68,7 @@
 </template>
 
 <script>
+	var _this
 	export default {
 		data() {
 			return {
@@ -79,7 +76,7 @@
 				tabbar: '',
 				phoneNumber: '暂未登录',
 				creator: null,
-				
+				expr:null,
 				
 			}
 		},
@@ -100,11 +97,15 @@
 					this.phoneNumber = res.data.data.phone
 				}
 			})
+			this.$Api.AllExpr(this.creator).then(res => {
+				if(res.data.success){
+					this.expr = res.data.data
+				}
+			})
 			this.tabbar = [{
 							iconPath: "home",
 							selectedIconPath: "home-fill",
 							text: '班课',
-							count: 2,
 							// isDot: true,
 							customIcon: false,
 							pagePath: "/pages/index/class"
@@ -125,6 +126,9 @@
 						},
 					]
 				},
+				created() {
+					_this = this
+				},
 				methods:{
 					Person(){
 						uni.navigateTo({
@@ -137,12 +141,62 @@
 						});
 					},
 					exit(){
-						uni.removeStorageSync('LoginKey');
-						uni.removeStorageSync('lifeData');
-						uni.removeStorageSync('ClassKey');
-						uni.navigateTo({
-							url: '/pages/login/login'
-						})
+						let t = uni.getStorageSync('LoginKey')
+						uni.showModal({
+							title: '提示',
+							content: '是否确认退出登录',
+							success: function(res) {
+								if (res.confirm) {
+									_this.$Api.Exit(t).then(res => {
+										if(res.data.success){
+											uni.removeStorageSync('LoginKey');
+											uni.removeStorageSync('lifeData');
+											uni.removeStorageSync('ClassKey');
+											uni.removeStorageSync('TOKEN');
+											uni.showToast({
+														title:"退出成功",
+														duration: 1000
+													})
+													setTimeout(function () {
+														
+													 uni.navigateTo({
+													 	url: '/pages/login/login'
+													 })
+																   
+													                   }, 1000);
+												
+											
+										}
+									})
+								} else if (res.cancel) {
+									console.log('用户点击取消');
+								}
+							}
+						});
+						
+						
+						
+						
+					},
+		
+					to(index){
+						if(index == 1)
+						{
+							uni.navigateTo({
+								url: '/pages/Mine/agreement'
+							})
+						}
+						else if(index == 2)
+						{
+							uni.navigateTo({
+								url: '/pages/Mine/Privacy'
+							})
+						}
+						else{
+							uni.navigateTo({
+								url: '/pages/Mine/about'
+							})
+						}
 					}
 				}
 			}
@@ -256,6 +310,12 @@
 		background: #fff;
 		// margin-top: 100rpx;
 	}
+	
+	.exprtext{
+		font-weight: bold;
+		font-size: 45rpx;
+	}
+	
 	.list{
 		width:100%;
 		border-bottom:15upx solid  #f1f1f1;
