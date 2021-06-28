@@ -88,26 +88,31 @@
 						let temp = 0;
 						console.log(temp)
 						_this.$Api.SignInfo(_this.userObj.startSignId).then(res =>{
-							this.UnSignStudents={}
-							for(var i = 0;i < res.data.data.length;i++){
-							var obj = {
-								name: res.data.data[i].userName,
-								note:"未签到",
-								userId:res.data.data[i].userId
-							}
-							for(var j = 0;j < this.user.length;j++){
-								if(res.data.data[i].stuId == this.user[j].stuId)
-								{
-									temp++;
-								}
-							}
-							if(temp = 0)
-							// console.log("_this.UnSignStudents")
-							// console.log(res.data.data.userName)
-								_this.UnSignStudents.push(obj)	
-							}
+							// this.UnSignStudents={}
+							// for(var i = 0;i < res.data.data.length;i++){
+							// var obj = {
+							// 	name: res.data.data[i].userName,
+							// 	note:"未签到",
+							// 	userId:res.data.data[i].userId
+							// }
+							// for(var j = 0;j < this.user.length;j++){
+							// 	if(res.data.data[i].stuId == this.user[j].stuId)
+							// 	{
+							// 		temp++;
+							// 	}
+							// }
+							// if(temp = 0)
+							// // console.log("_this.UnSignStudents")
+							// // console.log(res.data.data.userName)
+							// 	_this.UnSignStudents.push(obj)	
+							// }
+							this.UnSignStudents.filter(item => {
+							                    if (item.signStatus.indexOf(this.search) !== -1 ) {
+							                        newItems.push(item);
+							                    }
+							                })
 						})
-					}, 10000)
+					}, 60000)
 		},
 		created() {
 			_this = this;

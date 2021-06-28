@@ -9,35 +9,17 @@
 
 				<view class="list-content">
 
-					<view class="list">
-						
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">签到成功
+					<u-cell-group v-for="(item, index) in sturecord" :key="index">
+							<u-cell-item   :title="item.name" :label="item.time" arrow-direction="right" :arrow="false" value="+2">
 							
-							<view class="text3">此处显示签到时间</view></view>
-							<view class="detail" @click="SearchDetail">+2</view>
-							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">签到成功
 							
-							<view class="text3">此处显示签到时间</view></view>
-							<view class="detail" @click="SearchDetail">+2</view>
-							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
-						</view>
-						<view class="li " >
-							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
-							<view class="text">签到成功
+							<view>
+								{{i.stusignnum}}人/{{i.allstu}}人
+							</view>
 							
-							<view class="text3">此处显示签到时间</view></view>
-							<view class="detail" @click="SearchDetail">+2</view>
-							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
-						</view>
+						</u-cell-item>
 						
-						
-					</view>
+					</u-cell-group>
 		</view>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
 	</view>
@@ -65,26 +47,26 @@
 				classnum:null,
 				experience:null,
 				id:null,
+				sturecord:[],
 			}
 		},
 		created() {
 			_this = this
 		},
-		onLoad(option) {
+		onLoad() {
 			// const value = uni.getStorageSync("ClassKey");
 			// if (value) {
 			// 	console.log(value);
 			// 	this.classid = value;
 			
 			// }
-			const item = option.item;
+			const item = uni.getStorageSync("LoginKey");
 			// this.data.ClassCourseId = item.id;
 			// this.title = item.classcoursename;
 			// console.log(this.title)
 			console.log(item)
 			// try {
 				const Tvalue = uni.getStorageSync("ClassKey");
-			
 			// 	if (Tvalue) {
 			// 		// console.log(Tvalue);
 			// 		// this.classid = Tvalue;
@@ -104,48 +86,52 @@
 			// } catch (e) {
 			// 	console.log(e);
 			// }
-			this.id = item
+			// this.id = item
 			this.$Api.UserInfo(item).then(res => {
-				console.log(res)
 				if(res.data.success){
 					this.name = res.data.data.userName
 					this.classnum = res.data.data.userNum
-				
-				}
-			})
-			var obj={
-				StuId: item,
-				ClassCourseId:Tvalue
 			}
-			this.$Api.GetExper(obj).then(res => {
+			})
+			this.$Api.StuRecord(item,Tvalue).then(res => {
 				console.log(res)
 				if(res.data.success){
-					this.experience = res.data.data.empiricalValue
+					for(var i = 0;i < res.data.data.length;i++)
+					{
+						var obj = {
+							signStatus : res.data.data.signStatus,
+							name : _this.name,
+							classnum : _this.classnum,
+						}
+						this.sturecord.push(obj);
+					}
+					
 				
 				}
 			})
-			this.tabbar = [{
+			
+				this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
 					text: '签到记录',
 					count: 0,
 					// isDot: true,
 					customIcon: false,
-					pagePath: "/pages/class/Stu/Detail/record"
+					pagePath: "/pages/class/created_class/message"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课成员',
 					customIcon: false,
-					pagePath: "/pages/class/Stu/Detail/home"
+					pagePath: "/pages/class/created_class/home"
 				},
 				{
 					iconPath: "photo",
 					selectedIconPath: "photo-fill",
 					text: '班课详情',
 					customIcon: false,
-					pagePath: "/pages/class/Stu/Detail/detail"
+					pagePath: "/pages/class/created_class/detail"
 				},
 			]
 				},

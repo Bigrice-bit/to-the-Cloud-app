@@ -11,7 +11,8 @@
 			<view class="text1">发起签到</view>
 		</view>
 		<view class="message-box">
-			<text @click="Query">切换为按学号显示</text>
+			<text @click="Query(0)" v-if="ishow">点击按学号排序</text>
+			<text @click="Query(1)" v-else>点击按经验值排序</text>
 		</view>
 		<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
 			placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
@@ -47,7 +48,7 @@
 							<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
 						</u-cell-item> -->
 						<swiper-item>
-							<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
+							<scroll-view v-for="(item, index) in Students" :key="index">
 								<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
 								@tap="Studetail(index)">
 								<view class="" slot="body">
@@ -77,7 +78,7 @@
 							</u-card> -->
 								<u-cell-group>
 
-									<view class="index">{{index}}</view>
+									<view class="index">{{index+1}}</view>
 									<u-cell-item @tap="Studetail(index)" :title=item.name :label=item.id
 										arrow-direction="right">
 
@@ -143,11 +144,7 @@
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				label: '此处显示学号，后台返回',
-				Students: [{
-					name: null,
-					id: null,
-					experience: null,
-				}],
+				Students: [],
 				loadText: {
 					loadmore: '轻轻上拉',
 					loading: '努力加载中',
@@ -167,7 +164,8 @@
 					name: null,
 					experience: null,
 					StuId: null,
-				}
+				},
+				ishow:true,
 			}
 		},
 		onLoad: function() { //opthin为object类型，会序列化上页面传递的参数
@@ -203,56 +201,28 @@
 			// console.log(item)
 			// let T = parsent(this.data.ClassCourseId)
 			// console.log(option.item.id)
-			this.$Api.GetAllStu(this.classkey).then(async (res) => {
-					// console.log(res)
-
+			this.$Api.GetAllStu(this.classkey).then(async(res) => {
+				if (res.data.success) {
 					this.stunum = res.data.data.length;
-					for (var i = 0; i < this.stunum; i++) {
-						// console.log("从头")
-						// _this.expr = 5;
-						var obj1 = {
-							StuId: res.data.data[i].userId,
-							ClassCourseId: this.classkey,
-						}
-						var obj2 = {
+					for (var i = 0; i < res.data.data.length; i++) {
+						var obj = {
 							id: res.data.data[i].userNum,
 							StuId: res.data.data[i].userId,
 							name: res.data.data[i].userName,
-							experience: 0,
+							experience: res.data.data[i].empiricalValue,
 						}
-						// console.log(obj1);
-						// console.log('↑obj')
-
-
-
-						_this.$Api.GetExper(obj1).then(async (res) => {
-
-							console.log("res")
-							console.log(res)
-							if (res.data.success) {
-								// console.log('res.data.success')
-								// console.log(res)
-
-								console.log("!!!")
-								if (res.data.data.empiricalValue != null) {
-									obj2.experience = res.data.data.empiricalValue
-								} else {
-									obj2.experience = 0
-								}
-								console.log(obj2.experience)
-
-
-							} else {
-								console.log("res失败")
-							}
-						})
-
-						console.log(obj2);
-						_this.Students.push(obj2);
-
+						_this.Students.push(obj);
+						// if (_this.data.Creator == obj.StuId) {
+						// 	_this.cord = obj.experience
+						// }
+			
 					}
 
-				}),
+					_this.Students.sort(_this.compare('experience'))
+					_this.Students.reverse()
+					
+				}
+			})
 				//自定义input处理事件监听
 				uni.$on('update-prompt', (data) => {
 					// data.value input输入值
@@ -300,6 +270,13 @@
 
 		},
 		methods: {
+			compare(property){
+			return function(a,b){
+			var value1 = a[property];
+			var value2 = b[property];
+			return value1 - value2;
+			}
+			},
 			//限时签到
 			TimLimitedSignIn(index) {
 
@@ -409,11 +386,22 @@
 					url: '/pages/index/class'
 				})
 			},
-			Query() {
-				console.log("点击按学号（");
-				this.SortArray(this.Students);
-				console.log(this.Students);
 
+			Query(index) {
+				if(index == 0){
+				console.log("点击按学号（");
+				this.Students.sort(this.compare(this.Students.id));
+				console.log(this.Students);
+				this.ishow = false;
+				this.$forceUpdate();
+				// this.$set(this.Students,index,true);
+				}
+				else{
+					this.Students.sort(this.compare(this.Students.experience));
+					console.log(this.Students);
+					this.ishow = true;
+					this.$forceUpdate();
+					}
 
 			},
 			Studetail(index) {

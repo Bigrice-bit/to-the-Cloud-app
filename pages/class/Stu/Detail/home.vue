@@ -18,11 +18,11 @@
 				<view class="u-demo-area">
 
 					<swiper-item>
-						<scroll-view v-for="(item, index) in Students" :key="index" v-if="index >= 1">
+						<scroll-view v-for="(item, index) in Students" :key="index">
 							<!-- <scroll-view> -->
 							<u-cell-group>
 
-								<view class="index">{{index}}</view>
+								<view class="index">{{index+1}}</view>
 								<u-cell-item @tap="Studetail(index)" :title=item.name :label=item.id
 									arrow-direction="right">
 
@@ -81,12 +81,7 @@
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
 				label: '此处显示学号，后台返回',
-				Students: [{
-					'name': null,
-					'id': null,
-					'experience': null,
-					'StuId': null,
-				}],
+				Students: [],
 				loadText: {
 					loadmore: '轻轻上拉',
 					loading: '努力加载中',
@@ -106,8 +101,9 @@
 					experience: null,
 					StuId: null,
 				},
-				paiming: null,
+				paiming: '',
 				cord: '',
+				ishow:false,
 			}
 		},
 		onLoad: function(option) { //opthin为object类型，会序列化上页面传递的参数
@@ -139,8 +135,43 @@
 			} catch (e) {
 				console.log(e);
 			}
+			this.$Api.GetAllStu(this.data.ClassCourseId).then(async(res) => {
+				if (res.data.success) {
+					this.stunum = res.data.data.length;
+					for (var i = 0; i < res.data.data.length; i++) {
+						var obj = {
+							id: res.data.data[i].userNum,
+							StuId: res.data.data[i].userId,
+							name: res.data.data[i].userName,
+							experience: res.data.data[i].empiricalValue,
+						}
+						_this.Students.push(obj);
+						if (_this.data.Creator == obj.StuId) {
+							_this.cord = obj.experience
+						}
+
+					}
+					_this.paiming = _this.Students.length;
+					for (var i = 0; i < _this.Students.length; i++) {
+						if (_this.Students[i].experience <= _this.cord) {
+							// console.log('paiming',this.paiming)
+							_this.paiming--;
+						}
+						// console.log("排名")
+						// console.log(this.paiming)
+					}
+					_this.paiming++;
+					_this.Students.sort(_this.compare('experience'))
+					_this.Students.reverse()
+					
+				}
+			})
+			// this.Students.reverse() 
+			// console.log('this.Students.reverse() ', )
 			
-			this.doGet()
+
+
+
 			// console.log(item)
 			// let T = parsent(this.data.ClassCourseId)
 			// console.log(option.item.id)
@@ -273,49 +304,32 @@
 				return true
 			}
 		},
+		onShow() {
+			console.log('paiming',this.Students.length)
+			// this.paiming = this.Students.length;
+			// for (var i = 0; i < this.Students.length; i++) {
+			
+				
+			
+			// 	if (this.Students[i].experience < this.cord) {
+			// 		// console.log('paiming',this.paiming)
+			// 		this.paiming--;
+			// 	}
+			// 	// console.log("排名")
+			// 	// console.log(this.paiming)
+			// }
+		},
 		created() {
 			_this = this
 
 		},
 		methods: {
-			async doGet() {
-				this.$Api.GetAllStu(this.data.ClassCourseId).then(async (res) => {
-					console.log(res)
-					this.stunum = res.data.data.length;
-					console.log(this.stunum)
-					for (var i = 0; i < this.stunum; i++) {
-						// _this.expr = 5;
-						var obj1 = {
-							'StuId': res.data.data[i].userId,
-							'ClassCourseId': this.data.ClassCourseId,
-						}
-						await this.getData(obj1)
-					}
-					console.log(_this.Students,'_this.Students')
-				})
-			},
-			getData: function(obj1) {
-				return new Promise((resolve, reject) => {
-					_this.$Api.GetExper(obj1).then(async (res) => {
-						console.log('GetExper', "res")
-						console.log(res)
-						if (res.data.success) {
-							// console.log('res.data.success')
-							// console.log(res)
-							if (res.data.data.empiricalValue != null) {
-								obj2.experience = res.data.data.empiricalValue
-							} else {
-								obj2.experience = 0
-							}
-							console.log(obj2.experience)
-
-
-							_this.Students.push(obj2);
-						} else {
-							console.log("res失败")
-						}
-					})
-				})
+			compare(property){
+			return function(a,b){
+			var value1 = a[property];
+			var value2 = b[property];
+			return value1 - value2;
+			}
 			},
 			//限时签到
 			TimLimitedSignIn(index) {

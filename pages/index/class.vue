@@ -37,7 +37,7 @@
 				<swiper style="height: 100vh;" :current="curr" @change="setCurr">
 					<swiper-item>
 						<view v-if="isshow">
-							<scroll-view v-for="(item, index) in objectArray" :key="index" v-if="index >= 1">
+							<scroll-view v-for="(item, index) in objectArray" :key="index">
 								<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
 								<view class="" slot="body">
 
@@ -100,7 +100,7 @@
 						</scroll-view>
 					</swiper-item>
 					<swiper-item>
-						<scroll-view v-for="(item, index) in joinArray" :key="index" v-if="index >= 1">
+						<scroll-view v-for="(item, index) in joinArray" :key="index">
 							<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
 
 								<view class="" slot="body">
@@ -209,18 +209,8 @@
 				],
 				current: 0,
 				swiperCurrent: 0,
-				objectArray: [{
-					id: null,
-					name: null,
-					number: null,
-					coursename: null,
-				}],
-				joinArray: [{
-					id: null,
-					name: null,
-					number: null,
-					coursename: null,
-				}],
+				objectArray: [],
+				joinArray: [],
 				classnum: '',
 				stringArray: ['a', 'b', 'c'],
 				creator: 0,
@@ -331,6 +321,7 @@
 							title: '提示',
 							showCancel: false,
 							content: '请完善个人信息',
+							showCancel:false,
 							success: function(res) {
 								if (res.confirm) {
 									console.log('用户点击确定');

@@ -32,12 +32,12 @@
 							<!-- <view class="icon"><image src="../../static/user/help.png"></image></view> -->
 							<view class="text">个人经验值
 							<view>{{experience}}</view></view>
-							<!-- <view class="detail" @click="SearchDetail">查看经验值明细</view> -->
+							<view class="detail" @click="SearchDetail">查看经验值明细</view>
 							<!-- <image class="to" src="../..//../static/user/to.png"></image> -->
 						</view>
 						<view class="li " >
 							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
-							<view class="text">签到经验值</view>
+							<view class="text">签到经验值<view>{{allexperience}}</view></view>
 						</view>
 						<view class="li " >
 							<!-- <view class="icon"><image src="../../static/user/opinion.png"></image></view> -->
@@ -72,8 +72,9 @@
 				},
 				name:null,
 				classnum:null,
-				experience:null,
+				experience:0,
 				id:null,
+				allexperience:0,
 			}
 		},
 		created() {
@@ -119,6 +120,13 @@
 				if(res.data.success){
 					this.name = res.data.data.userName
 					this.classnum = res.data.data.userNum
+				
+				}
+			})
+			this.$Api.AllExpr(item).then(res => {
+				console.log(res)
+				if(res.data.success){
+					this.allexperience = res.data.data
 				
 				}
 			})
