@@ -16,12 +16,12 @@
 				<u-td>未签到人数{{Unsign}}</u-td>
 			</u-tr>
 		</u-table>
-		<view >
+		<view>
 			<swiper class="swiper" @change="change">
 					<swiper-item>
 						<u-grid :col="4" >
 							<u-grid-item v-for="(item, index) in UnSignStudents" :index="index" v-if="index >= 1" :key="index" bg-color="#f2fbfa">
-								<u-icon name="../../../static/头像.png" :size="100" ></u-icon>
+								<u-icon name="../../../static/headiamge.png" :size="100" ></u-icon>
 								<text class="grid-text">{{item.name}}</text>
 								<text class="grid-text">{{item.note}}</text>
 								<!-- <text class="grid-text">大米</text>

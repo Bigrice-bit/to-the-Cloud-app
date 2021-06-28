@@ -387,12 +387,12 @@
 					}
 					else if(this.info.iden === "其他"){
 						this.$u.vuex('vuex_jurisdiction.name','2');
-						this.updateinfo.roleidlist = 5;
+						this.updateinfo.roleidlist = 3;
 						this.updateinfo.rolenamelist = "学生"
 					}
 					else{
 						this.$u.vuex('vuex_jurisdiction.name','1');
-						this.updateinfo.roleidlist = 5;
+						this.updateinfo.roleidlist = 3;
 						this.updateinfo.rolenamelist = "学生"
 					}
 					

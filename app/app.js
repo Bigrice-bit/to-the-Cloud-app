@@ -130,6 +130,15 @@ export default {
 	TeaRecord: (data,index) => {
 		let url = '/startsign/' + data + '/' + index
 		return api.request(url,'GET')
+	},
+	//学生在某一班课classcourseid的签到记录
+	StuRecord: (data,index) => {
+		let url = '/stusigninfo/' + data + '/' + index
+		return api.request(url,'GET')
+	},
+	//学生退出班课
+	ExitClass: (data) =>{
+		return api.request('/stuclasscourses','DELETE',data)
 	}
 	
 }

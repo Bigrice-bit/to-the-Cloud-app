@@ -7,48 +7,31 @@
 			<u-icon name="arrow-left" class="slot-wrap" @click="BackClass"></u-icon>
 			</u-navbar>
 		</view>
-		<view class="list">
-			<view class="li " >
-				<view class="text">未签到 1人   全选</view>
-			</view>
-			<swiper-item>
-				<scroll-view v-for="(item, index) in Students" :key="index">
-					<u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0"
-						@tap="Studetail(index)">
-						<view class="" slot="body">
+		
+			<view class="bgcolor">
+				<view class="text">未签到</view>
+				</view>
+			<u-cell-group v-for="(i, index) in UnsignStu" :key="index">
+				<u-cell-item   :title="i.name" :label="i.num"  :arrow="false" v-if="index >= 1">
+					<u-icon slot="icon" size="100" name="../../../static/headimage.png"></u-icon>
 			
-							<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-								<text>{{index}}</text>
-								<image
-									src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-									mode="aspectFill"></image>
-								<view>
-									
-									<u-row gutter="5">
-										<u-col span="6">
-											<view class="demo-layout">{{item.name}}
-											{{item.id}}</view>
-										</u-col>
-									</u-row>
-									
-									
-									
-								</view>
-								<view class="test2">{{item.experience}}经验值</view>
-								<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
-								</u-icon>
-							</view>
-						</view>
-					</u-card>
-				</scroll-view>
-			</swiper-item>
+					
+				</u-cell-item>
+				
+			</u-cell-group>
 			
-			</view>
-			<view class="list">
-			<view class="li " >
-				<view class="text">已签到 1人  全选</view>
-			</view>
-			</view>
+		
+			<view class="bgcolor">
+				<view class="text">已签到</view>
+				</view>
+				<u-cell-group v-for="(i, index) in signStu" :key="index">
+					<u-cell-item   :title="i.name" :label="i.num"  :arrow="false" v-if="index >= 1">
+						<u-icon slot="icon" size="100" name="../../../static/headimage.png"></u-icon>
+				
+						
+					</u-cell-item>
+					
+				</u-cell-group>
 			</view>
 	</view>
 </template>
@@ -70,12 +53,14 @@
 				custom: false,
 				isFixed: true,
 				arrow: true,
-				Students:[{
-					name: 0,
-					id: 0,
-					experience : 0,
-					}
-				],
+				UnsignStu:{
+					name:null,
+					num:null,
+				},
+				signStu:{
+					name:null,
+					num:null,
+				},
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
@@ -128,14 +113,13 @@
 			}
 		}
 	}
-	.text{
-		padding-left:15upx;
-		/* width:100%; */
-		color:#000000;
-		/* position: flex; */
-		/* margin-top: 2; */
-		font-style: inherit;
-		font-size: large;
+	.bgcolor{
+		background-color: #e9e9e9;
+		height: 45rpx;
+	}
+	.text {
+		margin-left: 0rpx;
+		/* /margin-top: rpx; */
 	}
 	
 	.u-body-item {

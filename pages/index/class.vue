@@ -770,20 +770,36 @@
 				uni.scanCode({
 					scanType: ['QR_CODE'],
 					success: function(res) {
-						// _this.$Api.SelectCourseById(res.result).then(res => {
-						// 	if (res) {
-						// 		uni.navigateTo({
-						// 			url: '/pages/class/JoinClass/JoinClass?item=' +
-						// 				encodeURIComponent(JSON.stringify(res))
-						// 			// url: '/pages/class/JoinClass/JoinClass'
-						// 		})
-						// 	}
-						// })
-						plus.nativeUI.toast("该班课已结束");
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
-						// this.classnum = res.result;
-						i = res.result
+						_this.$Api.SelectCourseById(res.result).then(res => {
+							if (res.data.success) {
+								if(res.data.data.isAdd == 1 && res.data.data.isEnd == 0)
+								{
+									uni.showToast({
+										title:"班课不允许加入",
+										duration: 1000
+									})
+								}
+								else if(res.data.data.isEnd == 1){
+									uni.showToast({
+										title:"班课已结束",
+										duration: 1000
+									})
+								}
+								else{
+									uni.navigateTo({
+										url: '/pages/class/JoinClass/JoinClass?item=' +
+											encodeURIComponent(JSON.stringify(res))
+										// url: '/pages/class/JoinClass/JoinClass'
+									})
+								}
+								
+							}
+						})
+						// plus.nativeUI.toast("该班课已结束");
+						// console.log('条码类型：' + res.scanType);
+						// console.log('条码内容：' + res.result);
+						// // this.classnum = res.result;
+						// i = res.result
 					}
 
 				});

@@ -10,8 +10,8 @@
 		<view class="bgcolor">
 			<view class="text">历史签到记录</view>
 			</view>
-		<u-cell-group >
-			<u-cell-item   title="签到日期" label="签到时间" value="已签到" :arrow="false" @tap="StuClassdetail(index)">
+		<u-cell-group v-for="(i, index) in item" :key="index">
+			<u-cell-item   :title="i.date" :label="i.time"  :arrow="false" :value="i.signStatus" v-if="index >= 1">
 				
 		
 				
@@ -80,11 +80,40 @@
 					name:null,
 					experience:null,
 					StuId: null,
-				}
+				},
+				info:{},
+				item:[{
+					date:null,
+					time:null,
+					signStatus:null
+				}],
 			}
 		},
 		onLoad: function(option) { //opthin为object类型，会序列化上页面传递的参数
+			let that = this;
+			this.userid = uni.getStorageSync("LoginKey");
+			this.classcourseid = uni.getStorageSync("ClassKey");
 			
+			this.$Api.StuRecord(this.userid,this.classcourseid).then(async (res) => {
+				this.info = res
+				console.log(res)
+				if(res.data.success){
+					for(var i = 0;i < res.data.data.length;i++){
+					let time1 = this.dateFormat (new Date(res.data.data[i].signDate), 'yyyy-MM-dd');
+					let time2 = this.dateFormat (new Date(res.data.data[i].signDate), 'HH:MM');
+					var obj= {
+						date: time1,
+						time:time2,
+						signStatus:res.data.data[i].signStatus,
+					}
+					
+					
+						console.log(obj)
+						_this.item.push(obj)
+					// console.log(time)
+					}
+				}
+			})
 			this.tabbar = [{
 					iconPath: "home",
 					selectedIconPath: "home-fill",
@@ -167,7 +196,34 @@
 				}
 					
 				},
-			
+			dateFormat (time, format) {
+			  var t = new Date(time)
+			  var tf = function (i) {
+			    return (i < 10 ? '0' : '') + i
+			  }
+			  return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+			    switch (a) {
+			      case 'yyyy':
+			        return tf(t.getFullYear())
+			      // break
+			      case 'MM':
+			        return tf(t.getMonth() + 1)
+			      // break
+			      case 'mm':
+			        return tf(t.getMinutes())
+			      // break
+			      case 'dd':
+			        return tf(t.getDate())
+			      // break
+			      case 'HH':
+			        return tf(t.getHours())
+			      // break
+			      case 'ss':
+			        return tf(t.getSeconds())
+			      // break
+			    }
+			  })
+			},
 			BackClass() {
 				console.log("点击返回")
 				uni.switchTab({

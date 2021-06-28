@@ -3,40 +3,37 @@
 		<u-navbar title-color="#000000" back-icon-color="#000000" :is-fixed="isFixed" :is-back="isBack"
 			:background="background" :back-text-style="{color: '#fff'}" title="签到中" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate"> </u-navbar>
-	<view v-if="isshow">
+	<view>
 		<u-table class="u-table">
 		
-			<u-tr class="tr">
+			<u-tr >
 				<u-td>已签到人数</u-td>
 				<u-td>未签到人数</u-td>
 			</u-tr>
 		</u-table>
-		<swiper class="swiper" @change="change">
-				<swiper-item>
-					<u-grid :col="4" >
-						<u-grid-item v-for="(item, index) in UnSignStudents" :index="index" v-if="index >= 1" :key="index" bg-color="#f2fbfa">
-							<u-icon name="../../../static/headimage.png" :size="100" ></u-icon>
-							<text class="grid-text">{{item.name}}</text>
-							<text class="grid-text">{{item.note}}</text>
-							<!-- <text class="grid-text">大米</text>
-							<text class="grid-text">未签到</text> -->
-						</u-grid-item>
-					</u-grid>
-				</swiper-item>
-			</swiper>
-		<view class="list">
-			<view class="li">
-		<u-button  class="button" size="medium" @click="EndSign(0)">放弃</u-button>
-		<u-button  class="button" size="medium" @click="EndSign(1)">结束</u-button>
+		<view>
+			<swiper class="swiper" @change="change">
+					<swiper-item>
+						<u-grid :col="4" >
+							<u-grid-item v-for="(item, index) in UnSignStudents" :index="index" v-if="index >= 1" :key="index" bg-color="#f2fbfa">
+								<u-icon name="../../../static/headimage.png" :size="100" ></u-icon>
+								<text class="grid-text">{{item.name}}</text>
+								<text class="grid-text">{{item.note}}</text>
+								<!-- <text class="grid-text">大米</text>
+								<text class="grid-text">未签到</text> -->
+							</u-grid-item>
+						</u-grid>
+					</swiper-item>
+					
+				</swiper>
+			</u-grid>
 		</view>
-		</view>
+		<u-button  class="button1" size="medium" @click="EndSign(0)">放弃</u-button>
+		<u-button  class="button2" size="medium" @click="EndSign(1)">结束</u-button>
+		
 	</view>
-	<view v-if="!isshow">
-		<u-button   size="medium" @click="EndSign(1)">结束</u-button>
 	</view>
-	</view>
-</template>
-
+	</template>
 <script>
 	var _this;
 	export default {
@@ -63,8 +60,10 @@
 		onLoad: function(option){
 			// decodeURIComponent 解密传过来的对象字符串
 						const item = JSON.parse(decodeURIComponent(option.item));
-						console.log(item)
+						// console.log(item)
 					this.userObj = item;
+					console.log("以下")
+					// console.log(this.userObj)
 					this.$Api.GetAllStu(this.userObj.classCourseId).then(res => {
 						console.log(res)
 						for(var i = 0;i < res.data.data.length;i++){
@@ -111,12 +110,32 @@
 						success(res) {
 							if (res.confirm) {
 								console.log('结束签到')
-								_this.SignInfo.isEnd = 1;
-								_this.$Api.UpdateSignIn(_this.SignInfo).then(res => {
+								console.log(_this.userObj)
+								_this.userObj.isEnd = 1;
+								_this.$Api.UpdateSignIn(_this.userObj).then(res => {
+									// console.log(res)
 									console.log("结束成功!")
-									uni.reLaunch({
-										url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(_this.SignInfo.classCourseId))
+									// let Classname =  uni.getStorageSync("ClassKey")
+									
+								
+									_this.$Api.SearchClass(_this.userObj.classCourseId).then(async (res) => {
+										if(res.data.success)
+										{
+											console.log(res)
+											let obj = {
+												id: res.data.data.classCourseId,
+												classcoursename: res.data.data.courseName,
+											}
+											console.log("obj")
+											console.log(obj)
+											uni.reLaunch({
+												url: '/pages/class/created_class/home?item=' + encodeURIComponent(JSON.stringify(obj))
+											})
+										}
+										
 									})
+									
+									
 								})
 								// uni.navigateBack({})
 							} else if (res.cancel) {
@@ -144,7 +163,7 @@
 	}
 	
 	.u-table{
-		margin-top: -1rpx;
+		margin-top: 40rpx;
 		
 	}
 	
@@ -152,11 +171,20 @@
 		width:100rpx;
 	}
 	
-	.button {
-		position:relative;
+	.button1 {
+		position:absolute;
 		bottom: 5;
-		margin-left: 115rpx;
+		margin-left: 110rpx;
 		background-color: #ffff;
+		margin-top:130rpx;
+	}
+	
+	.button2 {
+		position:absolute;
+		bottom: 5;
+		margin-left: 420rpx;
+		background-color: #ffff;
+		margin-top:130rpx;
 	}
 	
 	.list{
@@ -176,4 +204,13 @@
 			align-items:center;
 		}
 		}
+		
+		.swiper{
+			height: 900rpx;
+			/* width: 700rpx; */
+		}
+		/* .tr{
+			height: 900rpx;
+			width: 700rpx;
+		} */
 </style>
