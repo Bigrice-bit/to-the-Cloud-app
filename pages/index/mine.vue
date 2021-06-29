@@ -5,7 +5,7 @@
 						<view class="box">
 							<view class="box-hd">
 								<view class="avator">
-									<img src="../../static/headimage.png">
+									<image class="img" src="../../static/headimage.png" mode="widthFix"/>
 								</view>
 								<view class="phone-number">{{phoneNumber}}</view>
 							</view>
@@ -15,11 +15,11 @@
 									<view class="text">总经验值</view>
 								</view>
 								<view class="item" @click="Person">
-									<view class="icon"><img src="../../static/user/favorite.png"></view>
+									<view class="icon"><image class="img1" src="../../static/user/favorite.png" /></view>
 									<view class="text">个人资料</view>
 								</view>
 								<view class="item">
-									<view class="icon"><img src="../../static/user/service.png"></view>
+									<view class="icon"><image class="img1" src="../../static/user/service.png" /></view>
 									<view class="text">我的空间</view>
 								</view>
 							</view>
@@ -118,8 +118,8 @@
 							pagePath: "/pages/index/find"
 						},
 						{
-							iconPath: "photo",
-							selectedIconPath: "photo-fill",
+							iconPath: "account-fill",
+							selectedIconPath: "account-fill",
 							text: '我的',
 							customIcon: false,
 							pagePath: "/pages/index/mine"
@@ -234,6 +234,7 @@
 		font-size: 30upx;
 	}
 	.header{
+		margin-top: 40rpx;
 		background: #fff;
 		height: 390upx;
 		padding-bottom: 110upx;
@@ -314,6 +315,16 @@
 	.exprtext{
 		font-weight: bold;
 		font-size: 45rpx;
+	}
+	
+	.img{
+		width: 160upx;
+		height: 160upx;
+	}
+	
+	.img1{
+		width: 60upx;
+		height: 60upx;
 	}
 	
 	.list{

@@ -1461,72 +1461,68 @@ var render = function() {
                               $20,
                               $30
                             ) {
-                              return _vm._$g("19-" + $30, "i")
-                                ? _c(
-                                    "v-uni-scroll-view",
-                                    { key: item, attrs: { _i: "19-" + $30 } },
+                              return _c(
+                                "v-uni-scroll-view",
+                                { key: item, attrs: { _i: "19-" + $30 } },
+                                [
+                                  _c(
+                                    "u-cell-group",
+                                    { attrs: { _i: "20-" + $30 } },
                                     [
                                       _c(
-                                        "u-cell-group",
-                                        { attrs: { _i: "20-" + $30 } },
+                                        "u-cell-item",
+                                        { attrs: { _i: "21-" + $30 } },
                                         [
+                                          _c("u-icon", {
+                                            attrs: { _i: "22-" + $30 },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.$handleViewEvent(
+                                                  $event
+                                                )
+                                              }
+                                            },
+                                            slot: "icon"
+                                          }),
                                           _c(
-                                            "u-cell-item",
-                                            { attrs: { _i: "21-" + $30 } },
+                                            "v-uni-view",
+                                            {
+                                              attrs: { _i: "23-" + $30 },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.$handleViewEvent(
+                                                    $event
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._$g("23-" + $30, "t0-0")
+                                              )
+                                            ]
+                                          ),
+                                          _c(
+                                            "v-uni-view",
+                                            {
+                                              staticClass: _vm._$g(
+                                                "24-" + $30,
+                                                "sc"
+                                              ),
+                                              attrs: { _i: "24-" + $30 },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.$handleViewEvent(
+                                                    $event
+                                                  )
+                                                }
+                                              }
+                                            },
                                             [
                                               _c("u-icon", {
-                                                attrs: { _i: "22-" + $30 },
-                                                on: {
-                                                  click: function($event) {
-                                                    return _vm.$handleViewEvent(
-                                                      $event
-                                                    )
-                                                  }
-                                                },
-                                                slot: "icon"
+                                                attrs: { _i: "25-" + $30 }
                                               }),
-                                              _c(
-                                                "v-uni-view",
-                                                {
-                                                  attrs: { _i: "23-" + $30 },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.$handleViewEvent(
-                                                        $event
-                                                      )
-                                                    }
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._$g("23-" + $30, "t0-0")
-                                                  )
-                                                ]
-                                              ),
-                                              _c(
-                                                "v-uni-view",
-                                                {
-                                                  staticClass: _vm._$g(
-                                                    "24-" + $30,
-                                                    "sc"
-                                                  ),
-                                                  attrs: { _i: "24-" + $30 },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.$handleViewEvent(
-                                                        $event
-                                                      )
-                                                    }
-                                                  }
-                                                },
-                                                [
-                                                  _c("u-icon", {
-                                                    attrs: { _i: "25-" + $30 }
-                                                  }),
-                                                  _vm._v("发起签到")
-                                                ],
-                                                1
-                                              )
+                                              _vm._v("发起签到")
                                             ],
                                             1
                                           )
@@ -1536,7 +1532,9 @@ var render = function() {
                                     ],
                                     1
                                   )
-                                : _vm._e()
+                                ],
+                                1
+                              )
                             }),
                             1
                           )
@@ -1592,19 +1590,39 @@ var render = function() {
                     "v-uni-swiper-item",
                     { attrs: { _i: 30 } },
                     _vm._l(_vm._$g(31, "f"), function(item, index, $21, $31) {
-                      return _vm._$g("31-" + $31, "i")
-                        ? _c(
-                            "v-uni-scroll-view",
-                            { key: item, attrs: { _i: "31-" + $31 } },
+                      return _c(
+                        "v-uni-scroll-view",
+                        { key: item, attrs: { _i: "31-" + $31 } },
+                        [
+                          _c(
+                            "u-cell-group",
+                            { attrs: { _i: "32-" + $31 } },
                             [
                               _c(
-                                "u-cell-group",
-                                { attrs: { _i: "32-" + $31 } },
+                                "u-cell-item",
+                                {
+                                  attrs: { _i: "33-" + $31 },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$handleViewEvent($event)
+                                    }
+                                  }
+                                },
                                 [
+                                  _c("u-icon", {
+                                    attrs: { _i: "34-" + $31 },
+                                    slot: "icon"
+                                  }),
                                   _c(
-                                    "u-cell-item",
+                                    "v-uni-view",
+                                    { attrs: { _i: "35-" + $31 } },
+                                    [_vm._v(_vm._$g("35-" + $31, "t0-0"))]
+                                  ),
+                                  _c(
+                                    "v-uni-view",
                                     {
-                                      attrs: { _i: "33-" + $31 },
+                                      staticClass: _vm._$g("36-" + $31, "sc"),
+                                      attrs: { _i: "36-" + $31 },
                                       on: {
                                         click: function($event) {
                                           return _vm.$handleViewEvent($event)
@@ -1613,38 +1631,9 @@ var render = function() {
                                     },
                                     [
                                       _c("u-icon", {
-                                        attrs: { _i: "34-" + $31 },
-                                        slot: "icon"
+                                        attrs: { _i: "37-" + $31 }
                                       }),
-                                      _c(
-                                        "v-uni-view",
-                                        { attrs: { _i: "35-" + $31 } },
-                                        [_vm._v(_vm._$g("35-" + $31, "t0-0"))]
-                                      ),
-                                      _c(
-                                        "v-uni-view",
-                                        {
-                                          staticClass: _vm._$g(
-                                            "36-" + $31,
-                                            "sc"
-                                          ),
-                                          attrs: { _i: "36-" + $31 },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.$handleViewEvent(
-                                                $event
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("u-icon", {
-                                            attrs: { _i: "37-" + $31 }
-                                          }),
-                                          _vm._v("签到")
-                                        ],
-                                        1
-                                      )
+                                      _vm._v("签到")
                                     ],
                                     1
                                   )
@@ -1654,7 +1643,9 @@ var render = function() {
                             ],
                             1
                           )
-                        : _vm._e()
+                        ],
+                        1
+                      )
                     }),
                     1
                   )
@@ -10241,128 +10232,133 @@ var render = function() {
         "v-uni-view",
         { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
         [
-          _c(
-            "v-uni-text",
-            {
-              attrs: { _i: 7 },
-              on: {
-                click: function($event) {
-                  return _vm.$handleViewEvent($event)
-                }
-              }
-            },
-            [_vm._v("切换为按学号显示")]
-          )
+          _vm._$g(7, "i")
+            ? _c(
+                "v-uni-text",
+                {
+                  attrs: { _i: 7 },
+                  on: {
+                    click: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [_vm._v("点击按学号排序")]
+              )
+            : _c(
+                "v-uni-text",
+                {
+                  attrs: { _i: 8 },
+                  on: {
+                    click: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [_vm._v("点击按经验值排序")]
+              )
         ],
         1
       ),
       _c("u-search", {
-        staticClass: _vm._$g(8, "sc"),
-        attrs: { _i: 8 },
+        staticClass: _vm._$g(9, "sc"),
+        attrs: { _i: 9 },
         model: {
-          value: _vm._$g(8, "v-model"),
+          value: _vm._$g(9, "v-model"),
           callback: function() {},
           expression: "keyword"
         }
       }),
       _c(
         "v-uni-view",
-        { attrs: { _i: 9 } },
+        { attrs: { _i: 10 } },
         [
           _c("yomol-prompt", {
             ref: "yomolPrompt",
-            attrs: { _i: 10 },
+            attrs: { _i: 11 },
             on: {
               onConfirm: function($event) {
                 return _vm.$handleViewEvent($event)
               }
             }
           }),
-          _c("br", { attrs: { _i: 11 } }),
-          _c("v-uni-text", { attrs: { _i: 12 } }, [_vm._v("成员总数")]),
+          _c("br", { attrs: { _i: 12 } }),
+          _c("v-uni-text", { attrs: { _i: 13 } }, [_vm._v("成员总数")]),
           _c(
             "v-uni-text",
-            { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
-            [_vm._v(_vm._$g(13, "t0-0") + "人")]
+            { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
+            [_vm._v(_vm._$g(14, "t0-0") + "人")]
           ),
           _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(14, "sc"),
+              staticClass: _vm._$g(15, "sc"),
               staticStyle: {
                 "padding-left": "0",
                 "padding-right": "0",
                 "margin-left": "-20rpx",
                 "margin-right": "-5rpx"
               },
-              attrs: { _i: 14 }
+              attrs: { _i: 15 }
             },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(15, "sc"), attrs: { _i: 15 } },
+                { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
                 [
                   _vm._v("<"),
                   _c(
                     "v-uni-swiper-item",
-                    { attrs: { _i: 16 } },
-                    _vm._l(_vm._$g(17, "f"), function(item, index, $20, $30) {
-                      return _vm._$g("17-" + $30, "i")
-                        ? _c(
-                            "v-uni-scroll-view",
-                            { key: item, attrs: { _i: "17-" + $30 } },
+                    { attrs: { _i: 17 } },
+                    _vm._l(_vm._$g(18, "f"), function(item, index, $20, $30) {
+                      return _c(
+                        "v-uni-scroll-view",
+                        { key: item, attrs: { _i: "18-" + $30 } },
+                        [
+                          _c(
+                            "u-cell-group",
+                            { attrs: { _i: "19-" + $30 } },
                             [
                               _c(
-                                "u-cell-group",
-                                { attrs: { _i: "18-" + $30 } },
+                                "v-uni-view",
+                                {
+                                  staticClass: _vm._$g("20-" + $30, "sc"),
+                                  attrs: { _i: "20-" + $30 }
+                                },
+                                [_vm._v(_vm._$g("20-" + $30, "t0-0"))]
+                              ),
+                              _c(
+                                "u-cell-item",
+                                {
+                                  attrs: { _i: "21-" + $30 },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$handleViewEvent($event)
+                                    }
+                                  }
+                                },
                                 [
+                                  _c("u-icon", {
+                                    staticClass: _vm._$g("22-" + $30, "sc"),
+                                    attrs: { _i: "22-" + $30 },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.$handleViewEvent($event)
+                                      }
+                                    },
+                                    slot: "icon"
+                                  }),
                                   _c(
                                     "v-uni-view",
                                     {
-                                      staticClass: _vm._$g("19-" + $30, "sc"),
-                                      attrs: { _i: "19-" + $30 }
-                                    },
-                                    [_vm._v(_vm._$g("19-" + $30, "t0-0"))]
-                                  ),
-                                  _c(
-                                    "u-cell-item",
-                                    {
-                                      attrs: { _i: "20-" + $30 },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.$handleViewEvent($event)
-                                        }
-                                      }
+                                      staticClass: _vm._$g("23-" + $30, "sc"),
+                                      attrs: { _i: "23-" + $30 }
                                     },
                                     [
-                                      _c("u-icon", {
-                                        staticClass: _vm._$g("21-" + $30, "sc"),
-                                        attrs: { _i: "21-" + $30 },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.$handleViewEvent($event)
-                                          }
-                                        },
-                                        slot: "icon"
-                                      }),
-                                      _c(
-                                        "v-uni-view",
-                                        {
-                                          staticClass: _vm._$g(
-                                            "22-" + $30,
-                                            "sc"
-                                          ),
-                                          attrs: { _i: "22-" + $30 }
-                                        },
-                                        [
-                                          _vm._v(
-                                            _vm._$g("22-" + $30, "t0-0") +
-                                              "经验值"
-                                          )
-                                        ]
+                                      _vm._v(
+                                        _vm._$g("23-" + $30, "t0-0") + "经验值"
                                       )
-                                    ],
-                                    1
+                                    ]
                                   )
                                 ],
                                 1
@@ -10370,7 +10366,9 @@ var render = function() {
                             ],
                             1
                           )
-                        : _vm._e()
+                        ],
+                        1
+                      )
                     }),
                     1
                   )
@@ -10383,7 +10381,7 @@ var render = function() {
         ],
         1
       ),
-      _c("u-tabbar", { attrs: { _i: 23 } })
+      _c("u-tabbar", { attrs: { _i: 24 } })
     ],
     1
   )
@@ -10624,37 +10622,21 @@ var render = function() {
             "u-cell-group",
             { key: i, attrs: { _i: "4-" + $30 } },
             [
-              _vm._$g("5-" + $30, "i")
-                ? _c(
-                    "u-cell-item",
-                    {
-                      attrs: { _i: "5-" + $30 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    },
-                    [
-                      _c("v-uni-view", { attrs: { _i: "6-" + $30 } }, [
-                        _vm._v(
-                          _vm._$g("6-" + $30, "t0-0") +
-                            "人/" +
-                            _vm._$g("6-" + $30, "t0-1") +
-                            "人"
-                        )
-                      ])
-                    ],
-                    1
-                  )
-                : _vm._e()
+              _c("u-cell-item", {
+                attrs: { _i: "5-" + $30 },
+                on: {
+                  click: function($event) {
+                    return _vm.$handleViewEvent($event)
+                  }
+                }
+              })
             ],
             1
           )
         }),
         1
       ),
-      _c("u-tabbar", { attrs: { _i: 7 } })
+      _c("u-tabbar", { attrs: { _i: 6 } })
     ],
     1
   )
@@ -11181,7 +11163,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n>\r\n.content {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.logo {\r\n  height: 200rpx;\r\n  width: 200rpx;\r\n  margin-top: 200rpx;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  margin-bottom: 50rpx;\n}\n.text-area {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.title {\r\n  font-size: 36rpx;\r\n  color: #8f8f94;\n}\nbody {\r\n  background-color: #ffffff;\r\n  font-size: 30upx;\n}\n.header {\r\n  background: #fff;\r\n  height: 300upx;\r\n  padding-bottom: 110upx;\n}\n.header .bg {\r\n  width: 100%;\r\n  height: 200upx;\r\n  padding-top: 40upx;\r\n  background-color: #1ABC9C;\n}\n.box {\r\n  width: 600upx;\r\n  height: 250upx;\r\n  -webkit-border-radius: 20upx;\r\n          border-radius: 20upx;\r\n  margin: 0 auto;\r\n  background: #fff;\r\n  -webkit-box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\r\n          box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\n}\n.box .box-hd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-hd .avator {\r\n  width: 160upx;\r\n  height: 160upx;\r\n  background: #fff;\r\n  border: 5upx solid #fff;\r\n  -webkit-border-radius: 50%;\r\n          border-radius: 50%;\r\n  margin-top: -80upx;\r\n  overflow: hidden;\n}\n.box .box-hd .avator img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.box .box-hd .phone-number {\r\n  width: 100%;\r\n  text-align: center;\n}\n.box .box-bd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: nowrap;\r\n          flex-wrap: nowrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-bd .item {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1 1 auto;\r\n          flex: 1 1 auto;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  border-right: 1px solid #f1f1f1;\r\n  margin: 15upx 0;\n}\n.box .box-bd .item:last-child {\r\n  border: none;\n}\n.box .box-bd .item .icon {\r\n  width: 1upx;\r\n  height: 1upx;\n}\n.list-content {\r\n  background: #fff;\r\n  margin-top: -1rpx;\n}\n.slot-wrap {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  margin-left: 25rpx;\r\n  /* 如果您想让slot内容占满整个导航栏的宽度 */\r\n  /* flex: 1; */\r\n  /* 如果您想让slot内容与导航栏左右有空隙 */\r\n  /* padding: 0 30rpx; */\n}\n.list {\r\n  width: 100%;\r\n  border-bottom: 5upx solid  #ffffff;\r\n  background: #fff;\n}\n.list:last-child {\r\n  border: none;\n}\n.list .li {\r\n  width: 92%;\r\n  height: 100upx;\r\n  padding: 0 4%;\r\n  border-bottom: 1px solid #f3f3f3;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\n}\n.list .li.noborder {\r\n  border-bottom: 0;\n}\n.list .li .icon {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .icon uni-image {\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .text {\r\n  padding-left: 20upx;\r\n  margin: -1rpx;\r\n  width: 100%;\r\n  color: #666;\n}\n.list .li .to {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 40upx;\r\n  height: 40upx;\n}\n.button {\r\n  margin-top: 30rpx;\n}\n.text {\r\n  color: #a6a6a6;\r\n  padding-right: -1upx;\r\n  width: 100%;\n}\n.avator {\r\n  width: 200upx;\r\n  height: 210upx;\r\n  overflow: hidden;\r\n  -webkit-border-radius: 10rpx;\r\n          border-radius: 10rpx;\r\n  border-style: ridge;\r\n  border-color: #f7f7f7;\r\n  margin-right: 350rpx;\r\n  margin-top: 25rpx;\n}\n.avator .img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.text1 {\r\n  position: absolute;\r\n  color: #000000;\r\n  font-size: 30rpx;\r\n  margin-left: 100rpx;\r\n  margin-top: 20rpx;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n>\r\n.content {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.logo {\r\n  height: 200rpx;\r\n  width: 200rpx;\r\n  margin-top: 200rpx;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  margin-bottom: 50rpx;\n}\n.text-area {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.title {\r\n  font-size: 36rpx;\r\n  color: #8f8f94;\n}\nbody {\r\n  background-color: #ffffff;\r\n  font-size: 30upx;\n}\n.header {\r\n  background: #fff;\r\n  height: 300upx;\r\n  padding-bottom: 110upx;\n}\n.header .bg {\r\n  width: 100%;\r\n  height: 200upx;\r\n  padding-top: 40upx;\r\n  background-color: #1ABC9C;\n}\n.box {\r\n  width: 600upx;\r\n  height: 250upx;\r\n  -webkit-border-radius: 20upx;\r\n          border-radius: 20upx;\r\n  margin: 0 auto;\r\n  background: #fff;\r\n  -webkit-box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\r\n          box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\n}\n.box .box-hd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-hd .avator {\r\n  width: 160upx;\r\n  height: 160upx;\r\n  background: #fff;\r\n  border: 5upx solid #fff;\r\n  -webkit-border-radius: 50%;\r\n          border-radius: 50%;\r\n  margin-top: -80upx;\r\n  overflow: hidden;\n}\n.box .box-hd .avator img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.box .box-hd .phone-number {\r\n  width: 100%;\r\n  text-align: center;\n}\n.box .box-bd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: nowrap;\r\n          flex-wrap: nowrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-bd .item {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1 1 auto;\r\n          flex: 1 1 auto;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  border-right: 1px solid #f1f1f1;\r\n  margin: 15upx 0;\n}\n.box .box-bd .item:last-child {\r\n  border: none;\n}\n.box .box-bd .item .icon {\r\n  width: 1upx;\r\n  height: 1upx;\n}\n.list-content {\r\n  background: #fff;\r\n  margin-top: -1rpx;\n}\n.slot-wrap {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  margin-left: 25rpx;\r\n  /* 如果您想让slot内容占满整个导航栏的宽度 */\r\n  /* flex: 1; */\r\n  /* 如果您想让slot内容与导航栏左右有空隙 */\r\n  /* padding: 0 30rpx; */\n}\n.list {\r\n  width: 100%;\r\n  border-bottom: 5upx solid  #ffffff;\r\n  background: #fff;\n}\n.list:last-child {\r\n  border: none;\n}\n.list .li {\r\n  width: 92%;\r\n  height: 100upx;\r\n  padding: 0 4%;\r\n  border-bottom: 1px solid #f3f3f3;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\n}\n.list .li.noborder {\r\n  border-bottom: 0;\n}\n.list .li .icon {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .icon uni-image {\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .text {\r\n  padding-left: 20upx;\r\n  margin: -1rpx;\r\n  width: 100%;\r\n  color: #666;\n}\n.list .li .to {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 40upx;\r\n  height: 40upx;\n}\n.button {\r\n  margin-top: 30rpx;\n}\n.text {\r\n  color: #a6a6a6;\r\n  padding-right: -1upx;\r\n  width: 100%;\n}\n.avator {\r\n  width: 200upx;\r\n  height: 210upx;\r\n  overflow: hidden;\r\n  -webkit-border-radius: 10rpx;\r\n          border-radius: 10rpx;\r\n  border-style: ridge;\r\n  border-color: #f7f7f7;\r\n  margin-right: 350rpx;\r\n  margin-top: 25rpx;\n}\n.avator .img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.text1 {\r\n  position: absolute;\r\n  color: #000000;\r\n  font-size: 30rpx;\r\n  margin-left: 40rpx;\r\n  margin-top: 25rpx;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -12157,14 +12139,34 @@ var render = function() {
         [
           _c(
             "u-tr",
-            { staticClass: _vm._$g(7, "sc"), attrs: { _i: 7 } },
+            { attrs: { _i: 7 } },
             [
-              _c("u-td", { attrs: { _i: 8 } }, [
-                _vm._v("已签到人数" + _vm._$g(8, "t0-0"))
-              ]),
-              _c("u-td", { attrs: { _i: 9 } }, [
-                _vm._v("未签到人数" + _vm._$g(9, "t0-0"))
-              ])
+              _c(
+                "u-td",
+                { attrs: { _i: 8 } },
+                [
+                  _c(
+                    "v-uni-text",
+                    { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
+                    [_vm._v(_vm._$g(9, "t0-0"))]
+                  ),
+                  _vm._v("已签到人数")
+                ],
+                1
+              ),
+              _c(
+                "u-td",
+                { attrs: { _i: 10 } },
+                [
+                  _c(
+                    "v-uni-text",
+                    { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
+                    [_vm._v(_vm._$g(11, "t0-0"))]
+                  ),
+                  _vm._v("未签到人数")
+                ],
+                1
+              )
             ],
             1
           )
@@ -12173,13 +12175,13 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { attrs: { _i: 10 } },
+        { attrs: { _i: 12 } },
         [
           _c(
             "v-uni-swiper",
             {
-              staticClass: _vm._$g(11, "sc"),
-              attrs: { _i: 11 },
+              staticClass: _vm._$g(13, "sc"),
+              attrs: { _i: 13 },
               on: {
                 change: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -12189,38 +12191,36 @@ var render = function() {
             [
               _c(
                 "v-uni-swiper-item",
-                { attrs: { _i: 12 } },
+                { attrs: { _i: 14 } },
                 [
                   _c(
                     "u-grid",
-                    { attrs: { _i: 13 } },
-                    _vm._l(_vm._$g(14, "f"), function(item, index, $20, $30) {
-                      return _vm._$g("14-" + $30, "i")
-                        ? _c(
-                            "u-grid-item",
-                            { key: item, attrs: { _i: "14-" + $30 } },
-                            [
-                              _c("u-icon", { attrs: { _i: "15-" + $30 } }),
-                              _c(
-                                "v-uni-text",
-                                {
-                                  staticClass: _vm._$g("16-" + $30, "sc"),
-                                  attrs: { _i: "16-" + $30 }
-                                },
-                                [_vm._v(_vm._$g("16-" + $30, "t0-0"))]
-                              ),
-                              _c(
-                                "v-uni-text",
-                                {
-                                  staticClass: _vm._$g("17-" + $30, "sc"),
-                                  attrs: { _i: "17-" + $30 }
-                                },
-                                [_vm._v(_vm._$g("17-" + $30, "t0-0"))]
-                              )
-                            ],
-                            1
+                    { attrs: { _i: 15 } },
+                    _vm._l(_vm._$g(16, "f"), function(item, index, $20, $30) {
+                      return _c(
+                        "u-grid-item",
+                        { key: item, attrs: { _i: "16-" + $30 } },
+                        [
+                          _c("u-icon", { attrs: { _i: "17-" + $30 } }),
+                          _c(
+                            "v-uni-text",
+                            {
+                              staticClass: _vm._$g("18-" + $30, "sc"),
+                              attrs: { _i: "18-" + $30 }
+                            },
+                            [_vm._v(_vm._$g("18-" + $30, "t0-0"))]
+                          ),
+                          _c(
+                            "v-uni-text",
+                            {
+                              staticClass: _vm._$g("19-" + $30, "sc"),
+                              attrs: { _i: "19-" + $30 }
+                            },
+                            [_vm._v(_vm._$g("19-" + $30, "t0-0"))]
                           )
-                        : _vm._e()
+                        ],
+                        1
+                      )
                     }),
                     1
                   )
@@ -12236,8 +12236,8 @@ var render = function() {
       _c(
         "v-uni-button",
         {
-          staticClass: _vm._$g(18, "sc"),
-          attrs: { type: "default", _i: 18 },
+          staticClass: _vm._$g(20, "sc"),
+          attrs: { type: "default", _i: 20 },
           on: {
             click: function($event) {
               return _vm.$handleViewEvent($event)
@@ -13268,7 +13268,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.cell{\n\t\t\n\t\ttitle-color: #18B566;\n}\n.content {\n\t\tbackground: #f2fbfa;\n\t\twidth: 100vw;\n\t\theight: 100vh;\n}\n.u-table{\n\t\tmargin-top: 100rpx;\n}\n.u-table tr {\n\t\twidth:100rpx;\n}\n.button {\n\t\tmargin-top: 250rpx;\n}\n.icon{\n\t\t/* margin-left: 30rpx; */\n\t\twidth: 100rpx;\n\t\theight: 100rpx;\n}\n.grid-text {\n\t\t\tfont-size: 28rpx;\n\t\t\tmargin-top: 4rpx;\n\t\t\tcolor: $u-type-info;\n}\n.grid-text {\n\t\tfont-size: 28rpx;\n\t\tmargin-top: 4rpx;\n\t\tcolor: $u-type-info;\n}\n.swiper {\n\t\theight: 480rpx;\n}\n.indicator-dots {\n\t\tmargin-top: 40rpx;\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\t-webkit-box-pack: center;\n\t\t-webkit-justify-content: center;\n\t\t        justify-content: center;\n\t\t-webkit-box-align: center;\n\t\t-webkit-align-items: center;\n\t\t        align-items: center;\n}\n.indicator-dots-item {\n\t\tbackground-color: $u-tips-color;\n\t\theight: 6px;\n\t\twidth: 6px;\n\t\t-webkit-border-radius: 10px;\n\t\t        border-radius: 10px;\n\t\tmargin: 0 3px;\n}\n.indicator-dots-active {\n\t\tbackground-color: $u-type-primary;\n}\n", ""]);
+exports.push([module.i, "\n.cell{\n\t\t\n\t\ttitle-color: #18B566;\n}\n.content {\n\t\tbackground: #f2fbfa;\n\t\twidth: 100vw;\n\t\theight: 100vh;\n}\n.u-table{\n\t\tmargin-top: 100rpx;\n}\n.u-table tr {\n\t\twidth:100rpx;\n}\n.button {\n\t\tmargin-top: 250rpx;\n}\n.icon{\n\t\t/* margin-left: 30rpx; */\n\t\twidth: 100rpx;\n\t\theight: 100rpx;\n}\n.text{\n\t\tfont-weight: bold;\n\t\tfont-size: 50rpx;\n}\n.grid-text {\n\t\t\tfont-size: 28rpx;\n\t\t\tmargin-top: 4rpx;\n\t\t\tcolor: $u-type-info;\n}\n.grid-text {\n\t\tfont-size: 28rpx;\n\t\tmargin-top: 4rpx;\n\t\tcolor: $u-type-info;\n}\n.swiper {\n\t\theight: 480rpx;\n}\n.indicator-dots {\n\t\tmargin-top: 40rpx;\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -webkit-flex;\n\t\tdisplay: flex;\n\t\t-webkit-box-pack: center;\n\t\t-webkit-justify-content: center;\n\t\t        justify-content: center;\n\t\t-webkit-box-align: center;\n\t\t-webkit-align-items: center;\n\t\t        align-items: center;\n}\n.indicator-dots-item {\n\t\tbackground-color: $u-tips-color;\n\t\theight: 6px;\n\t\twidth: 6px;\n\t\t-webkit-border-radius: 10px;\n\t\t        border-radius: 10px;\n\t\tmargin: 0 3px;\n}\n.indicator-dots-active {\n\t\tbackground-color: $u-type-primary;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -16119,10 +16119,19 @@ var render = function() {
                 "u-cell-group",
                 { attrs: { _i: 4 } },
                 [
+                  _c("u-cell-item", {
+                    attrs: { _i: 5 },
+                    on: {
+                      click: function($event) {
+                        return _vm.$handleViewEvent($event)
+                      }
+                    }
+                  }),
                   _c(
                     "u-cell-item",
                     {
-                      attrs: { _i: 5 },
+                      staticClass: _vm._$g(6, "sc"),
+                      attrs: { _i: 6 },
                       on: {
                         click: function($event) {
                           return _vm.$handleViewEvent($event)
@@ -16130,50 +16139,18 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._$g(6, "i")
-                        ? _c("u-badge", {
-                            attrs: { _i: 6 },
-                            slot: "right-icon"
-                          })
-                        : _vm._e(),
                       _vm._$g(7, "i")
-                        ? _c("u-switch", {
-                            attrs: { _i: 7 },
-                            slot: "right-icon",
-                            model: {
-                              value: _vm._$g(7, "v-model"),
-                              callback: function() {},
-                              expression: "checked"
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _c(
-                    "u-cell-item",
-                    {
-                      staticClass: _vm._$g(8, "sc"),
-                      attrs: { _i: 8 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    },
-                    [
-                      _vm._$g(9, "i")
                         ? _c("u-badge", {
-                            attrs: { _i: 9 },
+                            attrs: { _i: 7 },
                             slot: "right-icon"
                           })
                         : _vm._e(),
-                      _vm._$g(10, "i")
+                      _vm._$g(8, "i")
                         ? _c("u-switch", {
-                            attrs: { _i: 10 },
+                            attrs: { _i: 8 },
                             slot: "right-icon",
                             model: {
-                              value: _vm._$g(10, "v-model"),
+                              value: _vm._$g(8, "v-model"),
                               callback: function() {},
                               expression: "checked"
                             }
@@ -16183,11 +16160,11 @@ var render = function() {
                     1
                   ),
                   _c("v-uni-view", {
-                    staticClass: _vm._$g(11, "sc"),
-                    attrs: { _i: 11 }
+                    staticClass: _vm._$g(9, "sc"),
+                    attrs: { _i: 9 }
                   }),
                   _c("u-cell-item", {
-                    attrs: { _i: 12 },
+                    attrs: { _i: 10 },
                     on: {
                       click: function($event) {
                         return _vm.$handleViewEvent($event)
@@ -16414,8 +16391,16 @@ var render = function() {
           }
         }
       }),
-      _c("v-uni-text", { attrs: { _i: 2 } }, [_vm._v("请输入要关联的邮箱：")]),
-      _c("br", { attrs: { _i: 3 } }),
+      _c(
+        "v-uni-view",
+        { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
+        [
+          _c("v-uni-text", { attrs: { _i: 3 } }, [
+            _vm._v("请输入要关联的邮箱：")
+          ])
+        ],
+        1
+      ),
       _c(
         "v-uni-view",
         { staticClass: _vm._$g(4, "sc"), attrs: { _i: 4 } },
@@ -16908,7 +16893,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\nbody {\r\n  background-color: #ffffff;\r\n  font-size: 30upx;\n}\n.uni-input {\r\n  background-color: #FFFFFF;\r\n  height: 20rpx;\r\n  font-weight: 20rpx;\n}\n.button {\r\n  bottom: -80rpx;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\nbody {\r\n  background-color: #f8f8f8;\r\n  font-size: 30upx;\n}\n.uni-input {\r\n  background-color: #FFFFFF;\r\n  height: 20rpx;\r\n  font-weight: 20rpx;\n}\n.button {\r\n  bottom: -80rpx;\r\n  width: 500rpx;\r\n  background-color: #1abc9c;\n}\n.emailtext {\r\n  margin-top: 20rpx;\r\n  height: 60rpx;\r\n  font-size: 40rpx;\r\n  background-color: #f8f8f8;\n}\n.input {\r\n  background-color: #FFFFFF;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -17630,8 +17615,32 @@ var render = function() {
                 "u-tr",
                 { attrs: { _i: 4 } },
                 [
-                  _c("u-td", { attrs: { _i: 5 } }, [_vm._v("已签到人数")]),
-                  _c("u-td", { attrs: { _i: 6 } }, [_vm._v("未签到人数")])
+                  _c(
+                    "u-td",
+                    { attrs: { _i: 5 } },
+                    [
+                      _c(
+                        "v-uni-text",
+                        { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
+                        [_vm._v(_vm._$g(6, "t0-0"))]
+                      ),
+                      _vm._v("已签到人数")
+                    ],
+                    1
+                  ),
+                  _c(
+                    "u-td",
+                    { attrs: { _i: 7 } },
+                    [
+                      _c(
+                        "v-uni-text",
+                        { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
+                        [_vm._v(_vm._$g(8, "t0-0"))]
+                      ),
+                      _vm._v("未签到人数")
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -17640,13 +17649,13 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { attrs: { _i: 7 } },
+            { attrs: { _i: 9 } },
             [
               _c(
                 "v-uni-swiper",
                 {
-                  staticClass: _vm._$g(8, "sc"),
-                  attrs: { _i: 8 },
+                  staticClass: _vm._$g(10, "sc"),
+                  attrs: { _i: 10 },
                   on: {
                     change: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -17656,43 +17665,55 @@ var render = function() {
                 [
                   _c(
                     "v-uni-swiper-item",
-                    { attrs: { _i: 9 } },
+                    { attrs: { _i: 11 } },
                     [
                       _c(
                         "u-grid",
-                        { attrs: { _i: 10 } },
-                        _vm._l(_vm._$g(11, "f"), function(
+                        { attrs: { _i: 12 } },
+                        _vm._l(_vm._$g(13, "f"), function(
                           item,
                           index,
                           $20,
                           $30
                         ) {
-                          return _vm._$g("11-" + $30, "i")
-                            ? _c(
-                                "u-grid-item",
-                                { key: item, attrs: { _i: "11-" + $30 } },
+                          return _c(
+                            "u-grid-item",
+                            { key: item, attrs: { _i: "13-" + $30 } },
+                            [
+                              _c("u-icon", { attrs: { _i: "14-" + $30 } }),
+                              _c(
+                                "v-uni-view",
+                                { attrs: { _i: "15-" + $30 } },
                                 [
-                                  _c("u-icon", { attrs: { _i: "12-" + $30 } }),
                                   _c(
                                     "v-uni-text",
                                     {
-                                      staticClass: _vm._$g("13-" + $30, "sc"),
-                                      attrs: { _i: "13-" + $30 }
+                                      staticClass: _vm._$g("16-" + $30, "sc"),
+                                      attrs: { _i: "16-" + $30 }
                                     },
-                                    [_vm._v(_vm._$g("13-" + $30, "t0-0"))]
-                                  ),
+                                    [_vm._v(_vm._$g("16-" + $30, "t0-0"))]
+                                  )
+                                ],
+                                1
+                              ),
+                              _c(
+                                "v-uni-view",
+                                { attrs: { _i: "17-" + $30 } },
+                                [
                                   _c(
                                     "v-uni-text",
                                     {
-                                      staticClass: _vm._$g("14-" + $30, "sc"),
-                                      attrs: { _i: "14-" + $30 }
+                                      staticClass: _vm._$g("18-" + $30, "sc"),
+                                      attrs: { _i: "18-" + $30 }
                                     },
-                                    [_vm._v(_vm._$g("14-" + $30, "t0-0"))]
+                                    [_vm._v(_vm._$g("18-" + $30, "t0-0"))]
                                   )
                                 ],
                                 1
                               )
-                            : _vm._e()
+                            ],
+                            1
+                          )
                         }),
                         1
                       )
@@ -17707,13 +17728,12 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { attrs: { _i: 15 } },
+            { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
             [
               _c(
                 "u-button",
                 {
-                  staticClass: _vm._$g(16, "sc"),
-                  attrs: { _i: 16 },
+                  attrs: { _i: 20 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -17727,13 +17747,12 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { attrs: { _i: 17 } },
+            { staticClass: _vm._$g(21, "sc"), attrs: { _i: 21 } },
             [
               _c(
                 "u-button",
                 {
-                  staticClass: _vm._$g(18, "sc"),
-                  attrs: { _i: 18 },
+                  attrs: { _i: 22 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -17840,7 +17859,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.cell{\n\t\t\n\t\ttitle-color: #18B566;\n}\n.content {\n\t\tbackground: #f2fbfa;\n\t\twidth: 100vw;\n\t\theight: 100vh;\n}\n.u-table{\n\t\tmargin-top: 40rpx;\n}\n.u-table tr {\n\t\twidth:100rpx;\n}\n.button1 {\n\t\tposition:absolute;\n\t\tbottom: 5;\n\t\tmargin-left: 110rpx;\n\t\tbackground-color: #ffff;\n\t\tmargin-top:130rpx;\n}\n.button2 {\n\t\tposition:absolute;\n\t\tbottom: 5;\n\t\tmargin-left: 420rpx;\n\t\tbackground-color: #ffff;\n\t\tmargin-top:130rpx;\n}\n.list{\n\t\twidth:100%;\n\t\tborder-bottom: 10supx solid  #f1f1f1;\n\t\tbackground: #f2fbfa;\n\t\tmargin-top: 1100rpx;\n&:last-child{\n\t\t\tborder: none;\n}\n.li{\n\t\t\twidth:92%;\n\t\t\theight:10upx;\n\t\t\tpadding:0 4%;\n\t\t\tborder-bottom:1px solid rgb(243,243,243);\n\t\t\tdisplay:-webkit-box;\n\t\t\tdisplay:-webkit-flex;\n\t\t\tdisplay:flex;\n\t\t\t-webkit-box-align:center;\n\t\t\t-webkit-align-items:center;\n\t\t\t        align-items:center;\n}\n}\n.swiper{\n\t\t\theight: 900rpx;\n\t\t\t/* width: 700rpx; */\n}\n\t\n/* .tr{\n\t\t\theight: 900rpx;\n\t\t\twidth: 700rpx;\n\t\t} */\n", ""]);
+exports.push([module.i, "\n.cell{\n\t\t\n\t\ttitle-color: #18B566;\n}\n.content {\n\t\tbackground: #f2fbfa;\n\t\twidth: 100vw;\n\t\theight: 100vh;\n}\n.u-table{\n\t\tmargin-top: 40rpx;\n}\n.u-table tr {\n\t\twidth:100rpx;\n}\n.text{\n\t\tfont-weight: bold;\n\t\tfont-size: 50rpx;\n}\n.button1 {\n\t\tposition:absolute;\n\t\tbottom: 5;\n\t\tmargin-left: 110rpx;\n\t\tbackground-color: #ffff;\n\t\tmargin-top:50rpx;\n}\n.button2 {\n\t\tposition:absolute;\n\t\tbottom: 5;\n\t\tmargin-left: 420rpx;\n\t\tbackground-color: #ffff;\n\t\tmargin-top:50rpx;\n}\n.list{\n\t\twidth:100%;\n\t\tborder-bottom: 10supx solid  #f1f1f1;\n\t\tbackground: #f2fbfa;\n\t\tmargin-top: 1100rpx;\n&:last-child{\n\t\t\tborder: none;\n}\n.li{\n\t\t\twidth:92%;\n\t\t\theight:10upx;\n\t\t\tpadding:0 4%;\n\t\t\tborder-bottom:1px solid rgb(243,243,243);\n\t\t\tdisplay:-webkit-box;\n\t\t\tdisplay:-webkit-flex;\n\t\t\tdisplay:flex;\n\t\t\t-webkit-box-align:center;\n\t\t\t-webkit-align-items:center;\n\t\t\t        align-items:center;\n}\n}\n.swiper{\n\t\t\theight: 900rpx;\n\t\t\t/* width: 700rpx; */\n}\n\t\n/* .tr{\n\t\t\theight: 900rpx;\n\t\t\twidth: 700rpx;\n\t\t} */\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -17999,23 +18018,19 @@ var render = function() {
             "u-cell-group",
             { key: i, attrs: { _i: "8-" + $30 } },
             [
-              _vm._$g("9-" + $30, "i")
-                ? _c(
-                    "u-cell-item",
-                    {
-                      attrs: { _i: "9-" + $30 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    },
-                    [
-                      _c("u-icon", { attrs: { _i: "10-" + $30 }, slot: "icon" })
-                    ],
-                    1
-                  )
-                : _vm._e()
+              _c(
+                "u-cell-item",
+                {
+                  attrs: { _i: "9-" + $30 },
+                  on: {
+                    click: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [_c("u-icon", { attrs: { _i: "10-" + $30 }, slot: "icon" })],
+                1
+              )
             ],
             1
           )
@@ -18037,19 +18052,12 @@ var render = function() {
               "u-cell-group",
               { key: i, attrs: { _i: "14-" + $31 } },
               [
-                _vm._$g("15-" + $31, "i")
-                  ? _c(
-                      "u-cell-item",
-                      { attrs: { _i: "15-" + $31 } },
-                      [
-                        _c("u-icon", {
-                          attrs: { _i: "16-" + $31 },
-                          slot: "icon"
-                        })
-                      ],
-                      1
-                    )
-                  : _vm._e()
+                _c(
+                  "u-cell-item",
+                  { attrs: { _i: "15-" + $31 } },
+                  [_c("u-icon", { attrs: { _i: "16-" + $31 }, slot: "icon" })],
+                  1
+                )
               ],
               1
             )
@@ -18876,31 +18884,24 @@ var render = function() {
                       ])
                     ],
                     1
-                  ),
-                  _c(
-                    "v-uni-view",
-                    {
-                      staticClass: _vm._$g(18, "sc"),
-                      attrs: { _i: 18 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    },
-                    [_vm._v("查看经验值明细")]
                   )
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
+                { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
                 [
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
-                    [_vm._v("签到经验值")]
+                    { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
+                    [
+                      _vm._v("签到经验值"),
+                      _c("v-uni-view", { attrs: { _i: 20 } }, [
+                        _vm._v(_vm._$g(20, "t0-0"))
+                      ])
+                    ],
+                    1
                   )
                 ],
                 1
@@ -19222,32 +19223,51 @@ var render = function() {
                       ])
                     ],
                     1
+                  ),
+                  _c(
+                    "v-uni-view",
+                    {
+                      staticClass: _vm._$g(18, "sc"),
+                      attrs: { _i: 18 },
+                      on: {
+                        click: function($event) {
+                          return _vm.$handleViewEvent($event)
+                        }
+                      }
+                    },
+                    [_vm._v("查看经验值明细")]
                   )
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
+                { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
                 [
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
-                    [_vm._v("签到经验值")]
+                    { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
+                    [
+                      _vm._v("签到经验值"),
+                      _c("v-uni-view", { attrs: { _i: 21 } }, [
+                        _vm._v(_vm._$g(21, "t0-0"))
+                      ])
+                    ],
+                    1
                   )
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
+                { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
                 [
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(21, "sc"), attrs: { _i: 21 } },
+                    { staticClass: _vm._$g(23, "sc"), attrs: { _i: 23 } },
                     [
                       _vm._v("出勤等级"),
-                      _c("v-uni-view", { attrs: { _i: 22 } }, [_vm._v("2级")])
+                      _c("v-uni-view", { attrs: { _i: 24 } }, [_vm._v("2级")])
                     ],
                     1
                   )
@@ -19260,7 +19280,7 @@ var render = function() {
         ],
         1
       ),
-      _c("u-tabbar", { attrs: { _i: 23 } })
+      _c("u-tabbar", { attrs: { _i: 25 } })
     ],
     1
   )
@@ -19437,6 +19457,10 @@ var components
 try {
   components = {
     uNavbar: __webpack_require__(/*! @/uview-ui/components/u-navbar/u-navbar.vue */ 25).default,
+    uCellGroup: __webpack_require__(/*! @/uview-ui/components/u-cell-group/u-cell-group.vue */ 57)
+      .default,
+    uCellItem: __webpack_require__(/*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 65)
+      .default,
     uTabbar: __webpack_require__(/*! @/uview-ui/components/u-tabbar/u-tabbar.vue */ 73).default
   }
 } catch (e) {
@@ -19475,104 +19499,20 @@ var render = function() {
       _c(
         "v-uni-view",
         { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
-        [
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(3, "sc"), attrs: { _i: 3 } },
+        _vm._l(_vm._$g(3, "f"), function(item, index, $20, $30) {
+          return _c(
+            "u-cell-group",
+            { key: item, attrs: { _i: "3-" + $30 } },
             [
               _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(4, "sc"), attrs: { _i: 4 } },
+                "u-cell-item",
+                { attrs: { _i: "4-" + $30 } },
                 [
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
-                    [
-                      _vm._v("签到成功"),
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
-                        [_vm._v("此处显示签到时间")]
-                      )
-                    ],
-                    1
-                  ),
-                  _c(
-                    "v-uni-view",
                     {
-                      staticClass: _vm._$g(7, "sc"),
-                      attrs: { _i: 7 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    },
-                    [_vm._v("+2")]
-                  )
-                ],
-                1
-              ),
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
-                [
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
-                    [
-                      _vm._v("签到成功"),
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
-                        [_vm._v("此处显示签到时间")]
-                      )
-                    ],
-                    1
-                  ),
-                  _c(
-                    "v-uni-view",
-                    {
-                      staticClass: _vm._$g(11, "sc"),
-                      attrs: { _i: 11 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
-                    },
-                    [_vm._v("+2")]
-                  )
-                ],
-                1
-              ),
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
-                [
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
-                    [
-                      _vm._v("签到成功"),
-                      _c(
-                        "v-uni-view",
-                        { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
-                        [_vm._v("此处显示签到时间")]
-                      )
-                    ],
-                    1
-                  ),
-                  _c(
-                    "v-uni-view",
-                    {
-                      staticClass: _vm._$g(15, "sc"),
-                      attrs: { _i: 15 },
-                      on: {
-                        click: function($event) {
-                          return _vm.$handleViewEvent($event)
-                        }
-                      }
+                      staticClass: _vm._$g("5-" + $30, "sc"),
+                      attrs: { _i: "5-" + $30 }
                     },
                     [_vm._v("+2")]
                   )
@@ -19582,10 +19522,10 @@ var render = function() {
             ],
             1
           )
-        ],
+        }),
         1
       ),
-      _c("u-tabbar", { attrs: { _i: 16 } })
+      _c("u-tabbar", { attrs: { _i: 6 } })
     ],
     1
   )
@@ -19678,7 +19618,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n>\r\n.content {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.logo {\r\n  height: 200rpx;\r\n  width: 200rpx;\r\n  margin-top: 200rpx;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  margin-bottom: 50rpx;\n}\n.text-area {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.title {\r\n  font-size: 36rpx;\r\n  color: #8f8f94;\n}\nbody {\r\n  background-color: #ffffff;\r\n  font-size: 30upx;\n}\n.header {\r\n  background: #fff;\r\n  height: 300upx;\r\n  padding-bottom: 110upx;\n}\n.header .bg {\r\n  width: 100%;\r\n  height: 200upx;\r\n  padding-top: 40upx;\r\n  background-color: #1ABC9C;\n}\n.box {\r\n  width: 600upx;\r\n  height: 250upx;\r\n  -webkit-border-radius: 20upx;\r\n          border-radius: 20upx;\r\n  margin: 0 auto;\r\n  background: #fff;\r\n  -webkit-box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\r\n          box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\n}\n.box .box-hd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-hd .avator {\r\n  width: 160upx;\r\n  height: 160upx;\r\n  background: #fff;\r\n  border: 5upx solid #fff;\r\n  -webkit-border-radius: 50%;\r\n          border-radius: 50%;\r\n  margin-top: -80upx;\r\n  overflow: hidden;\n}\n.box .box-hd .avator img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.box .box-hd .phone-number {\r\n  width: 100%;\r\n  text-align: center;\n}\n.box .box-bd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: nowrap;\r\n          flex-wrap: nowrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-bd .item {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1 1 auto;\r\n          flex: 1 1 auto;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  border-right: 1px solid #f1f1f1;\r\n  margin: 15upx 0;\n}\n.box .box-bd .item:last-child {\r\n  border: none;\n}\n.box .box-bd .item .icon {\r\n  width: 1upx;\r\n  height: 1upx;\n}\n.list-content {\r\n  background: #fff;\r\n  margin-top: -1rpx;\n}\n.list {\r\n  width: 100%;\r\n  border-bottom: 5upx solid  #ffffff;\r\n  background: #fff;\n}\n.list:last-child {\r\n  border: none;\n}\n.list .li {\r\n  width: 92%;\r\n  height: 100upx;\r\n  padding: 0 4%;\r\n  border-bottom: 1px solid #f3f3f3;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\n}\n.list .li.noborder {\r\n  border-bottom: 0;\n}\n.list .li .icon {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .icon uni-image {\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .text {\r\n  padding-left: 20upx;\r\n  width: 65%;\r\n  color: #666;\n}\n.list .li .to {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 40upx;\r\n  height: 40upx;\n}\n.button {\r\n  margin-top: 30rpx;\n}\n.text {\r\n  color: #a6a6a6;\r\n  padding-right: -1upx;\r\n  width: 100%;\n}\n.detail {\r\n  color: #6fcb7a;\r\n  margin-left: 200rpx;\r\n  font-weight: bold;\r\n  font-size: 50rpx;\n}\n.avator {\r\n  width: 200upx;\r\n  height: 250upx;\r\n  overflow: hidden;\r\n  -webkit-border-radius: 10rpx;\r\n          border-radius: 10rpx;\r\n  border-style: ridge;\r\n  border-color: #f7f7f7;\r\n  margin-right: 220rpx;\n}\n.avator .img {\r\n  width: 50%;\n}\n.text1 {\r\n  color: #000000;\r\n  font-size: 30rpx;\r\n  margin-top: 60rpx;\r\n  margin-right: 500rpx;\n}\n.text2 {\r\n  color: #cccccc;\r\n  font-size: 30rpx;\n}\n.text3 {\r\n  font-size: 20rpx;\r\n  color: #e1e1e1;\n}\n.headicon {\r\n  width: 100%;\r\n  height: 100%;\r\n  margin-top: 15rpx;\r\n  margin-left: 300rpx;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\n>\r\n.content {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.expr {\r\n  font-size: 40rpx;\r\n  font-weight: bold;\r\n  color: #18B566;\n}\n.logo {\r\n  height: 200rpx;\r\n  width: 200rpx;\r\n  margin-top: 200rpx;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  margin-bottom: 50rpx;\n}\n.text-area {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.title {\r\n  font-size: 36rpx;\r\n  color: #8f8f94;\n}\nbody {\r\n  background-color: #ffffff;\r\n  font-size: 30upx;\n}\n.header {\r\n  background: #fff;\r\n  height: 300upx;\r\n  padding-bottom: 110upx;\n}\n.header .bg {\r\n  width: 100%;\r\n  height: 200upx;\r\n  padding-top: 40upx;\r\n  background-color: #1ABC9C;\n}\n.box {\r\n  width: 600upx;\r\n  height: 250upx;\r\n  -webkit-border-radius: 20upx;\r\n          border-radius: 20upx;\r\n  margin: 0 auto;\r\n  background: #fff;\r\n  -webkit-box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\r\n          box-shadow: 0 5upx 20upx 0upx rgba(0, 0, 150, 0.2);\n}\n.box .box-hd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-hd .avator {\r\n  width: 160upx;\r\n  height: 160upx;\r\n  background: #fff;\r\n  border: 5upx solid #fff;\r\n  -webkit-border-radius: 50%;\r\n          border-radius: 50%;\r\n  margin-top: -80upx;\r\n  overflow: hidden;\n}\n.box .box-hd .avator img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.box .box-hd .phone-number {\r\n  width: 100%;\r\n  text-align: center;\n}\n.box .box-bd {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: nowrap;\r\n          flex-wrap: nowrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.box .box-bd .item {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1 1 auto;\r\n          flex: 1 1 auto;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-wrap: wrap;\r\n          flex-wrap: wrap;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  border-right: 1px solid #f1f1f1;\r\n  margin: 15upx 0;\n}\n.box .box-bd .item:last-child {\r\n  border: none;\n}\n.box .box-bd .item .icon {\r\n  width: 1upx;\r\n  height: 1upx;\n}\n.list-content {\r\n  background: #fff;\r\n  margin-top: -1rpx;\n}\n.list {\r\n  width: 100%;\r\n  border-bottom: 5upx solid  #ffffff;\r\n  background: #fff;\n}\n.list:last-child {\r\n  border: none;\n}\n.list .li {\r\n  width: 92%;\r\n  height: 100upx;\r\n  padding: 0 4%;\r\n  border-bottom: 1px solid #f3f3f3;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\n}\n.list .li.noborder {\r\n  border-bottom: 0;\n}\n.list .li .icon {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .icon uni-image {\r\n  width: 50upx;\r\n  height: 50upx;\n}\n.list .li .text {\r\n  padding-left: 20upx;\r\n  width: 65%;\r\n  color: #666;\n}\n.list .li .to {\r\n  -webkit-flex-shrink: 0;\r\n          flex-shrink: 0;\r\n  width: 40upx;\r\n  height: 40upx;\n}\n.button {\r\n  margin-top: 30rpx;\n}\n.text {\r\n  color: #a6a6a6;\r\n  padding-right: -1upx;\r\n  width: 100%;\n}\n.detail {\r\n  color: #6fcb7a;\r\n  margin-left: 200rpx;\r\n  font-weight: bold;\r\n  font-size: 50rpx;\n}\n.avator {\r\n  width: 200upx;\r\n  height: 250upx;\r\n  overflow: hidden;\r\n  -webkit-border-radius: 10rpx;\r\n          border-radius: 10rpx;\r\n  border-style: ridge;\r\n  border-color: #f7f7f7;\r\n  margin-right: 220rpx;\n}\n.avator .img {\r\n  width: 50%;\n}\n.text1 {\r\n  color: #000000;\r\n  font-size: 30rpx;\r\n  margin-top: 60rpx;\r\n  margin-right: 500rpx;\n}\n.text2 {\r\n  color: #cccccc;\r\n  font-size: 30rpx;\n}\n.text3 {\r\n  font-size: 20rpx;\r\n  color: #e1e1e1;\n}\n.headicon {\r\n  width: 100%;\r\n  height: 100%;\r\n  margin-top: 15rpx;\r\n  margin-left: 300rpx;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -19867,62 +19807,54 @@ var render = function() {
                     "v-uni-swiper-item",
                     { attrs: { _i: 13 } },
                     _vm._l(_vm._$g(14, "f"), function(item, index, $20, $30) {
-                      return _vm._$g("14-" + $30, "i")
-                        ? _c(
-                            "v-uni-scroll-view",
-                            { key: item, attrs: { _i: "14-" + $30 } },
+                      return _c(
+                        "v-uni-scroll-view",
+                        { key: item, attrs: { _i: "14-" + $30 } },
+                        [
+                          _c(
+                            "u-cell-group",
+                            { attrs: { _i: "15-" + $30 } },
                             [
                               _c(
-                                "u-cell-group",
-                                { attrs: { _i: "15-" + $30 } },
+                                "v-uni-view",
+                                {
+                                  staticClass: _vm._$g("16-" + $30, "sc"),
+                                  attrs: { _i: "16-" + $30 }
+                                },
+                                [_vm._v(_vm._$g("16-" + $30, "t0-0"))]
+                              ),
+                              _c(
+                                "u-cell-item",
+                                {
+                                  attrs: { _i: "17-" + $30 },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$handleViewEvent($event)
+                                    }
+                                  }
+                                },
                                 [
+                                  _c("u-icon", {
+                                    staticClass: _vm._$g("18-" + $30, "sc"),
+                                    attrs: { _i: "18-" + $30 },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.$handleViewEvent($event)
+                                      }
+                                    },
+                                    slot: "icon"
+                                  }),
                                   _c(
                                     "v-uni-view",
                                     {
-                                      staticClass: _vm._$g("16-" + $30, "sc"),
-                                      attrs: { _i: "16-" + $30 }
-                                    },
-                                    [_vm._v(_vm._$g("16-" + $30, "t0-0"))]
-                                  ),
-                                  _c(
-                                    "u-cell-item",
-                                    {
-                                      attrs: { _i: "17-" + $30 },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.$handleViewEvent($event)
-                                        }
-                                      }
+                                      staticClass: _vm._$g("19-" + $30, "sc"),
+                                      attrs: { _i: "19-" + $30 }
                                     },
                                     [
-                                      _c("u-icon", {
-                                        staticClass: _vm._$g("18-" + $30, "sc"),
-                                        attrs: { _i: "18-" + $30 },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.$handleViewEvent($event)
-                                          }
-                                        },
-                                        slot: "icon"
-                                      }),
-                                      _c(
-                                        "v-uni-view",
-                                        {
-                                          staticClass: _vm._$g(
-                                            "19-" + $30,
-                                            "sc"
-                                          ),
-                                          attrs: { _i: "19-" + $30 }
-                                        },
-                                        [
-                                          _vm._v(
-                                            _vm._$g("19-" + $30, "t0-0") +
-                                              "经验值"
-                                          )
-                                        ]
+                                      _vm._v(
+                                        _vm._$g("19-" + $30, "t0-0") + "经验值"
                                       )
-                                    ],
-                                    1
+                                    ]
                                   )
                                 ],
                                 1
@@ -19930,7 +19862,9 @@ var render = function() {
                             ],
                             1
                           )
-                        : _vm._e()
+                        ],
+                        1
+                      )
                     }),
                     1
                   )
@@ -21181,7 +21115,11 @@ var components
 try {
   components = {
     uNavbar: __webpack_require__(/*! @/uview-ui/components/u-navbar/u-navbar.vue */ 25).default,
-    uField: __webpack_require__(/*! @/uview-ui/components/u-field/u-field.vue */ 425).default
+    uForm: __webpack_require__(/*! @/uview-ui/components/u-form/u-form.vue */ 161).default,
+    uFormItem: __webpack_require__(/*! @/uview-ui/components/u-form-item/u-form-item.vue */ 169)
+      .default,
+    uInput: __webpack_require__(/*! @/uview-ui/components/u-input/u-input.vue */ 94).default,
+    uButton: __webpack_require__(/*! @/uview-ui/components/u-button/u-button.vue */ 145).default
   }
 } catch (e) {
   if (
@@ -21216,60 +21154,65 @@ var render = function() {
           }
         }
       }),
-      _c("v-uni-text", { attrs: { _i: 2 } }, [_vm._v("请输入要关联的邮箱：")]),
-      _c("br", { attrs: { _i: 3 } }),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(4, "sc"), attrs: { _i: 4 } },
+        { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
         [
-          _c("u-field", {
-            attrs: { _i: 5 },
-            model: {
-              value: _vm._$g(5, "v-model"),
-              callback: function() {},
-              expression: "pwd"
-            }
-          }),
           _c(
-            "v-uni-button",
-            {
-              staticClass: _vm._$g(6, "sc"),
-              attrs: { type: "error", _i: 6 },
-              on: {
-                click: function($event) {
-                  return _vm.$handleViewEvent($event)
-                }
-              }
-            },
-            [_vm._v("下一步")]
-          )
-        ],
-        1
-      ),
-      _c(
-        "v-uni-view",
-        { staticClass: _vm._$g(7, "sc"), attrs: { _i: 7 } },
-        [
-          _c("u-field", {
-            attrs: { _i: 8 },
-            model: {
-              value: _vm._$g(8, "v-model"),
-              callback: function() {},
-              expression: "pwd"
-            }
-          }),
+            "u-form",
+            { ref: "uForm", attrs: { _i: 3 } },
+            [
+              _c(
+                "u-form-item",
+                { attrs: { _i: 4 } },
+                [
+                  _c("u-input", {
+                    attrs: { _i: 5 },
+                    model: {
+                      value: _vm._$g(5, "v-model"),
+                      callback: function() {},
+                      expression: "form.oldpassword"
+                    }
+                  })
+                ],
+                1
+              ),
+              _c(
+                "u-form-item",
+                { attrs: { _i: 6 } },
+                [
+                  _c("u-input", {
+                    attrs: { _i: 7 },
+                    model: {
+                      value: _vm._$g(7, "v-model"),
+                      callback: function() {},
+                      expression: "form.newpassword"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _c(
-            "v-uni-button",
-            {
-              staticClass: _vm._$g(9, "sc"),
-              attrs: { type: "error", _i: 9 },
-              on: {
-                click: function($event) {
-                  return _vm.$handleViewEvent($event)
-                }
-              }
-            },
-            [_vm._v("确定")]
+            "v-uni-view",
+            { attrs: { _i: 8 } },
+            [
+              _c(
+                "u-button",
+                {
+                  attrs: { _i: 9 },
+                  on: {
+                    click: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [_vm._v("确认修改")]
+              )
+            ],
+            1
           )
         ],
         1
@@ -21366,7 +21309,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../HBuilderX/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\nbody {\r\n  background-color: #ffffff;\r\n  font-size: 30upx;\n}\n.uni-input {\r\n  background-color: #FFFFFF;\r\n  height: 20rpx;\r\n  font-weight: 20rpx;\n}\n.button {\r\n  bottom: -80rpx;\n}\r\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\r\n/**\r\n * 这里是uni-app内置的常用样式变量\r\n *\r\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\r\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\r\n *\r\n */\r\n/**\r\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\r\n *\r\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\r\n */\r\n/* 颜色变量 */\r\n/* uni.scss */\r\n/* 行为相关颜色 */\r\n/* 文字基本颜色 */\r\n/* 背景颜色 */\r\n/* 边框颜色 */\r\n/* 尺寸变量 */\r\n/* 文字尺寸 */\r\n/* 图片尺寸 */\r\n/* Border Radius */\r\n/* 水平间距 */\r\n/* 垂直间距 */\r\n/* 透明度 */\r\n/* 文章场景相关 */\nbody {\r\n  background-color: #ffffff;\r\n  font-size: 30upx;\n}\n.content {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  margin-top: 45rpx;\n}\n.uni-input {\r\n  background-color: #FFFFFF;\r\n  height: 20rpx;\r\n  font-weight: 20rpx;\n}\n.form {\r\n  padding: 0 100upx;\r\n  margin-top: 40px;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

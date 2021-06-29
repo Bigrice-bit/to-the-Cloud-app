@@ -188,19 +188,10 @@
 							
 								
 							} else {
-								// uni.showModal({
-								// 	title: '提示',
-								// 	showCancel: false,
-								// 	content: "用户名或密码错误",
-								// 	success(res) {
-								// 		if (res.confirm) {
-								// 			// console.log('用户点击确定')
-								// 			// uni.navigateBack({})
-								// 		} else if (res.cancel) {
-								// 			// console.log('用户点击取消')
-								// 		}
-								// 	}
-								// })
+								uni.showToast({
+									title: '用户名或密码错误',
+									duration: 1000,
+								})
 								
 							}
 						});

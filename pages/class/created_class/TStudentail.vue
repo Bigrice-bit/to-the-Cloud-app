@@ -75,6 +75,7 @@
 				experience:0,
 				id:null,
 				allexperience:0,
+				item: 0,
 			}
 		},
 		created() {
@@ -87,11 +88,11 @@
 			// 	this.classid = value;
 			
 			// }
-			const item = option.item;
+			this.item = option.item;
 			// this.data.ClassCourseId = item.id;
 			// this.title = item.classcoursename;
 			// console.log(this.title)
-			console.log(item)
+			console.log(this.item)
 			// try {
 				const Tvalue = uni.getStorageSync("ClassKey");
 			
@@ -114,8 +115,8 @@
 			// } catch (e) {
 			// 	console.log(e);
 			// }
-			this.id = item
-			this.$Api.UserInfo(item).then(res => {
+			this.id = this.item
+			this.$Api.UserInfo(this.item).then(res => {
 				console.log(res)
 				if(res.data.success){
 					this.name = res.data.data.userName
@@ -123,7 +124,7 @@
 				
 				}
 			})
-			this.$Api.AllExpr(item).then(res => {
+			this.$Api.AllExpr(this.item).then(res => {
 				console.log(res)
 				if(res.data.success){
 					this.allexperience = res.data.data
@@ -131,7 +132,7 @@
 				}
 			})
 			var obj={
-				StuId: item,
+				StuId: this.item,
 				ClassCourseId:Tvalue
 			}
 			this.$Api.GetExper(obj).then(res => {
@@ -171,7 +172,7 @@
 						console.log("跳到签到明细")
 						console.log(this.id)
 						uni.navigateTo({
-							url: "/pages/class/Stu/SignDetail"
+							url: "/pages/class/Stu/SignDetail?item=" + encodeURIComponent(JSON.stringify(this.item))
 						})
 					}
 					

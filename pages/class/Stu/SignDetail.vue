@@ -10,15 +10,11 @@
 				<view class="list-content">
 
 					<u-cell-group v-for="(item, index) in sturecord" :key="index">
-							<u-cell-item   :title="item.name" :label="item.time" arrow-direction="right" :arrow="false" value="+2">
-							
-							
-							<view>
-								{{i.stusignnum}}人/{{i.allstu}}人
-							</view>
-							
-						</u-cell-item>
-						
+							<u-cell-item   :title="item.signStatus" :label="item.signDate"  arrow-direction="right" :arrow="false" >
+							<view class="expr">+2</view>
+							</u-cell-item>
+							<!-- <u-cell-item   :title="item.signStatus" :label="item.signDate" v-else arrow-direction="right" :arrow="false">
+							</u-cell-item> -->
 					</u-cell-group>
 		</view>
 		<u-tabbar :list="tabbar" :mid-button="false"></u-tabbar>
@@ -48,19 +44,21 @@
 				experience:null,
 				id:null,
 				sturecord:[],
+				item:"签到"
 			}
 		},
 		created() {
 			_this = this
 		},
-		onLoad() {
+		onLoad(option) {
 			// const value = uni.getStorageSync("ClassKey");
 			// if (value) {
 			// 	console.log(value);
 			// 	this.classid = value;
 			
 			// }
-			const item = uni.getStorageSync("LoginKey");
+			const item = JSON.parse(decodeURIComponent(option.item));
+			// const item = parseInt(option.item);
 			// this.data.ClassCourseId = item.id;
 			// this.title = item.classcoursename;
 			// console.log(this.title)
@@ -87,28 +85,35 @@
 			// 	console.log(e);
 			// }
 			// this.id = item
-			this.$Api.UserInfo(item).then(res => {
-				if(res.data.success){
-					this.name = res.data.data.userName
-					this.classnum = res.data.data.userNum
-			}
-			})
+			// this.$Api.UserInfo(item).then(res => {
+			// 	if(res.data.success){
+			// 		this.name = res.data.data.userName
+			// 		// this.classnum = res.data.data.userNum
+			// }
+			// })
 			this.$Api.StuRecord(item,Tvalue).then(res => {
 				console.log(res)
 				if(res.data.success){
-					for(var i = 0;i < res.data.data.length;i++)
-					{
-						var obj = {
-							signStatus : res.data.data.signStatus,
-							name : _this.name,
-							classnum : _this.classnum,
-						}
-						this.sturecord.push(obj);
+					_this.sturecord = res.data.data;
+					console.log(_this.sturecord)
+					// for(var i = 0;i < res.data.data.length;i++)
+					// {
+					// 	var obj = {
+					// 		signStatus : res.data.data[i].signStatus,
+					// 		name : _this.name,
+					// 		// classnum : _this.classnum,
+					// 	}
+					// 	this.sturecord.push(obj);
+					// }
+					for(var i = 0;i < _this.sturecord.length;i++){
+						
+						_this.sturecord[i].signDate = this.dateFormat (new Date(_this.sturecord[i].signDate), 'yyyy-MM-dd HH:mm:ss');
+						console.log(this.sturecord[i].signDate)
 					}
-					
 				
 				}
 			})
+				console.log(this.sturecord.length)
 			
 				this.tabbar = [{
 					iconPath: "home",
@@ -139,7 +144,35 @@
 					SearchDetail(){
 						console.log("跳到签到明细")
 						console.log(this.id)
-					}
+					},
+					dateFormat (time, format) {
+					  var t = new Date(time)
+					  var tf = function (i) {
+					    return (i < 10 ? '0' : '') + i
+					  }
+					  return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+					    switch (a) {
+					      case 'yyyy':
+					        return tf(t.getFullYear())
+					      // break
+					      case 'MM':
+					        return tf(t.getMonth() + 1)
+					      // break
+					      case 'mm':
+					        return tf(t.getMinutes())
+					      // break
+					      case 'dd':
+					        return tf(t.getDate())
+					      // break
+					      case 'HH':
+					        return tf(t.getHours())
+					      // break
+					      case 'ss':
+					        return tf(t.getSeconds())
+					      // break
+					    }
+					  })
+					},
 					
 				}
 			}
@@ -153,6 +186,12 @@
 		justify-content: center;
 	}
 
+	.expr{
+		font-size: 40rpx;
+		font-weight: bold;
+		color: #18B566;
+	}
+	
 	.logo {
 		height: 200rpx;
 		width: 200rpx;

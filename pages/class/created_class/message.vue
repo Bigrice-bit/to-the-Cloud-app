@@ -10,12 +10,12 @@
 				<view class="list-content">
 
 		<u-cell-group v-for="(i, index) in item" :key="index">
-			<u-cell-item   :title="i.date" :label="i.time" arrow-direction="right" v-if="index >= 1" @click="maureg(index)">
+			<u-cell-item   title="签到" :label="i.signDate" arrow-direction="right" @click="maureg(index)">
 				
 				
-				<view>
+				<!-- <view>
 					{{i.stusignnum}}人/{{i.allstu}}人
-				</view>
+				</view> -->
 				
 			</u-cell-item>
 			
@@ -48,13 +48,7 @@
 				id:null,
 				userid:null,
 				classcourseid: null,
-				item:[{
-					date:null,
-					time:null,
-					stusignnum: null,
-					allstu:null,
-					startSignId:null
-				}],
+				item:[],
 				info:{},
 				
 			}
@@ -63,13 +57,7 @@
 			_this = this
 		},
 		onLoad(option) {
-			this.item = [{
-					date:null,
-					time:null,
-					stusignnum: null,
-					allstu:null,
-					startSignId:null
-				}];
+			
 			let that = this;
 			this.userid = uni.getStorageSync("LoginKey");
 			this.classcourseid = uni.getStorageSync("ClassKey");
@@ -77,37 +65,39 @@
 			this.$Api.TeaRecord(this.userid,this.classcourseid).then(async (res) => {
 				this.info = res;
 				
-				console.log(res)
+				// console.log(res)
 				if(res.data.success){
 					// let time = this.$u.timeFormat(this.timestamp, 'yyyy/mm/dd hh:MM:ss');
 					// let t =res.data.data.signDate
 					// console.log(t)
-					await this.$Api.GetAllStu(res.data.data[0].classCourseId).then(res => {
-						if(res.data.success){
-							that.classnum = res.data.data.length
-							console.log(that.classnum)
-						}
-					})
-						console.log(that.classnum)
-					for(var i = 0;i < res.data.data.length;i++){
-					let time1 = this.dateFormat (new Date(res.data.data[i].signDate), 'yyyy-MM-dd');
-					let time2 = this.dateFormat (new Date(res.data.data[i].signDate), 'HH:MM');
-					var obj= {
-						date: time1 + '                    '+ '签到',
-						time:time2,
-						stusignnum: 0,
-						allstu: this.classnum,
-						startSignId: res.data.data[i].startSignId
-					}
-					this.$Api.SignInfo(res.data.data[i].startSignId).then(res => {
-						console.log(res)
-						if(res.data.success){
-							obj.stusignnum = res.data.data.length
-						}
-					})
+					//  this.$Api.GetAllStu(res.data.data[0].classCourseId).then(async (res) => {
+					// 	if(res.data.success){
+					// 		that.classnum = res.data.data.length
+					// 		console.log(that.classnum)
+					// 	}
+					// })
+						// console.log(that.classnum)
+						this.item = res.data.data
+					for(var i = 0;i < this.item.length;i++){
+						this.item[i].signDate = this.dateFormat (new Date(res.data.data[i].signDate), 'yyyy-MM-dd HH:MM:ss');
+						// let time2 = this.dateFormat (new Date(res.data.data[i].signDate), '');
+					// var obj= {
+					// 	date: time1 + '                    '+ '签到',
+					// 	time:time2,
+					// 	stusignnum: 0,
+					// 	allstu: this.classnum,
+					// 	startSignId: res.data.data[i].startSignId
+					// }
+					// this.$Api.SignInfo(res.data.data[i].startSignId).then(res => {
+					// 	// console.log(res)
+					// 	if(res.data.success){
+							
+					// 		obj.stusignnum = res.data.data.length
+					// 	}
+					// })
 					
 						// console.log(obj)
-						_this.item.push(obj)
+						// _this.item.push(obj)
 					// console.log(time)
 					}
 				}

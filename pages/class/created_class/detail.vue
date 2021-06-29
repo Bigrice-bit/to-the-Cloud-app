@@ -145,6 +145,20 @@
 							_this.item.classCourseNum = res.data.data.classCourseNum
 							_this.item.course = res.data.data.courseName
 							_this.item.isEnd = res.data.data.isEnd
+							
+							this.$Api.GetCollegeById(res.data.data.collegePointId).then(res => {
+								let college = res.data.data
+								if(res.data.success){
+									if(res.data.data.children.children != null)
+									{
+									this.school = college.collegePointName + '-' + college.children.collegePointName+'-'+college.children.children.collegePointName;
+									}
+									else{
+										this.school = college.collegePointName + '-' + college.children.collegePointName
+									}
+								}
+							})
+							
 							if(res.data.data.isAdd == 0)
 							{
 								_this.checked = true;
@@ -161,6 +175,9 @@
 			} catch (e) {
 				console.log(e);
 			}
+			
+			
+			
 			// this.title = this.item.course;
 			this.$Api.getCollege().then(res => {
 				console.log(res)
@@ -237,6 +254,7 @@
 					})
 				}
 			})
+			
 			this.$Api.GetAllCourse().then(res => {
 				if(res.data.success){
 					console.log(res)
@@ -646,7 +664,7 @@
 		// font-weight: bold;
 		font-size: 30rpx;
 		// padding-right:100upx;
-		margin-left: 100rpx;
-		margin-top: 20rpx;
+		margin-left: 40rpx;
+		margin-top: 25rpx;
 	}
 </style>

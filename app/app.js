@@ -24,6 +24,10 @@ export default {
 	login: (data) => {
 		return api.request('/auth/login', 'POST', data) //接口地址
 	},
+	//修改密码
+	ChangPwd: (data) => {
+		return api.request('/auth/changepassword','POST',data)
+	},
 	getCourses: () => {
 		return api.request('/courses','GET')
 	},
@@ -158,10 +162,23 @@ export default {
 	Email: (data) => {
 		return api.request('/emailchange','POST',data)
 	},
+	//验证密码
+	VerPwd:(data) => {
+		return api.request('/passwordverify','POST',data)
+	},
+	//修改密码
+	ChangePwd: (data) => {
+		return api.request('/auth/changepassword','POST',data)
+	},
 	//获取总经验值
 	AllExpr:(data) => {
 		let url = '/info/'+data
 		return api.request(url,'GET')
+	},
+	//根据 collegeid获取学校
+	GetCollegeById:(data) =>{
+		let url = '/targetcolleges/' + data
+		return api.request(url,'GET');
 	}
 	
 }

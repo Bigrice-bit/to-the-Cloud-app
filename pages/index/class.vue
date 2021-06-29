@@ -28,49 +28,17 @@
 			</u-navbar>
 		</view>
 		<view class="u-demo">
-			<u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
-				placeholder="请输入班课名称或班课号" v-model="keyword"></u-search>
+			<!-- <u-search class="search-box" shape="square" :show-action="true" action-text="搜索" :clearabled="true"
+				placeholder="请输入班课名称或班课号" v-model="keyword"></u-search> -->
 			<yomol-prompt :title="promptTitle" :inputType="promptInputType" :maxlength="maxlength"
 				:defaultValue="promptDefaultValue" :func="promptFunc" ref="yomolPrompt" @onConfirm="onPromptConfirm">
 			</yomol-prompt>
 			<view class="big">
-				<swiper style="height: 100vh;" :current="curr" @change="setCurr">
+				<swiper style="height: 150vh;" :current="curr" @change="setCurr">
 					<swiper-item>
-						<view v-if="isshow">
-							<scroll-view v-for="(item, index) in objectArray" :key="index">
-								<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
-								<view class="" slot="body">
+						<view v-if="objectArray.length != 0">
+							<scroll-view v-for="(item, index) in objectArray" :key="index" >
 
-									<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-										<image
-											src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-											mode="aspectFill"></image>
-										<view>
-
-											<u-row gutter="5" @tap="TeaClassdetail(index)">
-												<u-col span="6">
-													<view class="demo-layout">{{item.name}}</view>
-												</u-col>
-												<u-col span="5">
-													<view class="test2">{{item.number}}</view>
-												</u-col>
-											</u-row>
-											<u-row gutter="20" justify="space-between">
-												<u-col span="8">
-													<view class="icontest" @click="signin('signin',index)">
-														<u-icon name="phone" label="签到"></u-icon>
-													</view>
-												</u-col>
-
-											</u-row>
-
-										</view>
-										<u-icon class="test" name="arrow-right" color="rgb(203,203,203)" :size="26">
-										</u-icon>
-									</view>
-								</view>
-								<u-loadmore :status="status" />
-							</u-card> -->
 								<u-cell-group>
 									<u-cell-item :title=item.coursename :label=item.name arrow-direction="right">
 
@@ -91,13 +59,15 @@
 
 
 							</scroll-view>
-						</view>
-						<scroll-view v-if="!isshow ">
+							</view>
+					<view v-if="objectArray.length == 0">
+						<scroll-view>
 							<image class="img" src="../../static/null.png" mode="aspectFit"></image>
 							<view class="text">还没有已创建的班课，快去创建一个吧~</view>
 							<button class="button" type="" size="mini" shape="circle" :plain="true"
 								@click="newcreate">创建班课</button>
 						</scroll-view>
+						</view>
 					</swiper-item>
 					<swiper-item>
 						<scroll-view v-for="(item, index) in joinArray" :key="index">
@@ -247,7 +217,7 @@
 
 				time: null,
 				i: null,
-				isshow: null,
+				isshow: false,
 			}
 		},
 		onBackPress() {
@@ -291,8 +261,8 @@
 					pagePath: "/pages/index/find"
 				},
 				{
-					iconPath: "photo",
-					selectedIconPath: "photo-fill",
+					iconPath: "account-fill",
+					selectedIconPath: "account-fill",
 					text: '我的',
 					customIcon: false,
 					pagePath: "/pages/index/mine"
@@ -339,7 +309,7 @@
 				console.log(res);
 				let serve = res.data.data;
 				if (res.data.success) {
-					this.isshow = true;
+					_this.isshow = true;
 					console.log(serve.length)
 					this.page = serve.length
 					for (var i = 0; i < serve.length; i++) {
@@ -354,12 +324,12 @@
 					}
 				} else {
 					console.log("失败或者无班课")
-					this.isshow = false;
+					_this.isshow = false;
 				}
 
 
 			})
-			// console.log(this.isshow)
+			console.log(this.isshow)
 			// console.log("j" + this.objectArray.length)
 
 			// console.log(this.objectArray)
@@ -633,8 +603,8 @@
 											_this.SignDate = _this.$u.timeFormat(_this.timestamp,
 												'yyyy/mm/dd hh:MM:ss');
 											_this.data.SignDate = _this.SignDate;
-											_this.timestamp = _this.timestamp + 60; // 一分钟限时
-											_this.data.Duration = 60
+											_this.timestamp = _this.timestamp + 86400; // 一分钟限时
+											_this.data.Duration = 86400
 											_this.EndDate = _this.$u.timeFormat(_this.timestamp,
 												'yyyy/mm/dd hh:MM:ss');
 											_this.data.EndDate = _this.EndDate;

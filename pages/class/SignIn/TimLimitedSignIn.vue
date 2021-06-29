@@ -11,19 +11,21 @@
 			</u-cell-group>
 	</view>
 	<u-table class="u-table">
-			<u-tr class="tr">
-				<u-td>已签到人数{{Signed}}</u-td>
-				<u-td>未签到人数{{Unsign}}</u-td>
+			<u-tr >
+				<u-td><text class="text">{{Signed}}</text>
+						已签到人数</u-td>
+				<u-td><text class="text">{{Unsign}}</text>
+					未签到人数</u-td>
 			</u-tr>
 		</u-table>
 		<view>
 			<swiper class="swiper" @change="change">
 					<swiper-item>
 						<u-grid :col="4" >
-							<u-grid-item v-for="(item, index) in UnSignStudents" :index="index" v-if="index >= 1" :key="index" bg-color="#f2fbfa">
+							<u-grid-item v-for="(item, index) in UnSignStudents" :index="index"  :key="index" bg-color="#f2fbfa">
 								<u-icon name="../../../static/headimage.png" :size="100" ></u-icon>
-								<text class="grid-text">{{item.name}}</text>
-								<text class="grid-text">{{item.note}}</text>
+								<text class="grid-text">{{item.stuName}}</text>
+								<text class="grid-text">{{item.signStatus}}</text>
 								<!-- <text class="grid-text">大米</text>
 								<text class="grid-text">未签到</text> -->
 							</u-grid-item>
@@ -82,17 +84,13 @@
 				background: {
 					'background-image': 'linear-gradient(45deg, rgb(255, 255, 255), rgb(255, 255, 255))'
 				},
-				Signed: null,
-				Unsign: null,
+				Signed: 0,
+				Unsign: 0,
 				signDate:null,
 				endDate:null,
-				UnSignStudents:[{
-					name: null,
-					note:null,
-					userId:null,
-				}],
+				UnSignStudents:[],
 				current: 0,
-				Stulength: null,
+				duration: 0,
 				user:{},
 				}
 		},
@@ -102,63 +100,65 @@
 		onLoad: function(option){
 			// decodeURIComponent 解密传过来的对象字符串
 						const item = JSON.parse(decodeURIComponent(option.item));
-						console.log(item)
-						this.userObj = item;
-						console.log(this.userObj)
-						this.signDate = this.resolvingDate(this.userObj.signDate)
-						console.log(this.signDate)
-						this.endDate = this.resolvingDate(this.userObj.endDate)
-						this.$Api.GetAllStu(this.userObj.classCourseId).then(res => {
-							console.log(res)
-							this.user = res.data.data
-							for(var i = 0;i < res.data.data.length;i++){
-							var obj = {
-								name: res.data.data[i].userName,
-								note:"未签到",
-								userId:res.data.data[i].userId
-							}
-							// console.log("_this.UnSignStudents")
-							// console.log(res.data.data.userName)
-							_this.UnSignStudents.push(obj)
-							}
-							// console.log(_this.UnSignStudents)
-						})
-						this.Stulength = this.UnSignStudents.length
-		},
-		onShow:function(){
-		setTimeout(function() {
-					let temp = 0;
-					console.log(temp)
-					_this.$Api.SignInfo(_this.userObj.startSignId).then(res =>{
-						this.UnSignStudents={}
-						for(var i = 0;i < res.data.data.length;i++){
-						
-						console.log('res.data.data',res.data.data)
-						console.log('this.user',_this.user)
-						for(var j = 0;j < _this.user.length;j++){
-							if(res.data.data[i].stuId == _this.user[j].stuId)
-							{
-								temp++;
-							}
-						}
-						if(temp == 0){
-							_this.$Api.UserInfo(res.data.data[i].stuId).then(res => {
-								var obj = {
-									name: res.data.data.userName,
-									note:"未签到",
-									userId:res.data.data.userNum
-								}
-									_this.UnSignStudents.push(obj)
-							})
-							
-							}
+						// console.log(item)
+					this.userObj = item;
+					this.signDate = this.resolvingDate(this.userObj.signDate)
+					this.endDate = this.resolvingDate(this.userObj.endDate)
+					this.duration = this.userObj.duration
+						this.getList()
+					this.Unsign = this.UnSignStudents.length
+					this.$Api.GetAllStu(this.userObj.classCourseId).then(res => {
+						if(res.data.success)
+						{
+							this.Unsign = res.data.data.length
 						}
 					})
-				}, 1000)
+		},
+		onShow() {
+			this.getList()
 		},
 	
 
 		methods: {
+			getList(){
+				
+					console.log(this.duration)
+				let temp = 0;
+				this.$Api.SignInfo(this.userObj.startSignId).then(res => {
+					console.log(res)
+					this.UnSignStudents = res.data.data
+					for(var i = 0;i < this.UnSignStudents.length;i++){
+					if(this.UnSignStudents[i].signStatus == "已签到")
+					{	
+						temp++;
+						this.UnSignStudents.splice(i,1)
+					}
+					}
+					this.Unsign = this.UnSignStudents.length;
+					this.Signed = temp
+				})
+				// }else{
+				// 	console.log(this.duration)
+				// 	uni.showToast({
+				// 		title:"限时结束",
+				// 		duration: 1000,
+				// 	})
+				// 	setTimeout(function () {
+						
+				// 	  _this.userObj.isEnd = 1;
+				// 	  	_this.$Api.UpdateSignIn(_this.userObj).then(res => {
+				// 	  		console.log(res)
+				// 	  		if(res.data.success){
+				// 	  			uni.reLaunch({
+				// 	  				url: '/pages/class/created_class/home'
+				// 	  			})
+				// 	  		}
+				// 	  	})
+				// 	  	// uni.navigateBack({})
+								   
+				// 	                   }, 1000);
+				// }
+			},
 			resolvingDate(date){
 			//date是传入的时间
 			  let d = new Date(date);
@@ -233,6 +233,10 @@
 		/* margin-left: 30rpx; */
 		width: 100rpx;
 		height: 100rpx;
+	}
+	.text{
+		font-weight: bold;
+		font-size: 50rpx;
 	}
 	
 	.grid-text {

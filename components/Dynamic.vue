@@ -222,6 +222,7 @@
 		color: #007AFF;
 	}
 	.dynamic{
+		/* height: .; */
 		width: 100%;
 	}
 	.allImage {

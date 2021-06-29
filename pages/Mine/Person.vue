@@ -200,6 +200,7 @@
 			    console.log(e);
 			}
 			this.creator = uni.getStorageSync("LoginKey");
+			
 			this.$Api.UserInfo(this.creator).then(res => {
 				console.log("以下为返回的用户信息")
 				console.log(res.data.data)
@@ -209,7 +210,13 @@
 					this.info.phone = res.data.data.phone;
 					let time = res.data.data.birthDate;
 					this.info.birthday = this.dateFormat(new Date(time), 'yyyy');
-					this.info.school = res.data.data.collegePointId;
+					this.$Api.GetCollegeById(res.data.data.collegePointId).then(res => {
+						let college = res.data.data
+						if(res.data.success){
+							this.info.school = college.collegePointName + '-' + college.children.collegePointName+'-'+college.children.children.collegePointName;
+						}
+					})
+					
 					this.info.cardnum = res.data.data.userNum;
 					this.info.account = res.data.data.account;
 					this.info.sex = res.data.data.sex;

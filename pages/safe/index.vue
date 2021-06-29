@@ -7,10 +7,8 @@
 			<view class="list">
 			
 				<u-cell-group class="">
-					<u-cell-item center :is-link="true"  :value="info.phone" i ndex="index" @click="click" :hover-class="hoverClass"
-					 :arrow="true" title="手机号" >
-						<u-badge :absolute="false" v-if="rightSlot == 'badge'" count="105" slot="right-icon"></u-badge>
-						<u-switch v-if="rightSlot == 'switch'" slot="right-icon" v-model="checked"></u-switch>
+					<u-cell-item center :is-link="true"  :value="info.phone" i ndex="index" @click="changephone" :hover-class="hoverClass"
+					 :arrow="false" title="手机号" >
 					</u-cell-item>
 					<u-cell-item class="bgcell" center :is-link="true"  :value="info.email" i ndex="index" @click="click" :hover-class="hoverClass"
 					 :arrow="true" title="邮箱" >
@@ -107,11 +105,17 @@
 			},
 			changepwd(){
 				console.log("修改密码")
+				uni.navigateTo({
+					url: '/pages/safe/changepwd?item='+ this.info.phone
+				})
 			},
 			ChangeSchool(){
 				uni.navigateTo({
 						url: './selectSchool'
 				});
+			},
+			changephone(){
+				
 			}
 		}
 	}

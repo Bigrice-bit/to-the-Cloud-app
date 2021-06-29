@@ -7,18 +7,20 @@
 		<u-table class="u-table">
 		
 			<u-tr >
-				<u-td>已签到人数</u-td>
-				<u-td>未签到人数</u-td>
+				<u-td><text class="text">{{Signed}}</text>
+						已签到人数</u-td>
+				<u-td><text class="text">{{Unsign}}</text>
+					未签到人数</u-td>
 			</u-tr>
 		</u-table>
 		<view>
 			<swiper class="swiper" @change="change">
-					<swiper-item>
+					<swiper-item >
 						<u-grid :col="4" >
-							<u-grid-item v-for="(item, index) in UnSignStudents" :index="index" v-if="index >= 1" :key="index" bg-color="#f2fbfa">
+							<u-grid-item   v-for="(item, index) in UnSignStudents" :index="index" :key="index" bg-color="#f2fbfa">
 								<u-icon name="../../../static/headimage.png" :size="100" ></u-icon>
-								<text class="grid-text">{{item.name}}</text>
-								<text class="grid-text">{{item.note}}</text>
+								<view ><text class="grid-text" >{{item.stuName}}</text></view>
+								<view ><text class="grid-text" >{{item.signStatus}}</text></view>
 								<!-- <text class="grid-text">大米</text>
 								<text class="grid-text">未签到</text> -->
 							</u-grid-item>
@@ -28,8 +30,8 @@
 				</swiper>
 			</u-grid>
 		</view>
-		<view><u-button  class="button1" size="medium" @click="EndSign(0)">放弃</u-button></view>
-		<view><u-button  class="button2" size="medium" @click="EndSign(1)">结束</u-button></view>
+		<view class="button1"><u-button   size="medium" @click="EndSign(0)">放弃</u-button></view>
+		<view class="button2"><u-button   size="medium" @click="EndSign(1)">结束</u-button></view>
 		
 	</view>
 	</view>
@@ -50,74 +52,55 @@
 				},
 				isshow:false,
 				userObj: {},
-				UnSignStudents:[{
-					name: null,
-					note:null,
-					userId:null,
-				}],
+				UnSignStudents:'',
 				startid:null,
 				user:{},
+				Signed: 0,
+				Unsign: 0,
 				}
 		},
 		onLoad: function(option){
 			// decodeURIComponent 解密传过来的对象字符串
-						const item = JSON.parse(decodeURIComponent(option.item));
+					const item = JSON.parse(decodeURIComponent(option.item));
 						// console.log(item)
 					this.userObj = item;
-					console.log("以下")
+					console.log(this.userObj)
 					// console.log(this.userObj)
+				
+						this.getList()
+
+					
 					this.$Api.GetAllStu(this.userObj.classCourseId).then(res => {
-						console.log(res)
-						this.user = res.data.data
-						for(var i = 0;i < use.length;i++){
-						var obj = {
-							name: res.data.data[i].userName,
-							note:"未签到",
-							userId:res.data.data[i].userId
+						if(res.data.success)
+						{
+							this.Unsign = res.data.data.length
 						}
-						// console.log("_this.UnSignStudents")
-						// console.log(res.data.data.userName)
-						_this.UnSignStudents.push(obj)
-						}
-						// console.log(_this.UnSignStudents)
 					})
-					this.Stulength = this.UnSignStudents.length
 		},
 		onShow() {
-			setTimeout(function() {
-						let temp = 0;
-						console.log(temp)
-						_this.$Api.SignInfo(_this.userObj.startSignId).then(res =>{
-							// this.UnSignStudents={}
-							// for(var i = 0;i < res.data.data.length;i++){
-							// var obj = {
-							// 	name: res.data.data[i].userName,
-							// 	note:"未签到",
-							// 	userId:res.data.data[i].userId
-							// }
-							// for(var j = 0;j < this.user.length;j++){
-							// 	if(res.data.data[i].stuId == this.user[j].stuId)
-							// 	{
-							// 		temp++;
-							// 	}
-							// }
-							// if(temp = 0)
-							// // console.log("_this.UnSignStudents")
-							// // console.log(res.data.data.userName)
-							// 	_this.UnSignStudents.push(obj)	
-							// }
-							this.UnSignStudents.filter(item => {
-							                    if (item.signStatus.indexOf(this.search) !== -1 ) {
-							                        newItems.push(item);
-							                    }
-							                })
-						})
-					}, 60000)
+			this.getList()
+			// setTimeout(onLoad(),1000)
 		},
 		created() {
 			_this = this;
 		},
 		methods: {
+			getList(){
+				let temp = 0;
+				this.$Api.SignInfo(this.userObj.startSignId).then(res => {
+					console.log(res)
+					this.UnSignStudents = res.data.data
+					for(var i = 0;i < this.UnSignStudents.length;i++){
+					if(this.UnSignStudents[i].signStatus == "已签到")
+					{
+						temp++;
+						this.UnSignStudents.splice(i,1)
+					}
+					}
+					this.Unsign = this.UnSignStudents.length;
+					this.Signed = temp
+				})
+			},
 			EndSign(index) {
 				if(index == 0)
 				{
@@ -246,12 +229,17 @@
 		width:100rpx;
 	}
 	
+	.text{
+		font-weight: bold;
+		font-size: 50rpx;
+	}
+	
 	.button1 {
 		position:absolute;
 		bottom: 5;
 		margin-left: 110rpx;
 		background-color: #ffff;
-		margin-top:130rpx;
+		margin-top:50rpx;
 	}
 	
 	.button2 {
@@ -259,7 +247,7 @@
 		bottom: 5;
 		margin-left: 420rpx;
 		background-color: #ffff;
-		margin-top:130rpx;
+		margin-top:50rpx;
 	}
 	
 	.list{
