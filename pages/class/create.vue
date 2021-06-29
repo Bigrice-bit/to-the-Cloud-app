@@ -315,6 +315,13 @@
 			this.data.courseName = this.form.course;
 			this.data.Term = this.form.term;
 			// this.data.creator = 47;
+			var obj = {
+				    courseName: this.form.course,
+				    creator: this.data.creator,
+			}
+			this.$Api.addCourses(obj).then(res => {
+				console.log(res)
+			})
 			console.log(this.data);
 			this.$Api.AddClass(this.data).then(res => {
 				if (res.data.success) {

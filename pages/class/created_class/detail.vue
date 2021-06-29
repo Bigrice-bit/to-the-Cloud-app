@@ -271,8 +271,8 @@
 				}
 			})
 			this.tabbar = [{
-					iconPath: "home",
-					selectedIconPath: "home-fill",
+					iconPath: "file-text",
+					selectedIconPath: "file-text",
 					text: '签到记录',
 					count: 0,
 					// isDot: true,
@@ -280,15 +280,15 @@
 					pagePath: "/pages/class/created_class/message"
 				},
 				{
-					iconPath: "photo",
-					selectedIconPath: "photo-fill",
+					iconPath: "account",
+					selectedIconPath: "account",
 					text: '班课成员',
 					customIcon: false,
 					pagePath: "/pages/class/created_class/home"
 				},
 				{
-					iconPath: "photo",
-					selectedIconPath: "photo-fill",
+					iconPath: "chat",
+					selectedIconPath: "chat",
 					text: '班课详情',
 					customIcon: false,
 					pagePath: "/pages/class/created_class/detail"

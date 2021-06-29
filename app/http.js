@@ -19,10 +19,10 @@ const request = (url, method, data, isUpload = false) => {
 				header: { //请求头可自定义
 					// 'Content-Type': 'application/x-www-form-urlencoded',
 					'Content-Type': 'application/json',
-					'X-Access-Token': TOKEN
+					'token': TOKEN
 				},
 				success: (res) => { //具体捕获请看自己接口返回的形式
-					if (res.data.code == 200 || res.data.code == 0 || res.data.code == 404) {
+					if (res.data.code == 200 || res.data.code == 0 || res.data.code == 404 || res.data.code == 103) {
 						// uni.showToast({
 						// title: res.data.msg,
 						// duration: 1000

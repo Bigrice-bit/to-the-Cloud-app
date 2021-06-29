@@ -4,9 +4,9 @@
 			:background="background" :back-text-style="{color: '#fff'}" :title="title" :back-icon-name="backIconName"
 			:back-text="backText" @click="newcreate"> </u-navbar>
 	
-	<view class="text">剩余签到时长
+	<!-- <view class="text">剩余签到时长
 		<view class="text1">00:00:{{Duration}}</view>
-	</view>
+	</view> -->
 	<view v-if="!show" @click="SignStatus()">
 		<!-- <u-image class="image" width="40%" height="300rpx"  src="/static/SignIn.png" @click="SignStatus()"></u-image> -->
 		<view class="circle">
@@ -49,7 +49,8 @@
 					StartSignId:null,
 					StuId:null,
 					ClassCourseId:null,
-					SignStatus:"已签到"
+					SignStatus:"已签到",
+					// signDate:'',
 				},
 				Duration:null,
 				}
@@ -78,6 +79,7 @@
 				console.log("点击签到")
 				
 				console.log(this.data)
+				// this.data.signDate=new Date()
 				this.$Api.StuSign(this.data).then(res => {
 						 		if(res.data.success){
 						 			this.show = true;

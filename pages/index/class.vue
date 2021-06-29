@@ -70,6 +70,7 @@
 						</view>
 					</swiper-item>
 					<swiper-item>
+						<view v-if="joinArray.length != 0">
 						<scroll-view v-for="(item, index) in joinArray" :key="index">
 							<!-- <u-card margin="10rpx" :border="false" :foot-border-top="false" padding="0">
 
@@ -120,6 +121,15 @@
 
 							</u-cell-group>
 						</scroll-view>
+						</view>
+						<view v-if="joinArray.length == 0">
+							<scroll-view>
+								<image class="img" src="../../static/null.png" mode="aspectFit"></image>
+								<view class="text">还没有已加入的班课，快去加入一个吧~</view>
+								<button class="button" type="" size="mini" shape="circle" :plain="true"
+									@click="newcreate">加入班课</button>
+							</scroll-view>
+							</view>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -231,10 +241,11 @@
 				const value = uni.getStorageSync("lifeData");
 				if (value) {
 					// console.log(value);
-					if (value.vuex_jurisdiction.name === '1') {
-						this.stuOrteach = true
+					console.log('11111111',value.vuex_jurisdiction.name == '0')
+					if (value.vuex_jurisdiction.name == '0') {
+						this.stuOrteach = false
 					} else {
-						this.stuOrteach = false;
+						this.stuOrteach = true;
 					}
 
 					// console.log(this.stuOrteach);
@@ -793,8 +804,8 @@
 							}
 						})
 						// plus.nativeUI.toast("该班课已结束");
-						// console.log('条码类型：' + res.scanType);
-						// console.log('条码内容：' + res.result);
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
 						// // this.classnum = res.result;
 						// i = res.result
 					}
@@ -847,7 +858,7 @@
 
 	.header {
 		height: 20px;
-		margin-top: 40px;
+		margin-top: 60px;
 
 	}
 

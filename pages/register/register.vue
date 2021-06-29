@@ -2,8 +2,7 @@
 	<view class="content">
 		<view class="avatorWrapper">
 			<view class="avator">
-				<u-upload ref="uUpload" :auto-upload="false" :action="action" :file-list="fileList" mode="aspectFill"
-					@tap="chooseAvatar"></u-upload>
+				<image class="img" src="../../static/headimage.png" mode="widthFix"></image>
 			</view>
 		</view>
 		<view class="form">

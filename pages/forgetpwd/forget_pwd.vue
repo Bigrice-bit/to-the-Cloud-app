@@ -13,8 +13,8 @@
 				<u-form-item left-icon="phone" prop="phone">
 					<u-input v-model="form.phone" placeholder="请输入手机号码" />
 				</u-form-item>
-				<u-form-item left-icon="lock" prop="validadation">
-					<u-input v-model="form.validadation" placeholder="验证码" />
+				<u-form-item left-icon="lock" prop="code">
+					<u-input v-model="form.code" placeholder="验证码" />
 					<u-toast ref="uToast"></u-toast>
 					<u-verification-code :seconds="seconds" @end="end" @start="start" ref="uCode" @change="codeChange">
 					</u-verification-code>
@@ -22,11 +22,11 @@
 						{{tips}}
 					</u-button>
 				</u-form-item>
-				<u-form-item left-icon="lock" prop="password">
-					<u-input type="password" v-model="form.password" placeholder="请输入新密码" />
+				<u-form-item left-icon="lock" prop="oldpassword">
+					<u-input type="password" v-model="form.oldpassword" placeholder="请输入旧密码" />
 				</u-form-item>
-				<u-form-item left-icon="lock" prop="repassword">
-					<u-input type="password" v-model="form.repassword" placeholder="请再次输入新密码" />
+				<u-form-item left-icon="lock" prop="newpassword">
+					<u-input type="password" v-model="form.newpassword" placeholder="请输入新密码" />
 				</u-form-item>
 			</u-form>
 			<!-- <view class="loginBtn">
@@ -95,9 +95,9 @@
 				errorType: ['message', 'border-bottom'],
 				form: {
 					phone: '',
-					validadation: '',
-					password: '',
-					repassword: '',
+					code: '',
+					oldpassword: '',
+					newpassword: '',
 				},
 				rules: {
 					phone: [{
@@ -133,23 +133,22 @@
 						// 			// message: 'xxx'
 						// 		}
 					],
-					validadation: [{
+					code: [{
 						required: true,
 						message: "验证码不可为空",
 						trigger: ['change', 'blur'],
 					}, ],
-					password: [{
+					oldpassword: [{
+							required: true,
+							message: "密码不可为空",
+							trigger: ['change', 'blur'],
+						}
+					],
+					newpassword: [{
 							required: true,
 							message: "密码不可为空",
 							trigger: ['change', 'blur'],
 						},
-						// {
-						// 	pattern: /(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}/,
-						// 	// 正则检验前先将值转为字符串
-						// 	transform(value) {
-						// 		return String(value);
-						// 		},
-						// },
 						{
 
 							// 自定义验证函数，见上说明
@@ -162,28 +161,6 @@
 
 							// 触发器可以同时用blur和change
 							trigger: 'blur',
-						},
-					],
-					repassword: [{
-							required: true,
-							message: "密码不可为空",
-							trigger: ['change', 'blur'],
-						},
-						{
-							// 自定义验证函数，见上说明
-							validator: (rule, value, callback) => {
-								const isTheSome = false;
-								// console.log(value);
-								//	console.log(this.form.password);
-								if (this.form.password === value) {
-									return true;
-								}
-
-								return isTheSome;
-							},
-							message: '两次密码输入不同',
-							// 触发器可以同时用blur和change
-							trigger: ['change', 'blur'],
 						},
 					],
 				}
@@ -237,7 +214,7 @@
 					})
 					setTimeout(() => {
 						uni.hideLoading();
-						z // 这里此提示会被this.start()方法中的提示覆盖
+						 // 这里此提示会被this.start()方法中的提示覆盖
 						this.$Api.valicode(this.form.phone).then(res => {
 							if (res) {
 
@@ -281,15 +258,18 @@
 					})
 				} else {
 				console.log(this.form.phone);
-				let md5pwd = md5(this.form.password)
+				let md5pwd = md5(this.form.oldpassword)
+				let md5pwd1 = md5(this.form.newpassword)
 				console.log(md5pwd);
 				let data = {
 					phone: this.form.phone,
-					password: md5pwd,
+					oldpassword: md5pwd,
+					newpassword: md5pwd1,
+					code:this.form.code
 				};
 				let vfdata = {
 					phone: this.form.phone,
-					code: this.form.validadation,
+					code: this.form.code,
 				}
 				this.$refs.uForm.validate(valid => {
 					console.log(valid);
@@ -305,11 +285,20 @@
 								console.log('验证通过，将用户信息插入数据库');
 
 
-								this.$Api.updateUserInfo(data).then(res => {
+								this.$Api.ChangePwd(data).then(res => {
 									if (res.data.success) {
-										uni.navigateTo({
-											url: '../login/login',
+										uni.showToast({
+											title:'修改成功',
+										duration: 1000
 										});
+										setTimeout(function () {
+											
+										   uni.navigateTo({
+										   	url: '../login/login',
+										   });
+													   
+										                   }, 1000);
+										
 									} else {
 										console.log('验证失败');
 									}

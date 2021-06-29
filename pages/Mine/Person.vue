@@ -213,15 +213,26 @@
 					this.$Api.GetCollegeById(res.data.data.collegePointId).then(res => {
 						let college = res.data.data
 						if(res.data.success){
+							if(res.data.data.children.children != null)
+							{
 							this.info.school = college.collegePointName + '-' + college.children.collegePointName+'-'+college.children.children.collegePointName;
+							}
+							else{
+							}
 						}
 					})
 					
 					this.info.cardnum = res.data.data.userNum;
 					this.info.account = res.data.data.account;
 					this.info.sex = res.data.data.sex;
+					if(res.data.data.roleIdList == '2'){
+						this.info.iden = '我是老师'
+					}
+					else{
+						this.info.iden = '我是学生'
+					}
 					this.updateinfo = res.data.data;
-					
+					console.log('1111111',this.info)
 				}
 			});
 				// this.form.term = this.selectList[1].value
@@ -411,6 +422,21 @@
 				    }
 				  })
 				},
+				// onBackPress(options) {
+				//             uni.showModal({
+				//                 title: '提示',
+				//                 content: '是否退出？',
+				//                 success: function(res) {
+				//                     if (res.confirm) {
+				//                         // 退出当前应用，改方法只在App中生效  
+				//                         plus.runtime.quit();
+				//                     } else if (res.cancel) {
+				//                         console.log('用户点击取消');
+				//                     }
+				//                 }
+				//             });
+				//             return true;
+				//         },
 			SaveChange(){
 			if(this.info.name!=null && this.info.iden!=null && this.info.cardnum!=null)
 			{
@@ -418,17 +444,17 @@
 					if(this.info.iden === "我是老师")
 					{
 						this.$u.vuex('vuex_jurisdiction.name','0');
-						this.updateinfo.roleIdList = 2;
-						this.updateinfo.roleNameList = "教师";
+						this.updateinfo.roleIdList = '2';
+						this.updateinfo.roleNameList = "老师";
 					}
 					else if(this.info.iden === "其他"){
 						this.$u.vuex('vuex_jurisdiction.name','2');
-						this.updateinfo.roleIdList = 3;
+						this.updateinfo.roleIdList = '3';
 						this.updateinfo.roleNameList = "学生"
 					}
 					else{
 						this.$u.vuex('vuex_jurisdiction.name','1');
-						this.updateinfo.roleIdList = 3;
+						this.updateinfo.roleIdList = '3';
 						this.updateinfo.roleNameList = "学生"
 					}
 					

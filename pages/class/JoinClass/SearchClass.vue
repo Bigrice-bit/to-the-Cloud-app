@@ -47,14 +47,49 @@
 		Next(){
 			this.$Api.SelectCourseById(this.form.classnum).then(res => {
 				console.log(res)
-				if(res)
+				if(res.data.success)
 				{
+					if(res.data.data.isAdd == 1 || res.data.data.isEnd == 1)
+					{
+						uni.showModal({
+						                title: '提示',
+						                content: '班课不允许加入或已结束',
+						                success: function(res) {
+						                    if (res.confirm) {
+						                        // 退出当前应用，改方法只在App中生效  
+						                        // plus.runtime.quit();
+						                    } else if (res.cancel) {
+						                        console.log('用户点击取消');
+						                    }
+						                }
+						            });
+					}
+					else {
+						uni.showToast({
+							title: '搜索成功',
+							duration: 1000
+								});
+								setTimeout(function () {
+									
+								   uni.navigateTo({
+								   	url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(res))
+								   	// url: '/pages/class/JoinClass/JoinClass'
+								   })
+								 
+											   
+								                   }, 1000);
+								
+							}
+					}
+					else{
+						uni.showToast({
+							title: res.data.msg,
+							icon:'none',
+							duration: 1000
+								});
+							}
 					
-					uni.navigateTo({
-						url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(res))
-						// url: '/pages/class/JoinClass/JoinClass'
-					})
-				}
+				
 			})
 			// console.log("下一步")
 		}

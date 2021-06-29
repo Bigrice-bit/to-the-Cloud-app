@@ -18,8 +18,12 @@
 					{{classnum}}
 
 					</p>
-					<view class="Qrcode">
+					
+					<!-- <view class="Qrcode">
 				<image :src="qrcodeSrc" />
+				</view> -->
+				<view class="Qrcode">
+				<canvas canvas-id="qrcode" style="width: 2120px;height: 212px;" />
 				</view>
 			</view>
 			<!-- <button class="button" type="primary" @tap="click()">确认</button> -->
@@ -29,6 +33,7 @@
 
 <script>
 	import uQRCode from '@/js_sdk/Sansnn-uQRCode/uqrcode.js'
+	var _this
 	export default {
 		data() {
 			return {
@@ -75,30 +80,49 @@
 			// this.url = '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
 			// console.log(this.classnum)
 		},
+		created() {
+			_this = this
+		},
 		methods: {
+			// make() {
+			// 	uni.showLoading({
+			// 		title: '二维码生成中',
+			// 		mask: true
+			// 	})
+			// 	uQRCode.make({
+			// 		canvasId: 'qrcode',
+			// 		text: _this.classnum,
+			// 		size: _this.qrcodeSize,
+			// 		backgroundColor: '#ffffff',
+			// 		foregroundColor: '#1dbc9d',
+			// 		margin: 10,
+			// 	}).then(res => {
+			// 		this.qrcodeSrc = res
+			// 		// uni.navigateTo({
+			// 		// 	url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(this.Item_res)),
+			// 		// })
+			// 		// url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
+			// 	}).finally(() => {
+			// 		uni.hideLoading()
+			// 		// url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
+			// 	})
+			// },
 			make() {
-				uni.showLoading({
-					title: '二维码生成中',
-					mask: true
-				})
-				uQRCode.make({
-					canvasId: 'qrcode',
-					text: this.classnum,
-					size: this.qrcodeSize,
-					backgroundColor: '#ffffff',
-					foregroundColor: '#1dbc9d',
-					margin: 10,
-				}).then(res => {
-					this.qrcodeSrc = res
-					// uni.navigateTo({
-					// 	url: '/pages/class/JoinClass/JoinClass?item=' + encodeURIComponent(JSON.stringify(this.Item_res)),
-					// })
-					// url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
-				}).finally(() => {
-					uni.hideLoading()
-					// url: '/pages/class/success-create?item=' + encodeURIComponent(JSON.stringify(this.Item_res))
-				})
-			},
+			      uQRCode.make({
+			        canvasId: 'qrcode',
+			        componentInstance: this,
+			        text: this.classnum,
+			        size: 215,
+			        margin: 10,
+			        backgroundColor: '#ffffff',
+			        foregroundColor: '#1dbc9d',
+			        fileType: 'jpg',
+			        correctLevel: uQRCode.defaults.correctLevel,
+			        success: res => {
+			          console.log(res)
+			        }
+			      })
+			    },
 			BackClass(){
 				console.log("点击返回")
 				uni.reLaunch({
@@ -163,7 +187,7 @@
 	}
 
 	.image {
-		width: 354rpx;
+		width: 440rpx;
 		margin-top: 50rpx;
 		text-align: center;
 	}
@@ -218,6 +242,7 @@
 		position: absolute;
 		/* margin-top: 10rpx; */
 		margin-bottom: 500upx;
+		margin-right: 200rpx;
 	}
 	
 	.text{

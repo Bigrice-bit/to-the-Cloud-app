@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="avatorWrapper">
 			<view class="avator">
-				<image class="img" src="../../static/1.png" mode="widthFix"></image>
+				<image class="img" src="../../static/headimage.png" mode="widthFix"></image>
 			</view>
 		</view>
 		<!-- 		<view class="content">

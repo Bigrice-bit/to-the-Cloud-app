@@ -433,7 +433,8 @@
 	}
 	
 	.button{
-		margin-top: 30rpx;
+		position: absolute;
+		margin-top: 100upx;
 	}
 	
 	.text{
@@ -476,7 +477,7 @@
 		// font-weight: bold;
 		font-size: 30rpx;
 		// padding-right:100upx;
-		margin-left: 100rpx;
+		margin-left: 40rpx;
 		margin-top: 20rpx;
 	}
 </style>

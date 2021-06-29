@@ -7,7 +7,7 @@
 			
 		<view class="avatorWrapper">
 			<view class="avator">
-				<image class="img" src="../../../static/1.png" mode="widthFix"></image>
+				<image class="img" src="../../../static/Class.png" mode="widthFix"></image>
 			</view>
 			</view>
 		<view class="list-content">
@@ -93,13 +93,27 @@
 				if(res)
 				{
 					console.log("加入班课成功")
-					uni.switchTab({
-						url: '/pages/index/class'
-					})
-				}
+					uni.showToast({
+						title: '加入成功',
+						duration: 1000
+							});
+							setTimeout(function () {
+								
+							   uni.switchTab({
+							   	url: '/pages/index/class'
+							   })
+							 
+										   
+							                   }, 1000);
+							
+						}
+					
+				
+			
 			})
+			}
 		}
-	}
+	
 	};
 </script>
 

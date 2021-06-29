@@ -147,26 +147,36 @@
 					};
 					if (valid) {
 						console.log(data);
+						
 						this.$Api.login(data).then(res => {
+							uni.setStorage({
+								key:'TOKEN',
+								data:res.data.extra.token,
+								})
 							console.log(res);
 							if (res.data.success) {
 								console.log('验证通过');
-								this.$u.vuex('vuex_jurisdiction.name','1');
 								let kins = res.data.data.user.userId;
 								uni.showToast({
 								title: res.data.msg,
 								duration: 1000
 								});
+								this.$Api.UserInfo(kins).then(res => {
+									if(res.data.success){
+										if(res.data.data.roleIdList == '2'){
+										this.$u.vuex('vuex_jurisdiction.name','0');
+										}
+										else{
+											this.$u.vuex('vuex_jurisdiction.name','1');
+										}
+									}
+								})
 								// resolve(res);
 								uni.setStorage({
 									key:'LoginKey',
 									data:kins,
-									})
-								uni.setStorage({
-									key:'TOKEN',
-									data:res.data.extra,
 									success:function(){
-										
+										console.log(uni.getStorageSync('TOKEN'))
 										setTimeout(function () {
 											
 										               uni.reLaunch({
